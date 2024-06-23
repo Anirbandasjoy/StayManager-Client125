@@ -2,9 +2,12 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { toast } from "@/components/ui/use-toast";
 import {
+  BellRing,
   CreditCard,
   Github,
+  LayoutDashboard,
   LifeBuoy,
   LogOut,
   Mail,
@@ -32,11 +35,28 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const toggleMenu = () => {
     setIsOpen(!isOpen);
+  };
+
+  const handleLogOut = () => {
+    toast({
+      title: "Log Out Successfully",
+      description: "Friday, February 10, 2023 at 5:57 PM",
+    });
   };
 
   return (
@@ -110,7 +130,7 @@ const Navbar = () => {
                     <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
-                    <CreditCard className="mr-2 h-4 w-4" />
+                    <LayoutDashboard className="mr-2 h-4 w-4" />
                     <Link href="/dashboard">Dashboard</Link>
                     <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
                   </DropdownMenuItem>
@@ -150,7 +170,7 @@ const Navbar = () => {
                     </DropdownMenuPortal>
                   </DropdownMenuSub>
                   <DropdownMenuItem>
-                    <Plus className="mr-2 h-4 w-4" />
+                    <BellRing className="mr-2 h-4 w-4" />
                     <span>Notifications</span>
                     <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
                   </DropdownMenuItem>
@@ -166,16 +186,32 @@ const Navbar = () => {
                 </DropdownMenuItem>
 
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setIsOpenModal(!isOpenModal)}>
                   <LogOut className="mr-2 h-4 w-4" />
-                  <Link href="/login">Log In</Link>
-                  <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+                  <h1>Log out</h1>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
         </div>
       </div>
+      <AlertDialog open={isOpenModal} onOpenChange={setIsOpenModal}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="text-center">
+              Are you absolutely sure?
+            </AlertDialogTitle>
+          </AlertDialogHeader>
+          <AlertDialogFooter className=" text-left">
+            <AlertDialogCancel className="text-center w-full">
+              No
+            </AlertDialogCancel>
+            <AlertDialogAction className="w-full" onClick={handleLogOut}>
+              Yes
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </nav>
   );
 };
