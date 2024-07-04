@@ -72,3 +72,11 @@ export interface allUserResponse {
     pagination: Pagination;
   };
 }
+
+export type DateTimeFormatOptions = {
+  month?: "long" | "numeric" | "2-digit" | "short" | "narrow";
+  day?: "numeric" | "2-digit";
+  hour?: "numeric" | "2-digit";
+  minute?: "numeric" | "2-digit";
+  hour12?: boolean;
+};
