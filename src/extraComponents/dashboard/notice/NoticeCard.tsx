@@ -35,8 +35,8 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { FcApproval } from "react-icons/fc";
 import { DateTimeFormatOptions } from "@/helper/type";
-import ShareNews from "./ShareNews";
 import Image from "next/image";
+import ShareNotice from "./ShareNotice";
 
 const NoticeCard = ({ notice }: { notice?: any }) => {
   //   const [playLikeSound, setPlayLikeSound] = useState(false);
@@ -68,7 +68,7 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
 
   return (
     <div className="">
-      <div className="bg-white  rounded-md pb-4 dark:border dark:border-gray-700 dark:bg-gray-800">
+      <div className="bg-white lg:max-w-4xl mx-auto rounded-md pb-4 dark:border dark:border-gray-700 dark:bg-gray-800">
         <div className="p-4 space-y-3">
           <div className="flex   justify-between">
             <Link
@@ -121,7 +121,7 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
                 <DropdownMenuItem>
                   <div className="flex gap-1 items-center cursor-pointer">
                     <LuBookmarkPlus />
-                    Bookmark
+                    Save
                   </div>
                 </DropdownMenuItem>
                 <>
@@ -155,28 +155,17 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
           </div>
         </div>
         <div className="w-full space-y-3 ">
-          <Link
-            href={`/news-details/${notice?._id}`}
-            className="w-full cursor-pointer"
-          >
+         
             {/* <img
                 className="w-full h-full bg-cover"
                 src="https://images.unsplash.com/photo-1718973818150-9c0c855d33b0?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 alt="Notice"
               /> */}
-          </Link>
-          <p className="text-sm text-gray-600 dark:text-gray-300 px-4">
-            {notice?.details?.slice(0, 400)}
-            <Link
-              className="ml-3 text-[#d72050] dark:text-red-400"
-              href={`/news-details/${notice?._id}`}
-            >
-              Read_More
-            </Link>
-          </p>
+         
+        
         </div>
         <div className="mt-8 mb-2">
-          <div className="flex justify-around px-8">
+          <div className="flex justify-between px-8">
             <div className="flex gap-1 items-center">
               <BiSolidLike className="text-green-400" />
 
@@ -229,7 +218,7 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
           </div>
         </div>
         <div className=" sm:px-4 w-11/12 mx-auto h-[1px] bg-gray-200 dark:bg-gray-700"></div>
-        <div className="sm:px-4 mt-2 flex gap-6 sm:gap-0 items-center justify-around ">
+        <div className="sm:px-4 mt-2 flex gap-6 sm:gap-0 items-center justify-between ">
           <div className="flex items-center gap-1 cursor-pointer  hover:bg-gray-100 dark:hover:bg-gray-700 py-1 justify-start rounded-sm duration-200 px-4">
             <BiLike className="text-[21px] text-gray-500 dark:text-gray-300" />
             <p className="text-[17px] font-bold text-gray-500 dark:text-gray-300">
@@ -258,7 +247,7 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
             </Drawer>
           </div>
           <div>
-            <ShareNews />
+            <ShareNotice />
           </div>
         </div>
         <div className=" sm:px-4 w-11/12 mx-auto h-[1px] mt-2  bg-gray-200 dark:bg-gray-700"></div>

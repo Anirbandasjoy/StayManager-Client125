@@ -6,7 +6,7 @@ const DashboardHome = () => {
   return (
     <div>
       <Navbar />
-      Dashboard Home page
+
       <NoticeCard notice="hello" />
     </div>
   );
