@@ -13,6 +13,7 @@ import { Label } from "@/components/ui/label";
 import { toast } from "@/components/ui/use-toast";
 import { useLoginMutation } from "@/redux/api/baseApi";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface IFormInputs {
   email: string;
@@ -50,9 +51,6 @@ const Login = () => {
       <Card className="w-[350px] bg-blue-300 shadow-xl">
         <CardHeader>
           <CardTitle>Please Login</CardTitle>
-          <CardDescription>
-            Already created Account please login.
-          </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -121,6 +119,9 @@ const Login = () => {
             <Button type="submit" className="w-full mt-5">
               {isLoading ? "Loading..." : "Login"}
             </Button>
+            <CardDescription className="mt-4 ms-2">
+            Have no account ? <Link href={'/register'} className="text-blue-600"> Create </Link> new Accounts
+          </CardDescription>
           </form>
         </CardContent>
       </Card>
