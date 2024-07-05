@@ -34,11 +34,12 @@ import { LuBookmarkPlus } from "react-icons/lu";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { FcApproval } from "react-icons/fc";
-import { DateTimeFormatOptions } from "@/helper/type";
+import { DateTimeFormatOptions, Notice } from "@/helper/type";
 import Image from "next/image";
 import ShareNotice from "./ShareNotice";
 
 const NoticeCard = ({ notice }: { notice?: any }) => {
+  console.log(notice)
   //   const [playLikeSound, setPlayLikeSound] = useState(false);
 
   const formatDate = (dateString: string | undefined) => {
@@ -146,11 +147,7 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
           </div>
           <div>
             <h1 className="text-sm font-semibold  text-gray-600 dark:text-gray-300">
-              Paragraphs are the building blocks of papers. Many students define
-              paragraphs in terms of length: a paragraph is a group of at least
-              five sentences, a paragraph is half a page long, etc. In reality,
-              though, the unity and coherence of ideas among sentences is what
-              constitutes a paragraph.
+             {notice?.caption}
             </h1>
           </div>
         </div>

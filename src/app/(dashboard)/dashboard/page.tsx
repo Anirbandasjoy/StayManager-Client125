@@ -10,11 +10,10 @@ const DashboardHome = () => {
     return <h1>Loading...</h1>
   }
   const notice = data?.payload || []
-  console.log(notice)
   return (
     <div>
       <Navbar />
-      <div className="md:h-[calc(100vh-100px)] h-[calc(100vh-150px)]  overflow-auto">
+      <div className="md:h-[calc(100vh-100px)] h-[calc(100vh-150px)] flex flex-col gap-4 overflow-auto">
       {
         notice?.map((notice) => (
           <NoticeCard key={notice?._id} notice={notice} />

@@ -79,6 +79,13 @@ export interface allUserResponse {
   };
 }
 
+export interface Notice {
+  _id : string,
+  caption : string,
+  author : User,
+  noticeImage : string
+}
+
 export interface allNoticeResponse {
   success : boolean,
   message : string,
