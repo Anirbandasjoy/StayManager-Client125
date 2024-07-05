@@ -1,4 +1,5 @@
 import {
+  allNoticeResponse,
   allUserResponse,
   curretUserResponse,
   loginRequest,
@@ -27,10 +28,13 @@ const stayManagerApi = createApi({
     allUser: builder.query<allUserResponse, void>({
       query: () => "/user/find-allUsers",
     }),
+    findNotice : builder.query<allNoticeResponse , void>({
+      query : () => "/notice/find-allNotice"
+    })
   }),
 });
 
-export const { useLoginMutation, useCurrentUserQuery, useAllUserQuery } =
+export const { useLoginMutation, useCurrentUserQuery, useAllUserQuery, useFindNoticeQuery } =
   stayManagerApi;
 
 export default stayManagerApi;
