@@ -17,11 +17,16 @@ import {
 import Link from "next/link";
 
 import {
-  Drawer,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 import { BsThreeDots } from "react-icons/bs";
 import {
@@ -37,9 +42,10 @@ import { FcApproval } from "react-icons/fc";
 import { DateTimeFormatOptions, Notice } from "@/helper/type";
 import Image from "next/image";
 import ShareNotice from "./ShareNotice";
+import CommentModal from "./CommentModal";
 
 const NoticeCard = ({ notice }: { notice?: any }) => {
-  console.log(notice)
+  console.log(notice);
   //   const [playLikeSound, setPlayLikeSound] = useState(false);
 
   const formatDate = (dateString: string | undefined) => {
@@ -147,19 +153,16 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
           </div>
           <div>
             <h1 className="text-sm font-semibold  text-gray-600 dark:text-gray-300">
-             {notice?.caption}
+              {notice?.caption}
             </h1>
           </div>
         </div>
         <div className="w-full space-y-3 ">
-         
-            {/* <img
+          {/* <img
                 className="w-full h-full bg-cover"
                 src="https://images.unsplash.com/photo-1718973818150-9c0c855d33b0?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 alt="Notice"
               /> */}
-         
-        
         </div>
         <div className="mt-8 mb-2">
           <div className="flex justify-between px-8">
@@ -222,26 +225,8 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
               Like
             </p>
           </div>
-          <div>
-            <Drawer>
-              <DrawerTrigger>
-                <div className="flex items-center gap-1 cursor-pointer w-full hover:bg-gray-100 dark:hover:bg-gray-700 py-1 justify-center rounded-sm duration-200 px-4">
-                  <BiComment className="text-[21px] w-full text-gray-500 dark:text-gray-300" />
-                  <p className="text-[17px] font-bold text-gray-500 dark:text-gray-300">
-                    Comment
-                  </p>
-                </div>
-              </DrawerTrigger>
-              <DrawerContent>
-                <DrawerHeader>
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Laborum ipsa beatae, ullam necessitatibus totam aliquam quas
-                  harum magnam obcaecati cupiditate ad voluptates at animi ut
-                  ipsam mollitia id tempora voluptatem iure eum omnis dolore.
-                  Odit dolores vitae explicabo ratione asperiores.
-                </DrawerHeader>
-              </DrawerContent>
-            </Drawer>
+          <div className="relative">
+           <CommentModal />
           </div>
           <div>
             <ShareNotice />

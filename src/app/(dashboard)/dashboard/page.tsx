@@ -9,7 +9,7 @@ const DashboardHome = () => {
   if(isLoading){
     return <h1>Loading...</h1>
   }
-  const notice = data?.payload || []
+  const notice = data?.payload || [] 
   return (
     <div>
       <Navbar />
