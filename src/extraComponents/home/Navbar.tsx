@@ -9,15 +9,15 @@ const Navbar = () => {
     setIsOpen(!isOpen);
   };
   return (
-    <nav className="bg-blue-600 p-4 shadow-md relative">
+    <nav className="bg-blue-300 p-4 shadow-md relative">
       <div className="container mx-auto flex justify-between items-center">
         <Link href="/">
-          <h1 className="text-white text-2xl font-bold hover:text-gray-200 transition duration-300 font-sans">
+          <h1 className="text-gray-700 text-2xl font-bold hover:text-gray-200 transition duration-300 font-sans">
             Stay Manager
           </h1>
         </Link>
         <button
-          className="text-white block md:hidden focus:outline-none"
+          className="text-gray-800 block md:hidden focus:outline-none"
           onClick={toggleMenu}
         >
           <svg
@@ -44,17 +44,17 @@ const Navbar = () => {
             }`}
           >
             <Link href="/rooms">
-              <h1 className="text-white block mt-4 md:inline-block md:mt-0 md:ml-4 hover:text-gray-200 transition duration-300 cursor-pointer font-bold">
+              <h1 className="text-gray-800 block mt-4 md:inline-block md:mt-0 md:ml-4 hover:text-gray-200 transition duration-300 cursor-pointer font-bold">
                 Rooms
               </h1>
             </Link>
             <Link href="/bookings">
-              <h1 className="text-white block mt-4 md:inline-block md:mt-0 md:ml-4 hover:text-gray-200 transition duration-300 cursor-pointer font-bold">
+              <h1 className="text-gray-800 block mt-4 md:inline-block md:mt-0 md:ml-4 hover:text-gray-200 transition duration-300 cursor-pointer font-bold">
                 Bookings
               </h1>
             </Link>
             <Link href="/students">
-              <h1 className="text-white block mt-4 md:inline-block md:mt-0 md:ml-4 hover:text-gray-200 transition duration-300 cursor-pointer font-bold">
+              <h1 className="text-gray-800 block mt-4 md:inline-block md:mt-0 md:ml-4 hover:text-gray-200 transition duration-300 cursor-pointer font-bold">
                 Students
               </h1>
             </Link>
