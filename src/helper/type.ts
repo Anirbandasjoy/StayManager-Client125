@@ -57,6 +57,12 @@ interface User {
   __v: number;
 }
 
+// interface Notice {
+//   _id : string,
+//   caption : string,
+//   noticeImage : string,
+// }
+
 interface Pagination {
   totalUsers: number;
   totalPage: number;
@@ -72,3 +78,30 @@ export interface allUserResponse {
     pagination: Pagination;
   };
 }
+
+export interface Notice {
+  _id : string,
+  caption : string,
+  author : User,
+  noticeImage : string
+}
+
+export interface allNoticeResponse {
+  success : boolean,
+  message : string,
+  payload : {
+    _id : string,
+    caption : string,
+    noticeImage : string,
+    author : User
+  }[]
+
+}
+
+export type DateTimeFormatOptions = {
+  month?: "long" | "numeric" | "2-digit" | "short" | "narrow";
+  day?: "numeric" | "2-digit";
+  hour?: "numeric" | "2-digit";
+  minute?: "numeric" | "2-digit";
+  hour12?: boolean;
+};

@@ -47,8 +47,8 @@ const Login = () => {
   console.log(data);
 
   return (
-    <div className="flex h-screen w-full justify-center items-center bg-green-100">
-      <Card className="w-[350px] bg-blue-300 shadow-xl">
+    <div className="flex h-screen w-full justify-center items-center ">
+      <Card className="w-[350px] bg-gray-200 shadow-sm">
         <CardHeader>
           <CardTitle>Please Login</CardTitle>
         </CardHeader>
