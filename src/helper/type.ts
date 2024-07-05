@@ -57,6 +57,12 @@ interface User {
   __v: number;
 }
 
+// interface Notice {
+//   _id : string,
+//   caption : string,
+//   noticeImage : string,
+// }
+
 interface Pagination {
   totalUsers: number;
   totalPage: number;
@@ -71,6 +77,18 @@ export interface allUserResponse {
     users: User[];
     pagination: Pagination;
   };
+}
+
+export interface allNoticeResponse {
+  success : boolean,
+  message : string,
+  payload : {
+    _id : string,
+    caption : string,
+    noticeImage : string,
+    author : User
+  }[]
+
 }
 
 export type DateTimeFormatOptions = {
