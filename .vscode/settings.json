@@ -6,11 +6,11 @@
   },
   "[typescript]": {
     "editor.defaultFormatter": null
-  },
-//   "prettier.disableLanguages": [
-//     "javascript",
-//     "javascriptreact",
-//     "typescript",
-//     "typescriptreact"
-//   ]
+  }
+  //   "prettier.disableLanguages": [
+  //     "javascript",
+  //     "javascriptreact",
+  //     "typescript",
+  //     "typescriptreact"
+  //   ]
 }
