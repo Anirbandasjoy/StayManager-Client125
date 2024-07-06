@@ -1,3 +1,5 @@
+import internal from "stream";
+
 export interface loginRequest {
   email: string;
   password: string;
@@ -20,6 +22,22 @@ export interface loginResponse {
     createAt: string;
     updatedAt: string;
   };
+}
+
+export interface registrationResponse {
+  success: boolean,
+  message: string,
+  payload: {
+    token: string,
+  }
+}
+
+export interface registrationRequest {
+  name: string,
+  email: string,
+  password: string,
+  phone: string,
+  profileImage: string
 }
 
 export interface curretUserResponse {
@@ -80,20 +98,20 @@ export interface allUserResponse {
 }
 
 export interface Notice {
-  _id : string,
-  caption : string,
-  author : User,
-  noticeImage : string
+  _id: string,
+  caption: string,
+  author: User,
+  noticeImage: string
 }
 
 export interface allNoticeResponse {
-  success : boolean,
-  message : string,
-  payload : {
-    _id : string,
-    caption : string,
-    noticeImage : string,
-    author : User
+  success: boolean,
+  message: string,
+  payload: {
+    _id: string,
+    caption: string,
+    noticeImage: string,
+    author: User
   }[]
 
 }
