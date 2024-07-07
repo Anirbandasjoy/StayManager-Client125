@@ -60,7 +60,7 @@ const Register = () => {
         title: "Registration Succesfull",
         description: `Please Active you email: ${data.email}`
       });
-      router.push("/");
+      router.push("/login");
 
     } catch (error: any) {
       console.error("Failed to login:", error);

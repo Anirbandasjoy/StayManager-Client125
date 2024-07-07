@@ -49,6 +49,7 @@ const stayManagerApi = createApi({
         body: token
       })
     })
+
   }),
 });
 
