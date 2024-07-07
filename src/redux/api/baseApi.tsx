@@ -4,6 +4,8 @@ import {
   curretUserResponse,
   loginRequest,
   loginResponse,
+  ProcessRegistrationRequest,
+  processRegistrationResponse,
   registrationRequest,
   registrationResponse,
 } from "@/helper/type";
@@ -33,18 +35,30 @@ const stayManagerApi = createApi({
     findNotice: builder.query<allNoticeResponse, void>({
       query: () => "/notice/find-allNotice"
     }),
-    processRegister: builder.mutation<registrationResponse, registrationRequest>({
+    processRegister: builder.mutation<processRegistrationResponse, ProcessRegistrationRequest>({
       query: (registerData) => ({
         url: "/user/process-registation",
         method: "POST",
         body: registerData,
       })
-
+    }),
+    userRegistration: builder.mutation<registrationResponse, registrationRequest>({
+      query: (token) => ({
+        url: "/user/registation-user",
+        method: "POST",
+        body: token
+      })
     })
   }),
 });
 
-export const { useLoginMutation, useCurrentUserQuery, useAllUserQuery, useFindNoticeQuery, useProcessRegisterMutation } =
-  stayManagerApi;
+export const {
+  useLoginMutation,
+  useCurrentUserQuery,
+  useAllUserQuery,
+  useFindNoticeQuery,
+  useProcessRegisterMutation,
+  useUserRegistrationMutation
+} = stayManagerApi;
 
 export default stayManagerApi;

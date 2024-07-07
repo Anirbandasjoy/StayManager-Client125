@@ -24,7 +24,7 @@ export interface loginResponse {
   };
 }
 
-export interface registrationResponse {
+export interface processRegistrationResponse {
   success: boolean,
   message: string,
   payload: {
@@ -32,7 +32,7 @@ export interface registrationResponse {
   }
 }
 
-export interface registrationRequest {
+export interface ProcessRegistrationRequest {
   name: string,
   email: string,
   password: string,
@@ -57,6 +57,16 @@ export interface curretUserResponse {
     createAt: string;
     updatedAt: string;
   };
+}
+
+export interface registrationResponse {
+  success: boolean,
+  message: string,
+  payload: {}
+}
+
+export interface registrationRequest {
+  token: string
 }
 
 interface User {

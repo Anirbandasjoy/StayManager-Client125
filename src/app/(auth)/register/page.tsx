@@ -23,7 +23,6 @@ interface IFormInputs {
   confirmPassword: string;
 }
 
-
 const Register = () => {
 
   const router = useRouter();
@@ -36,6 +35,8 @@ const Register = () => {
   } = useForm<IFormInputs>();
 
   const response = data
+  // console.log(response?.message);
+
 
   const onSubmit: SubmitHandler<IFormInputs> = async (data) => {
 
@@ -57,16 +58,16 @@ const Register = () => {
       }).unwrap();
       toast({
         title: "Registration Succesfull",
-        description: `Please Active you email : ${data.email}`
+        description: `Please Active you email: ${data.email}`
       });
       router.push("/");
 
-    } catch (error) {
+    } catch (error: any) {
       console.error("Failed to login:", error);
       toast({
         variant: "destructive",
         title: "Invalid Creadential.",
-        description: "There was a problem with your request.",
+        description: error?.data?.message,
       });
     }
     console.log(data);
