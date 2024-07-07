@@ -1,3 +1,4 @@
+"use client"
 import {
   BiComment,
   BiEdit,
@@ -15,19 +16,6 @@ import {
 } from "@/components/ui/dialog";
 
 import Link from "next/link";
-
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-
 import { BsThreeDots } from "react-icons/bs";
 import {
   DropdownMenu,
@@ -39,14 +27,15 @@ import { LuBookmarkPlus } from "react-icons/lu";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { FcApproval } from "react-icons/fc";
-import { DateTimeFormatOptions, Notice } from "@/helper/type";
+import { DateTimeFormatOptions } from "@/helper/type";
 import Image from "next/image";
 import ShareNotice from "./ShareNotice";
 import CommentModal from "./CommentModal";
+import {  useState } from "react";
 
 const NoticeCard = ({ notice }: { notice?: any }) => {
-  console.log(notice);
-  //   const [playLikeSound, setPlayLikeSound] = useState(false);
+
+  const [noticeId, setNoticeId] = useState<string | null>(null)
 
   const formatDate = (dateString: string | undefined) => {
     if (!dateString) return "";
@@ -62,16 +51,12 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("en-US", options);
   };
+    const handleGetNoticeId = (noticeId: string) => {
+      setNoticeId(noticeId)
+    };
 
-  //   useEffect(() => {
-  //     if (playLikeSound) {
-  //       const audio = new Audio(likeSound);
-  //       audio.play();
-  //       audio.onended = () => {
-  //         setPlayLikeSound(false);
-  //       };
-  //     }
-  //   }, [playLikeSound]);
+ 
+
 
   return (
     <div className="">
@@ -89,8 +74,8 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
                       className="w-full h-full rounded-full object-cover cursor-pointer"
                       src={notice?.profileId?.profileImage}
                       alt="profile"
-                      width={44} // Provide actual width of the image
-                      height={44} // Provide actual height of the image
+                      width={44}
+                      height={44}
                     />
                   </div>
                 ) : (
@@ -226,7 +211,7 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
             </p>
           </div>
           <div className="relative">
-            <CommentModal />
+            <CommentModal noticeId={noticeId} handleGetNoticeId={() => handleGetNoticeId(notice?._id)}/>
           </div>
           <div>
             <ShareNotice />
@@ -239,4 +224,3 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
 };
 
 export default NoticeCard;
-

@@ -16,17 +16,18 @@ import { IoMdClose } from "react-icons/io";
 import { LuSend } from "react-icons/lu";
 import { RiAttachment2 } from "react-icons/ri";
 import Image from "next/image";
+import { useCurrentUserQuery } from "@/redux/api/baseApi";
 
-const CommentModal = () => {
+const CommentModal = ({handleGetNoticeId, noticeId} : {handleGetNoticeId : any, noticeId : string | null}) => {
   const [inputStr, setInputStr] = useState("");
   const [showPicker, setShowPicker] = useState<boolean>(false);
   const [commetImageUploadLoading, setCommentImageUpLoading] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const onEmojiClick = (emojiObject: { emoji: string }): void => {
+  const {data : currentUser, isLoading} = useCurrentUserQuery()
+   const onEmojiClick = (emojiObject: { emoji: string }): void => {
     setInputStr((prevInput) => prevInput + emojiObject.emoji);
     setShowPicker(false);
   };
-
   const handleFileSelect = () => {
     const fileInput = document.getElementById("fileInput") as HTMLInputElement;
     fileInput.click();
@@ -46,14 +47,21 @@ const CommentModal = () => {
   const isImage = (file: File): boolean => {
     return file.type.startsWith("image/");
   };
+
+  if(isLoading){
+    return <h1>Loading...</h1>
+  }
   const handleDeleteImage = () => {
     setSelectedImage(null);
   };
+
+  console.log({noticeId})
+  console.log({userId : currentUser?.payload?._id})
   return (
     <AlertDialog>
       <AlertDialogTrigger>
         {" "}
-        <div className="flex items-center gap-1 cursor-pointer w-full hover:bg-gray-100 dark:hover:bg-gray-700 py-1 justify-center rounded-sm duration-200 px-4">
+        <div className="flex items-center gap-1 cursor-pointer w-full hover:bg-gray-100 dark:hover:bg-gray-700 py-1 justify-center rounded-sm duration-200 px-4" onClick={handleGetNoticeId}>
           <BiComment className="text-[21px] w-full text-gray-500 dark:text-gray-300" />
           <p className="text-[17px] font-bold text-gray-500 dark:text-gray-300">
             Comment
