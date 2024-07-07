@@ -12,7 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { MdOutlineLock } from "react-icons/md";
+import { MdOutlineLock, MdOutlinePayment } from "react-icons/md";
 const Settings = () => {
   return (
     <div>
@@ -111,9 +111,9 @@ const Settings = () => {
             </div>
           </div>
           <div className="flex gap-2 items-center cursor-pointer">
-            <MdOutlineLock className="text-lg text-gray-700" />
+            <MdOutlinePayment className="text-lg text-gray-700" />
             <h1 className="tracking-wide font-semibold text-[16px] text-gray-700">
-              Security
+              Payment
             </h1>
           </div>
         </div>
