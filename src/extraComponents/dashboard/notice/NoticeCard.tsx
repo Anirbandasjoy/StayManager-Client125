@@ -77,25 +77,25 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
     <div className="">
       <div className="bg-white lg:max-w-4xl mx-auto rounded-md pb-4 dark:border dark:border-gray-700 dark:bg-gray-800">
         <div className="p-4 space-y-3">
-          <div className="flex   justify-between">
+          <div className="flex justify-between">
             <Link
               href={`/profile/${notice?.profileId?.email}`}
               className="flex gap-3 "
             >
               <div className="relative">
-                {notice?.profileId?.profileImage !== null ? (
-                  <div>
-                    <div className="font-bold capitalize bg-blue-600 h-10 w-10 rounded-full text-sm flex justify-center items-center text-white">
-                      Ad
-                    </div>
-                  </div>
-                ) : (
+                {notice?.profileId?.profileImage ? (
                   <div className="w-11 h-11">
                     <Image
                       className="w-full h-full rounded-full object-cover cursor-pointer"
                       src={notice?.profileId?.profileImage}
                       alt="profile"
+                      width={44} // Provide actual width of the image
+                      height={44} // Provide actual height of the image
                     />
+                  </div>
+                ) : (
+                  <div className="font-bold capitalize bg-blue-600 h-10 w-10 rounded-full text-sm flex justify-center items-center text-white">
+                    Ad
                   </div>
                 )}
                 {notice?.profileId?.isVerified === "verified" && (
@@ -112,7 +112,7 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
                 {notice?.status === "approved" && (
                   <div className="flex gap-1 absolute -right-24 -top-1">
                     <AiOutlineCheckCircle className="text-red-500 text-[14px]" />
-                    <h1 className="text-xs text-red-500">Verifed News</h1>
+                    <h1 className="text-xs text-red-500">Verified News</h1>
                   </div>
                 )}
               </div>
@@ -152,17 +152,17 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
             </DropdownMenu>
           </div>
           <div>
-            <h1 className="text-sm font-semibold  text-gray-600 dark:text-gray-300">
+            <h1 className="text-sm font-semibold text-gray-600 dark:text-gray-300">
               {notice?.caption}
             </h1>
           </div>
         </div>
         <div className="w-full space-y-3 ">
           {/* <img
-                className="w-full h-full bg-cover"
-                src="https://images.unsplash.com/photo-1718973818150-9c0c855d33b0?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                alt="Notice"
-              /> */}
+            className="w-full h-full bg-cover"
+            src="https://images.unsplash.com/photo-1718973818150-9c0c855d33b0?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Notice"
+          /> */}
         </div>
         <div className="mt-8 mb-2">
           <div className="flex justify-between px-8">
@@ -189,7 +189,7 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
                 </DialogContent>
               </Dialog>
             </div>
-            <div className="flex gap-1  items-center">
+            <div className="flex gap-1 items-center">
               <BiComment className="text-green-400" />
               <Dialog>
                 <DialogTrigger>
@@ -217,25 +217,26 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
             </div>
           </div>
         </div>
-        <div className=" sm:px-4 w-11/12 mx-auto h-[1px] bg-gray-200 dark:bg-gray-700"></div>
+        <div className="sm:px-4 w-11/12 mx-auto h-[1px] bg-gray-200 dark:bg-gray-700"></div>
         <div className="sm:px-4 mt-2 flex gap-6 sm:gap-0 items-center justify-between ">
-          <div className="flex items-center gap-1 cursor-pointer  hover:bg-gray-100 dark:hover:bg-gray-700 py-1 justify-start rounded-sm duration-200 px-4">
+          <div className="flex items-center gap-1 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 py-1 justify-start rounded-sm duration-200 px-4">
             <BiLike className="text-[21px] text-gray-500 dark:text-gray-300" />
             <p className="text-[17px] font-bold text-gray-500 dark:text-gray-300">
               Like
             </p>
           </div>
           <div className="relative">
-           <CommentModal />
+            <CommentModal />
           </div>
           <div>
             <ShareNotice />
           </div>
         </div>
-        <div className=" sm:px-4 w-11/12 mx-auto h-[1px] mt-2  bg-gray-200 dark:bg-gray-700"></div>
+        <div className="sm:px-4 w-11/12 mx-auto h-[1px] mt-2 bg-gray-200 dark:bg-gray-700"></div>
       </div>
     </div>
   );
 };
 
 export default NoticeCard;
+
