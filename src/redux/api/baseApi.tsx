@@ -1,6 +1,8 @@
 import {
   allNoticeResponse,
   allUserResponse,
+  CommentCreateResponse,
+  CommentRequest,
   curretUserResponse,
   loginRequest,
   loginResponse,
@@ -10,6 +12,7 @@ import {
   registrationResponse,
 } from "@/helper/type";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+
 
 const stayManagerApi = createApi({
   reducerPath: "stayManagerApi",
@@ -26,6 +29,15 @@ const stayManagerApi = createApi({
         body: loginData,
       }),
     }),
+
+    createComment : builder.mutation<CommentCreateResponse, CommentRequest>({
+      query : ({noticeId,inputStr,selectedImage}) => ({
+        url : `/comment/create-comment/${noticeId}`,
+        method : "POST",
+        body : {text : inputStr, commentImage : selectedImage}
+      })
+    }),
+
     currentUser: builder.query<curretUserResponse, void>({
       query: () => "/user/current-user",
     }),

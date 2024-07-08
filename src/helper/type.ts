@@ -85,11 +85,51 @@ interface User {
   __v: number;
 }
 
-// interface Notice {
-//   _id : string,
-//   caption : string,
-//   noticeImage : string,
-// }
+export interface Notice {
+  _id: string,
+  caption: string,
+  author: string | User,
+  noticeImage: string | null
+}
+
+
+interface Comment {
+  _id : string
+  text : string,
+  commentImage : string | null,
+  user : string | User,
+  notice : string | Notice
+  createdAt : string,
+  updatedAt : string
+
+}
+
+interface Notification {
+  _id : string,
+  read : boolean,
+  seen : boolean,
+  author : string | User,
+  notice : string | Notice,
+  date : string,
+  createdAt : string,
+  updatedAt : string
+
+}
+
+export interface CommentCreateResponse {
+  success : boolean,
+  message : string,
+  payload : {
+    newComment : Comment,
+    newNotification : Notification
+  }
+}
+
+export interface CommentRequest  {
+  noticeId : string,
+  inputStr : string,
+  selectedImage : string | null
+}
 
 interface Pagination {
   totalUsers: number;
@@ -107,12 +147,7 @@ export interface allUserResponse {
   };
 }
 
-export interface Notice {
-  _id: string,
-  caption: string,
-  author: User,
-  noticeImage: string
-}
+
 
 export interface allNoticeResponse {
   success: boolean,
@@ -122,9 +157,11 @@ export interface allNoticeResponse {
     caption: string,
     noticeImage: string,
     author: User
-  }[]
+  }[] 
 
 }
+
+
 
 export type DateTimeFormatOptions = {
   month?: "long" | "numeric" | "2-digit" | "short" | "narrow";

@@ -16,14 +16,11 @@ import { IoMdClose } from "react-icons/io";
 import { LuSend } from "react-icons/lu";
 import { RiAttachment2 } from "react-icons/ri";
 import Image from "next/image";
-import { useCurrentUserQuery } from "@/redux/api/baseApi";
-
 const CommentModal = ({handleGetNoticeId, noticeId} : {handleGetNoticeId : any, noticeId : string | null}) => {
   const [inputStr, setInputStr] = useState("");
   const [showPicker, setShowPicker] = useState<boolean>(false);
   const [commetImageUploadLoading, setCommentImageUpLoading] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const {data : currentUser, isLoading} = useCurrentUserQuery()
    const onEmojiClick = (emojiObject: { emoji: string }): void => {
     setInputStr((prevInput) => prevInput + emojiObject.emoji);
     setShowPicker(false);
@@ -48,15 +45,13 @@ const CommentModal = ({handleGetNoticeId, noticeId} : {handleGetNoticeId : any, 
     return file.type.startsWith("image/");
   };
 
-  if(isLoading){
-    return <h1>Loading...</h1>
-  }
   const handleDeleteImage = () => {
     setSelectedImage(null);
   };
 
-  console.log({noticeId})
-  console.log({userId : currentUser?.payload?._id})
+  // console.log({inputStr})
+  // console.log({selectedImage})
+  // console.log()
   return (
     <AlertDialog>
       <AlertDialogTrigger>
@@ -88,6 +83,8 @@ const CommentModal = ({handleGetNoticeId, noticeId} : {handleGetNoticeId : any, 
                         src={selectedImage}
                         alt="Selected Image"
                         className="w-12 h-12 rounded-md cursor-pointer"
+                        width={48}
+                        height={48}
                       />
                     )}
                     <div className="absolute top-0 right-0">
