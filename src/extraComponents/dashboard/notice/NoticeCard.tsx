@@ -414,28 +414,34 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
                   </div>
                   {/* show all comments */}
                   <div className="mt-3 overflow-auto ">
-                <div className="flex flex-col gap-6">
-                {
-                  allComments && allComments?.map((comment) => (
-                    <div className="flex gap-3" key={comment?._id}>
-                    <div>
-                      <Avatar>
-                        <AvatarImage
-                          src="https://github.com/shadcn.png"
-                          alt="@shadcn"
-                        />
-                        <AvatarFallback>CN</AvatarFallback>
-                      </Avatar>
+                    <div className="flex flex-col gap-6">
+                      {allComments &&
+                        allComments?.map((comment) => (
+                          <div className="flex gap-3" key={comment?._id}>
+                            <div>
+                              {comment?.user?.profileImage === null ? (
+                                <AvatarFallback>
+                                  {comment?.user?.name?.slice(0, 2)}
+                                </AvatarFallback>
+                              ) : (
+                                <Avatar>
+                                  <AvatarImage
+                                    src={comment?.user?.profileImage}
+                                    alt={comment?.user?.name}
+                                  />
+                                </Avatar>
+                              )}
+                            </div>
+                            <div>
+                              <h1 className="text-sm font-semibold">
+                                {comment?.user?.name}
+                              </h1>
+                              <p className="text-xs">10m ago</p>
+                              <h2 className="mt-2 text-sm">{comment?.text}</h2>
+                            </div>
+                          </div>
+                        ))}
                     </div>
-                    <div>
-                      <h1 className="text-sm font-semibold">Anirban das joy</h1>
-                      <p className="text-xs">10m ago</p>
-                      <h2 className="mt-2 text-sm">{comment?.text}</h2>
-                    </div>
-                  </div>
-                  ))
-                 }
-                </div>
                   </div>
                 </div>
                 <AlertDialogFooter className="absolute right-0">

@@ -1,3 +1,4 @@
+"use client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
 import {
@@ -22,16 +23,7 @@ import {
   User,
   Users,
 } from "lucide-react";
-import { toast } from "@/components/ui/use-toast";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
+import { useCurrentUserQuery } from "@/redux/api/baseApi";
 
 const DropDownMenu = ({
   isOpenModal,
@@ -40,19 +32,23 @@ const DropDownMenu = ({
   isOpenModal: boolean;
   setIsOpenModal: any;
 }) => {
-  // const handleLogOut = () => {
-  //     toast({
-  //       title: "Log Out Successfully",
-  //       description: "Friday, February 10, 2023 at 5:57 PM",
-  //     });
-  //   };
+  const { data } = useCurrentUserQuery();
+
   return (
     <div>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Avatar>
-            <AvatarImage src="https://github.com/shadcn.png" />
-            <AvatarFallback>CN</AvatarFallback>
+            {data?.payload?.profileImage === null ? (
+              <AvatarFallback>
+                {data?.payload?.name?.slice(0, 2)}
+              </AvatarFallback>
+            ) : (
+              <AvatarImage
+                src={data?.payload?.profileImage}
+                alt={data?.payload?.name}
+              />
+            )}
           </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56">

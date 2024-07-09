@@ -120,8 +120,13 @@ const Login = () => {
               {isLoading ? "Loading..." : "Login"}
             </Button>
             <CardDescription className="mt-4 ms-2">
-            Have no account ? <Link href={'/register'} className="text-blue-600"> Create </Link> new Accounts
-          </CardDescription>
+              Have no account ?{" "}
+              <Link href={"/register"} className="text-blue-600">
+                {" "}
+                Create{" "}
+              </Link>{" "}
+              new Accounts
+            </CardDescription>
           </form>
         </CardContent>
       </Card>

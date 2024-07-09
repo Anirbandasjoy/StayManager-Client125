@@ -1,16 +1,16 @@
-{
-  "eslint.enable": false,
-  "editor.defaultFormatter": null,
-  "[javascript]": {
-    "editor.defaultFormatter": null
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": null
-  }
-  //   "prettier.disableLanguages": [
-  //     "javascript",
-  //     "javascriptreact",
-  //     "typescript",
-  //     "typescriptreact"
-  //   ]
-}
+// {
+//   "eslint.enable": false,
+//   "editor.defaultFormatter": null,
+//   "[javascript]": {
+//     "editor.defaultFormatter": null
+//   },
+//   "[typescript]": {
+//     "editor.defaultFormatter": null
+//   }
+//   //   "prettier.disableLanguages": [
+//   //     "javascript",
+//   //     "javascriptreact",
+//   //     "typescript",
+//   //     "typescriptreact"
+//   //   ]
+// }
