@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { LuBookmarkPlus } from "react-icons/lu";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { AiOutlineCheckCircle } from "react-icons/ai";
+import { AiFillLike, AiOutlineCheckCircle } from "react-icons/ai";
 import { FcApproval } from "react-icons/fc";
 import { DateTimeFormatOptions } from "@/helper/type";
 import Image from "next/image";
@@ -253,7 +253,9 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
                       <h1 className="text-green-500 font-bold">ALL</h1>
                     </DialogTitle>
                     <div className="w-full h-[1px] bg-gray-500"></div>
-                    <DialogDescription>hello</DialogDescription>
+                    <DialogDescription className="h-96 overflow-auto">
+                      hello
+                    </DialogDescription>
                   </DialogHeader>
                 </DialogContent>
               </Dialog>
@@ -272,10 +274,43 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
                 <DialogContent>
                   <DialogHeader>
                     <DialogTitle>
-                      <h1 className="text-green-500 font-bold">ALL</h1>
+                      <h1 className="text-blue-500 font-bold font-serif">
+                        All Commenter
+                      </h1>
                     </DialogTitle>
                     <div className="w-full h-[1px] bg-gray-500"></div>
-                    <DialogDescription>hello</DialogDescription>
+                    <DialogDescription className="h-96 overflow-auto">
+                      <div className="mt-3">
+                        <div className="flex flex-col gap-6">
+                          {allComments &&
+                            allComments?.map((comment) => (
+                              <div className="flex gap-3" key={comment?._id}>
+                                <div className="cursor-pointer relative">
+                                  {comment?.user?.profileImage === null ? (
+                                    <AvatarFallback>
+                                      {comment?.user?.name?.slice(0, 2)}
+                                    </AvatarFallback>
+                                  ) : (
+                                    <Avatar>
+                                      <AvatarImage
+                                        src={comment?.user?.profileImage}
+                                        alt={comment?.user?.name}
+                                      />
+                                    </Avatar>
+                                  )}
+                                  <AiFillLike  className="absolute text-lg bg-slate-300 rounded-full p-[2px] right-[1px] -bottom-[3px] text-blue-500"/>
+                                </div>
+                                <div>
+                                  <h1 className="text-sm font-semibold hover:underline cursor-pointer">
+                                    {comment?.user?.name}
+                                  </h1>
+                                  <p className="text-xs">10m ago</p>
+                                </div>
+                              </div>
+                            ))}
+                        </div>
+                      </div>
+                    </DialogDescription>
                   </DialogHeader>
                 </DialogContent>
               </Dialog>
