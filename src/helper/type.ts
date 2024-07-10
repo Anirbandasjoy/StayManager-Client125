@@ -25,19 +25,19 @@ export interface loginResponse {
 }
 
 export interface processRegistrationResponse {
-  success: boolean,
-  message: string,
+  success: boolean;
+  message: string;
   payload: {
-    token: string,
-  }
+    token: string;
+  };
 }
 
 export interface ProcessRegistrationRequest {
-  name: string,
-  email: string,
-  password: string,
-  phone: string,
-  profileImage: string
+  name: string;
+  email: string;
+  password: string;
+  phone: string;
+  profileImage: string;
 }
 
 export interface curretUserResponse {
@@ -60,13 +60,13 @@ export interface curretUserResponse {
 }
 
 export interface registrationResponse {
-  success: boolean,
-  message: string,
-  payload: {}
+  success: boolean;
+  message: string;
+  payload: {};
 }
 
 export interface registrationRequest {
-  token: string
+  token: string;
 }
 
 interface User {
@@ -85,12 +85,67 @@ interface User {
   __v: number;
 }
 
-// interface Notice {
-//   _id : string,
-//   caption : string,
-//   noticeImage : string,
-// }
+export interface Notice {
+  _id: string;
+  caption: string;
+  author: string | User;
+  noticeImage: string | null;
+}
 
+interface Comment {
+  _id: string;
+  text: string;
+  commentImage: string | null;
+  user: string | User;
+  notice: string | Notice;
+  createdAt: string;
+  updatedAt: string;
+}
+
+interface Notification {
+  _id: string;
+  read: boolean;
+  seen: boolean;
+  author: string | User;
+  notice: string | Notice;
+  date: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CommentCreateResponse {
+  success: boolean;
+  message: string;
+  payload: {
+    newComment: Comment;
+    newNotification: Notification;
+  };
+}
+
+export interface CommentRequest {
+  noticeId: string | null;
+  inputStr: string;
+  selectedImage: string | null;
+}
+
+export interface GetNoticeCommentResponse {
+  success: boolean;
+  message: string;
+  payload: {
+    _id: string;
+    text: string;
+    commentImage: string;
+    user: User;
+    notice: string;
+    createdAt: string;
+    updatedAt: string;
+    __v: number;
+  }[];
+}
+
+export interface NoticeCommentRequest {
+  noticeId: string | null;
+}
 interface Pagination {
   totalUsers: number;
   totalPage: number;
@@ -107,23 +162,15 @@ export interface allUserResponse {
   };
 }
 
-export interface Notice {
-  _id: string,
-  caption: string,
-  author: User,
-  noticeImage: string
-}
-
 export interface allNoticeResponse {
-  success: boolean,
-  message: string,
+  success: boolean;
+  message: string;
   payload: {
-    _id: string,
-    caption: string,
-    noticeImage: string,
-    author: User
-  }[]
-
+    _id: string;
+    caption: string;
+    noticeImage: string;
+    author: User;
+  }[];
 }
 
 export type DateTimeFormatOptions = {

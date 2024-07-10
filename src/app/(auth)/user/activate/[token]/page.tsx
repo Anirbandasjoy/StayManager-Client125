@@ -1,6 +1,7 @@
 "use client";
 import { toast } from '@/components/ui/use-toast';
 import { useUserRegistrationMutation } from '@/redux/api/baseApi';
+import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -17,7 +18,7 @@ const Page = (): JSX.Element => {
             await setUserRegistration({
                 token: token
             }).unwrap();
-            router.push("/");
+            router.push("/login");
             toast({
                 title: "Activation Succesfull",
                 description: data?.message,
@@ -42,7 +43,9 @@ const Page = (): JSX.Element => {
             {
                 isLoading ? <>Loading ......</> :
                     !error ? <>..... Activating Account!</> :
-                        <div className='text-red-500'>Registration Failed!</div>
+                        <div className='text-red-500'>Registration Failed!
+                            <Link className='underline text-blue-500' href={'/register'}>Try Again ?</Link>
+                        </div>
             }
         </div>
     );

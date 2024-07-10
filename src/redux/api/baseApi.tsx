@@ -1,9 +1,13 @@
 import {
   allNoticeResponse,
   allUserResponse,
+  CommentCreateResponse,
+  CommentRequest,
   curretUserResponse,
+  GetNoticeCommentResponse,
   loginRequest,
   loginResponse,
+  NoticeCommentRequest,
   ProcessRegistrationRequest,
   processRegistrationResponse,
   registrationRequest,
@@ -19,6 +23,7 @@ const stayManagerApi = createApi({
   }),
 
   endpoints: (builder) => ({
+    // auth api
     login: builder.mutation<loginResponse, loginRequest>({
       query: (loginData) => ({
         url: "/auth/login",
@@ -26,29 +31,53 @@ const stayManagerApi = createApi({
         body: loginData,
       }),
     }),
+
+    // user api
     currentUser: builder.query<curretUserResponse, void>({
       query: () => "/user/current-user",
     }),
     allUser: builder.query<allUserResponse, void>({
       query: () => "/user/find-allUsers",
     }),
-    findNotice: builder.query<allNoticeResponse, void>({
-      query: () => "/notice/find-allNotice"
-    }),
-    processRegister: builder.mutation<processRegistrationResponse, ProcessRegistrationRequest>({
+    processRegister: builder.mutation<
+      processRegistrationResponse,
+      ProcessRegistrationRequest
+    >({
       query: (registerData) => ({
         url: "/user/process-registation",
         method: "POST",
         body: registerData,
-      })
+      }),
     }),
-    userRegistration: builder.mutation<registrationResponse, registrationRequest>({
+    userRegistration: builder.mutation<
+      registrationResponse,
+      registrationRequest
+    >({
       query: (token) => ({
         url: "/user/registation-user",
         method: "POST",
-        body: token
-      })
-    })
+        body: token,
+      }),
+    }),
+    // notice api
+    findNotice: builder.query<allNoticeResponse, void>({
+      query: () => "/notice/find-allNotice",
+    }),
+    // comment api
+    createComment: builder.mutation<CommentCreateResponse, CommentRequest>({
+      query: ({ noticeId, inputStr, selectedImage }) => ({
+        url: `/comment/create-comment/${noticeId}`,
+        method: "POST",
+        body: { text: inputStr, commentImage: selectedImage },
+      }),
+    }),
+
+    getNoticeComment: builder.query<
+      GetNoticeCommentResponse,
+      NoticeCommentRequest
+    >({
+      query: ({ noticeId }) => `/comment/find-NoticeComments/${noticeId}`,
+    }),
   }),
 });
 
@@ -58,7 +87,9 @@ export const {
   useAllUserQuery,
   useFindNoticeQuery,
   useProcessRegisterMutation,
-  useUserRegistrationMutation
+  useUserRegistrationMutation,
+  useCreateCommentMutation,
+  useGetNoticeCommentQuery,
 } = stayManagerApi;
 
 export default stayManagerApi;
