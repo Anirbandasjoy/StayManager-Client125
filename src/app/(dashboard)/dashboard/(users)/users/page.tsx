@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 'use client'
 
 import {
@@ -5,7 +6,6 @@ import {
   TableBody,
   TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -30,58 +30,70 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
+import Navbar from "@/extraComponents/dashboard/sidebar/Navbar"
+import { useAllUserQuery } from "@/redux/api/baseApi"
 
-import Navbar from "@/extraComponents/dashboard/sidebar/Navbar";
-import { useAllUserQuery } from "@/redux/api/baseApi";
 
+const Page = (): JSX.Element => {
 
-const page = (): JSX.Element => {
+  const { data, isLoading, isError } = useAllUserQuery();
 
+  if (isLoading) {
+    return (
+      <div className="m-20 text-xl font-bold">Loading....</div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="mt-20 text-xl font-bold text-red-500">An Error Detected....!!</div>
+    );
+  }
 
   return (
     <>
       <Navbar />
-      <Table>
-        <TableCaption>A list of your recent invoices.</TableCaption>
-        <TableHeader>
+      <Table className="mt-2">
+        <TableHeader className="text-xl font-bold bg-blue-200 rounded-lg text-gray-700 my-4">
           <TableRow>
-            <TableHead>User</TableHead>
-            <TableHead>Role</TableHead>
-            <TableHead>Mobile No</TableHead>
-            <TableHead>Action</TableHead>
+            <TableHead>USER</TableHead>
+            <TableHead>ROLE</TableHead>
+            <TableHead>MOBILE NO</TableHead>
+            <TableHead>ACTION</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          <TableRow >
-            <TableCell>
-              <div className="flex items-center gap-2 p-2">
-                <img className="h-12 w-12 rounded-full" src="https://www.shareicon.net/data/512x512/2016/09/15/829459_man_512x512.png" alt="" />
-                <ul className=" text-start">
-                  <li>Name SIrname</li>
-                  <li>Namelastname@mail.com</li>
-                </ul>
-              </div>
-            </TableCell>
-            <TableCell>Student</TableCell>
-            <TableCell>012345789</TableCell>
-            <TableCell>
-
-              <DropdownMenu>
-                <DropdownMenuTrigger>Open</DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem>See Profile</DropdownMenuItem>
-                  <DropdownMenuItem>Payment Histry</DropdownMenuItem>
-                  <DropdownMenuItem>Chenge Roll</DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-
-            </TableCell>
-          </TableRow>
+          {
+            data?.payload.users.map((user, index: number) => (
+              <TableRow key={index} className={`${index % 2 !== 0 ? "bg-blue-50" : ""}`}>
+                <TableCell>
+                  <div className="flex items-center gap-2 p-2">
+                    <img className="h-12 w-12 rounded-full" src={user.profileImage} alt="user profile" />
+                    <ul className="text-start">
+                      <li>{user.name}</li>
+                      <li>{user.email}</li>
+                    </ul>
+                  </div>
+                </TableCell>
+                <TableCell>{user.role}</TableCell>
+                <TableCell>{user.phone}</TableCell>
+                <TableCell>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger>Option</DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                      <DropdownMenuLabel>Users Account</DropdownMenuLabel>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem>See Profile</DropdownMenuItem>
+                      <DropdownMenuItem>Payment History</DropdownMenuItem>
+                      <DropdownMenuItem>Change Role</DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </TableCell>
+              </TableRow>
+            ))
+          }
         </TableBody>
       </Table>
-
       <Pagination>
         <PaginationContent>
           <PaginationItem>
@@ -98,9 +110,8 @@ const page = (): JSX.Element => {
           </PaginationItem>
         </PaginationContent>
       </Pagination>
-
     </>
-  )
+  );
 }
 
-export default page;
+export default Page;
