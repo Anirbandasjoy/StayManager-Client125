@@ -3,28 +3,45 @@ import {
     AlertDialogCancel,
     AlertDialogContent,
     AlertDialogFooter,
-  } from "@/components/ui/alert-dialog"
-import Image from "next/image"
+  } from "@/components/ui/alert-dialog";
+  import Image from "next/image";
+  import { useEffect, useState } from "react";
+import { AiFillCloseSquare } from "react-icons/ai";
   
-  const ImageModal = ({image, showImageModal, setShowImageModal} : {image : string, showImageModal : boolean, setShowImageModal : any})=> {
-    console.log(showImageModal)
+  interface ImageModalProps {
+    image: string;
+    showImageModal: boolean;
+    setShowImageModal: (show: boolean) => void;
+  }
+  
+  const ImageModal: React.FC<ImageModalProps> = ({ image, showImageModal, setShowImageModal }) => {
+    const [open, setOpen] = useState(showImageModal);
+  
+    useEffect(() => {
+      setOpen(showImageModal);
+    }, [showImageModal, image, setShowImageModal]);
+  
     return (
-      <div>
-        {
-        showImageModal && <AlertDialog>
-        {/* <AlertDialogTrigger asChild>
-          <Button variant="outline">Show Dialog</Button>
-        </AlertDialogTrigger> */}
-        <AlertDialogContent>
-         <Image src={image} alt="imageModal" width={300} height={300}  />
+      <AlertDialog open={open} onOpenChange={setOpen}>
+        <AlertDialogContent className="">
+          <div className="relative w-full h-96 flex justify-center items-center">
+            <Image
+              src={image}
+              alt="imageModal"
+              layout="fill"
+              objectFit="contain"
+              className="absolute"
+            />
+          </div>
           <AlertDialogFooter>
-            <AlertDialogCancel onClick={() => setShowImageModal(false)}>Cancel</AlertDialogCancel>
+          <AlertDialogCancel className="absolute right-1 top-1 bg-red-400 hover:bg-red-500 text-white" onClick={() => setShowImageModal(false)}>
+            <AiFillCloseSquare className="text-white text-lg" />
+            </AlertDialogCancel>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-      }
-      </div>
-    )
-  }
-  export default ImageModal
+    );
+  };
+  
+  export default ImageModal;
   

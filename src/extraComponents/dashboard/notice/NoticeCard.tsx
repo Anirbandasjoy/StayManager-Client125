@@ -153,10 +153,7 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
   };
   const allComments = comments?.payload || [];
 
-  const handleImageModal = () => {
-    setShowImageModal(!showImageModal)
-  }
-  
+ 
   return (
     <div className="">
       <div className="bg-white lg:max-w-4xl mx-auto rounded-md pb-4 dark:border dark:border-gray-700 dark:bg-gray-800">
@@ -495,12 +492,12 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
                               <h2 className="mt-2 text-sm">{comment?.text}</h2>
                               <div className="mt-2">
                                   {
-                               (comment?.commentImage === "" || comment?.commentImage === null) ? "" : <Image src={comment?.commentImage} alt="commentImage"  width={100} height={100} onClick={handleImageModal}/>
+                               (comment?.commentImage === "" || comment?.commentImage === null) ? "" : <div className="cursor-pointer" onClick={() => setShowImageModal(!showImageModal)}><Image src={comment?.commentImage} alt="commentImage"  width={100} height={100} /></div>
                                   }
                                   </div>
 
                                   {
-                                    comment?.commentImage === "" || null ? "" : <ImageModal image={comment?.commentImage} showImageModal setShowImageModal={setShowImageModal}/>
+                                    comment?.commentImage === "" || null ? "" : <ImageModal image={comment?.commentImage} showImageModal={showImageModal} setShowImageModal={setShowImageModal}/>
                                   }
                             </div>
                           </div>
