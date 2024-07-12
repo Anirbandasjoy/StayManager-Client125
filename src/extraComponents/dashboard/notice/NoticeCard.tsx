@@ -4,6 +4,7 @@ import {
   BiEdit,
   BiLike,
   BiShare,
+  BiSolidComment,
   BiSolidLike,
 } from "react-icons/bi";
 import {
@@ -25,7 +26,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { LuBookmarkPlus } from "react-icons/lu";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { AiFillLike, AiOutlineCheckCircle } from "react-icons/ai";
+import { AiOutlineCheckCircle } from "react-icons/ai";
 import { FcApproval } from "react-icons/fc";
 import { DateTimeFormatOptions } from "@/helper/type";
 import Image from "next/image";
@@ -39,7 +40,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { uploadImage } from "@/helper/common";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import Picker from "emoji-picker-react";
 
@@ -53,19 +54,25 @@ import {
 } from "@/redux/api/baseApi";
 import { toast } from "@/components/ui/use-toast";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import TimeAgo from "./TimeAgo";
+import ImageModal from "./ImageModal";
 const NoticeCard = ({ notice }: { notice?: any }) => {
   const [inputStr, setInputStr] = useState("");
   const [showPicker, setShowPicker] = useState<boolean>(false);
   const [commetImageUploadLoading, setCommentImageUpLoading] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [noticeId, setNoticeId] = useState<string | null>(null);
+  const [showImageModal, setShowImageModal] = useState<boolean>(false)
+
   const [setCommentData, { data: commentPostResponse }] =
     useCreateCommentMutation();
   const {
     data: comments,
-    isLoading,
+    isLoading : commentLoading,
     refetch: commentRefetch,
   } = useGetNoticeCommentQuery({ noticeId });
+
+
 
   const formatDate = (dateString: string | undefined) => {
     if (!dateString) return "";
@@ -110,9 +117,15 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
     setSelectedImage(null);
   };
 
+
+
   const handleGetNoticeId = (id: string) => {
     setNoticeId(id);
   };
+
+  useEffect(() => {
+    handleGetNoticeId(notice?._id)
+  },[notice?._id])
 
   const handleCreateComment = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -139,9 +152,11 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
     }
   };
   const allComments = comments?.payload || [];
-  console.log(commentPostResponse);
-  console.log(allComments);
 
+  const handleImageModal = () => {
+    setShowImageModal(!showImageModal)
+  }
+  
   return (
     <div className="">
       <div className="bg-white lg:max-w-4xl mx-auto rounded-md pb-4 dark:border dark:border-gray-700 dark:bg-gray-800">
@@ -263,9 +278,9 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
             <div className="flex gap-1 items-center">
               <BiComment className="text-green-400" />
               <Dialog>
-                <DialogTrigger>
+                <DialogTrigger >
                   <p className="text-xs text-gray-600">
-                    10
+                    {allComments?.length}
                     <span className="cursor-pointer hover:underline ml-[2px]">
                       others
                     </span>
@@ -282,7 +297,7 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
                     <DialogDescription className="h-96 overflow-auto">
                       <div className="mt-3">
                         <div className="flex flex-col gap-6">
-                          {allComments &&
+                          {allComments?.length === 0 ? <div><h1>No Comments in this post</h1></div> :  allComments &&
                             allComments?.map((comment) => (
                               <div className="flex gap-3" key={comment?._id}>
                                 <div className="cursor-pointer relative">
@@ -298,13 +313,16 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
                                       />
                                     </Avatar>
                                   )}
-                                  <AiFillLike  className="absolute text-lg bg-slate-300 rounded-full p-[2px] right-[1px] -bottom-[3px] text-blue-500"/>
+                                  <BiSolidComment  className="absolute text-lg bg-slate-300 rounded-full p-[2px] right-[1px] -bottom-[3px] text-blue-500"/>
                                 </div>
                                 <div>
                                   <h1 className="text-sm font-semibold hover:underline cursor-pointer">
                                     {comment?.user?.name}
                                   </h1>
-                                  <p className="text-xs">10m ago</p>
+                                  <p className="text-xs">
+                                    <TimeAgo date={comment?.createdAt} />
+                                  </p>
+                                 
                                 </div>
                               </div>
                             ))}
@@ -335,7 +353,7 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
                 {" "}
                 <div
                   className="flex items-center gap-1 cursor-pointer w-full hover:bg-gray-100 dark:hover:bg-gray-700 py-1 justify-center rounded-sm duration-200 px-4"
-                  onClick={() => handleGetNoticeId(notice?._id)}
+                  
                 >
                   <BiComment className="text-[21px] w-full text-gray-500 dark:text-gray-300" />
                   <p className="text-[17px] font-bold text-gray-500 dark:text-gray-300">
@@ -471,8 +489,19 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
                               <h1 className="text-sm font-semibold">
                                 {comment?.user?.name}
                               </h1>
-                              <p className="text-xs">10m ago</p>
+                              <p className="text-xs">
+                                <TimeAgo date={comment?.createdAt}  />
+                              </p>
                               <h2 className="mt-2 text-sm">{comment?.text}</h2>
+                              <div className="mt-2">
+                                  {
+                               (comment?.commentImage === "" || comment?.commentImage === null) ? "" : <Image src={comment?.commentImage} alt="commentImage"  width={100} height={100} onClick={handleImageModal}/>
+                                  }
+                                  </div>
+
+                                  {
+                                    comment?.commentImage === "" || null ? "" : <ImageModal image={comment?.commentImage} showImageModal setShowImageModal={setShowImageModal}/>
+                                  }
                             </div>
                           </div>
                         ))}
