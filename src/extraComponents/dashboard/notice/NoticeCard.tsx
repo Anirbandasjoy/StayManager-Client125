@@ -156,6 +156,9 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
  
   return (
     <div className="">
+      <div>
+    
+      </div>
       <div className="bg-white lg:max-w-4xl mx-auto rounded-md pb-4 dark:border dark:border-gray-700 dark:bg-gray-800">
         <div className="p-4 space-y-3">
           <div className="flex justify-between">

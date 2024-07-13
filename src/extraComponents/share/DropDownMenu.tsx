@@ -82,7 +82,7 @@ const DropDownMenu = ({
           <DropdownMenuGroup>
             <DropdownMenuItem>
               <Newspaper className="mr-2 h-4 w-4" />
-              <span>New Notice</span>
+              <span>Create Notice</span>
             </DropdownMenuItem>
             <DropdownMenuItem>
               <Users className="mr-2 h-4 w-4" />

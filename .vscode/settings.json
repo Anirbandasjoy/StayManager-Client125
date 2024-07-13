@@ -6,6 +6,9 @@
   },
   "[typescript]": {
     "editor.defaultFormatter": null
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
   //   "prettier.disableLanguages": [
   //     "javascript",
