@@ -1,4 +1,6 @@
 "use client";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { BellRing } from "lucide-react";
 import { useState } from "react";
@@ -15,7 +17,28 @@ const Navbar = () => {
             <h1 className="font-sans text-xl font-bold">Stay Manager</h1>
             <div className="flex md:order-2 space-x-2 md:space-x-0 rtl:space-x-reverse">
               <div className="flex items-center justify-center gap-4 ">
-                <BellRing className="mr-2 h-6 w-6 cursor-pointer" />
+                <Sheet>
+                  <SheetTrigger>
+                    {" "}
+                    <BellRing className="mr-2 h-6 w-6 cursor-pointer" />
+                  </SheetTrigger>
+                  <SheetContent>
+                    <div>
+                      <h1 className="text-lg font-semibold">Notifications</h1>
+                    </div>
+                    <div className="mt-3">
+                      <Tabs defaultValue="all" className="w-[400px]">
+                        <TabsList>
+                          <TabsTrigger value="all">All</TabsTrigger>
+                          <TabsTrigger value="unread">Unread</TabsTrigger>
+                        </TabsList>
+                        <TabsContent value="all">All content</TabsContent>
+                        <TabsContent value="unread">Unread content</TabsContent>
+                      </Tabs>
+                    </div>
+                  </SheetContent>
+                </Sheet>
+
                 <DropDownMenu
                   isOpenModal={isOpenModal}
                   setIsOpenModal={setIsOpenModal}

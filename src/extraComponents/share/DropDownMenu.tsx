@@ -38,7 +38,8 @@ const DropDownMenu = ({
     <div>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Avatar>
+          {
+            data?.payload ? <Avatar>
             {data?.payload?.profileImage === null ? (
               <AvatarFallback>
                 {data?.payload?.name?.slice(0, 2)}
@@ -49,7 +50,11 @@ const DropDownMenu = ({
                 alt={data?.payload?.name}
               />
             )}
-          </Avatar>
+          </Avatar> :  <Avatar>
+      <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+      <AvatarFallback>CN</AvatarFallback>
+    </Avatar>
+          }
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56">
           <DropdownMenuLabel className="cursor-pointer">
@@ -77,7 +82,7 @@ const DropDownMenu = ({
           <DropdownMenuGroup>
             <DropdownMenuItem>
               <Newspaper className="mr-2 h-4 w-4" />
-              <span>New Notice</span>
+              <span>Create Notice</span>
             </DropdownMenuItem>
             <DropdownMenuItem>
               <Users className="mr-2 h-4 w-4" />
