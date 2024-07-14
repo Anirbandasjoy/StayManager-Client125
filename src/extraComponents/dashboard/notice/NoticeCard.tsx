@@ -50,13 +50,16 @@ import { LuSend } from "react-icons/lu";
 import { RiAttachment2 } from "react-icons/ri";
 import {
   useCreateCommentMutation,
+  useCreateReactMutation,
   useGetNoticeCommentQuery,
+  useGetReactQuery,
 } from "@/redux/api/baseApi";
 import { toast } from "@/components/ui/use-toast";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import TimeAgo from "./TimeAgo";
 import ImageModal from "./ImageModal";
 const NoticeCard = ({ notice }: { notice?: any }) => {
+
   const [inputStr, setInputStr] = useState("");
   const [showPicker, setShowPicker] = useState<boolean>(false);
   const [commetImageUploadLoading, setCommentImageUpLoading] = useState(false);
@@ -68,7 +71,7 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
     useCreateCommentMutation();
   const {
     data: comments,
-    isLoading : commentLoading,
+    isLoading: commentLoading,
     refetch: commentRefetch,
   } = useGetNoticeCommentQuery({ noticeId });
 
@@ -125,7 +128,7 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
 
   useEffect(() => {
     handleGetNoticeId(notice?._id)
-  },[notice?._id])
+  }, [notice?._id])
 
   const handleCreateComment = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -153,7 +156,17 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
   };
   const allComments = comments?.payload || [];
 
- 
+
+  const [createReact] = useCreateReactMutation()
+  const LikeOnclick = async (noticeId: string) => {
+    await createReact({ noticeId }).unwrap();
+    console.log(data)
+  }
+
+  const { data } = useGetReactQuery(notice?._id)
+  const likedArray = data?.payload
+
+
   return (
     <div className="">
       <div>
@@ -254,9 +267,14 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
               <BiSolidLike className="text-green-400" />
 
               <Dialog>
+
+                {/*_________ Liked Length Here ____________ */}
+
                 <DialogTrigger>
                   <p className="text-xs text-gray-600">
-                    12
+                    {
+                      likedArray?.length
+                    }
                     <span className="cursor-pointer hover:underline ml-[2px]">
                       others
                     </span>
@@ -297,7 +315,7 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
                     <DialogDescription className="h-96 overflow-auto">
                       <div className="mt-3">
                         <div className="flex flex-col gap-6">
-                          {allComments?.length === 0 ? <div><h1>No Comments in this post</h1></div> :  allComments &&
+                          {allComments?.length === 0 ? <div><h1>No Comments in this post</h1></div> : allComments &&
                             allComments?.map((comment) => (
                               <div className="flex gap-3" key={comment?._id}>
                                 <div className="cursor-pointer relative">
@@ -313,7 +331,7 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
                                       />
                                     </Avatar>
                                   )}
-                                  <BiSolidComment  className="absolute text-lg bg-slate-300 rounded-full p-[2px] right-[1px] -bottom-[3px] text-blue-500"/>
+                                  <BiSolidComment className="absolute text-lg bg-slate-300 rounded-full p-[2px] right-[1px] -bottom-[3px] text-blue-500" />
                                 </div>
                                 <div>
                                   <h1 className="text-sm font-semibold hover:underline cursor-pointer">
@@ -322,7 +340,7 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
                                   <p className="text-xs">
                                     <TimeAgo date={comment?.createdAt} />
                                   </p>
-                                 
+
                                 </div>
                               </div>
                             ))}
@@ -341,19 +359,21 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
         </div>
         <div className="sm:px-4 w-11/12 mx-auto h-[1px] bg-gray-200 dark:bg-gray-700"></div>
         <div className="sm:px-4 mt-2 flex gap-6 sm:gap-0 items-center justify-between ">
-          <div className="flex items-center gap-1 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 py-1 justify-start rounded-sm duration-200 px-4">
+
+          {/* _________________ Like Button _________________  */}
+          <button onClick={() => LikeOnclick(notice?._id)} className="flex items-center gap-1 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 py-1 justify-start rounded-sm duration-200 px-4">
             <BiLike className="text-[21px] text-gray-500 dark:text-gray-300" />
             <p className="text-[17px] font-bold text-gray-500 dark:text-gray-300">
               Like
             </p>
-          </div>
+          </button>
           <div className="relative">
             <AlertDialog>
               <AlertDialogTrigger>
                 {" "}
                 <div
                   className="flex items-center gap-1 cursor-pointer w-full hover:bg-gray-100 dark:hover:bg-gray-700 py-1 justify-center rounded-sm duration-200 px-4"
-                  
+
                 >
                   <BiComment className="text-[21px] w-full text-gray-500 dark:text-gray-300" />
                   <p className="text-[17px] font-bold text-gray-500 dark:text-gray-300">
@@ -490,18 +510,18 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
                                 {comment?.user?.name}
                               </h1>
                               <p className="text-xs">
-                                <TimeAgo date={comment?.createdAt}  />
+                                <TimeAgo date={comment?.createdAt} />
                               </p>
                               <h2 className="mt-2 text-sm">{comment?.text}</h2>
                               <div className="mt-2">
-                                  {
-                               (comment?.commentImage === "" || comment?.commentImage === null) ? "" : <div className="cursor-pointer" onClick={() => setShowImageModal(!showImageModal)}><Image src={comment?.commentImage} alt="commentImage"  width={100} height={100} /></div>
-                                  }
-                                  </div>
+                                {
+                                  (comment?.commentImage === "" || comment?.commentImage === null) ? "" : <div className="cursor-pointer" onClick={() => setShowImageModal(!showImageModal)}><Image src={comment?.commentImage} alt="commentImage" width={100} height={100} /></div>
+                                }
+                              </div>
 
-                                  {
-                                    comment?.commentImage === "" || null ? "" : <ImageModal image={comment?.commentImage} showImageModal={showImageModal} setShowImageModal={setShowImageModal}/>
-                                  }
+                              {
+                                comment?.commentImage === "" || null ? "" : <ImageModal image={comment?.commentImage} showImageModal={showImageModal} setShowImageModal={setShowImageModal} />
+                              }
                             </div>
                           </div>
                         ))}
@@ -520,7 +540,7 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
         </div>
         <div className="sm:px-4 w-11/12 mx-auto h-[1px] mt-2 bg-gray-200 dark:bg-gray-700"></div>
       </div>
-    </div>
+    </div >
   );
 };
 

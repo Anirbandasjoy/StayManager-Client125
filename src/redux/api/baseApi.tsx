@@ -78,6 +78,20 @@ const stayManagerApi = createApi({
     >({
       query: ({ noticeId }) => `/comment/find-NoticeComments/${noticeId}`,
     }),
+
+    // React Api (Like)
+    createReact: builder.mutation<void, any>({
+      query: ({ noticeId }) => ({
+        url: `/react/create/${noticeId}`,
+        method: "POST",
+        body: { react: "Liked" },
+      })
+    }),
+
+    getReact: builder.query({
+      query: (noticeId) => `/react/find-notice-react/${noticeId}`
+    })
+
   }),
 });
 
@@ -90,6 +104,8 @@ export const {
   useUserRegistrationMutation,
   useCreateCommentMutation,
   useGetNoticeCommentQuery,
+  useCreateReactMutation,
+  useGetReactQuery,
 } = stayManagerApi;
 
 export default stayManagerApi;
