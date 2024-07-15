@@ -51,6 +51,7 @@ import { RiAttachment2 } from "react-icons/ri";
 import {
   useCreateCommentMutation,
   useCreateReactMutation,
+  useCurrentUserQuery,
   useGetNoticeCommentQuery,
   useGetReactQuery,
 } from "@/redux/api/baseApi";
@@ -59,14 +60,14 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import TimeAgo from "./TimeAgo";
 import ImageModal from "./ImageModal";
 const NoticeCard = ({ notice }: { notice?: any }) => {
-
   const [inputStr, setInputStr] = useState("");
   const [showPicker, setShowPicker] = useState<boolean>(false);
   const [commetImageUploadLoading, setCommentImageUpLoading] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [noticeId, setNoticeId] = useState<string | null>(null);
-  const [showImageModal, setShowImageModal] = useState<boolean>(false)
-
+  const [showImageModal, setShowImageModal] = useState<boolean>(false);
+  const { data: currentUser } = useCurrentUserQuery();
+  const userId = currentUser?.payload?._id;
   const [setCommentData, { data: commentPostResponse }] =
     useCreateCommentMutation();
   const {
@@ -74,8 +75,8 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
     isLoading: commentLoading,
     refetch: commentRefetch,
   } = useGetNoticeCommentQuery({ noticeId });
-
-
+  const { data, refetch: reactRefetch } = useGetReactQuery(notice?._id);
+  const likedArray = data?.payload || [];
 
   const formatDate = (dateString: string | undefined) => {
     if (!dateString) return "";
@@ -120,15 +121,13 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
     setSelectedImage(null);
   };
 
-
-
   const handleGetNoticeId = (id: string) => {
     setNoticeId(id);
   };
 
   useEffect(() => {
-    handleGetNoticeId(notice?._id)
-  }, [notice?._id])
+    handleGetNoticeId(notice?._id);
+  }, [notice?._id]);
 
   const handleCreateComment = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -156,22 +155,24 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
   };
   const allComments = comments?.payload || [];
 
-
-  const [createReact] = useCreateReactMutation()
+  const [createReact] = useCreateReactMutation();
   const LikeOnclick = async (noticeId: string) => {
-    await createReact({ noticeId }).unwrap();
-    console.log(data)
-  }
+    try {
+      await createReact({ noticeId }).unwrap();
+      reactRefetch();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  const { data } = useGetReactQuery(notice?._id)
-  const likedArray = data?.payload
-
+  console.log({ likedArray });
+  console.log({ userId });
+  console.log({ notice: notice?._id });
 
   return (
     <div className="">
-      <div>
-    
-      </div>
+      <div></div>
       <div className="bg-white lg:max-w-4xl mx-auto rounded-md pb-4 dark:border dark:border-gray-700 dark:bg-gray-800">
         <div className="p-4 space-y-3">
           <div className="flex justify-between">
@@ -264,17 +265,14 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
         <div className="mt-8 mb-2">
           <div className="flex justify-between px-8">
             <div className="flex gap-1 items-center">
-              <BiSolidLike className="text-green-400" />
+              <BiSolidLike className="text-blue-400" />
 
               <Dialog>
-
                 {/*_________ Liked Length Here ____________ */}
 
                 <DialogTrigger>
                   <p className="text-xs text-gray-600">
-                    {
-                      likedArray?.length
-                    }
+                    {likedArray?.length}
                     <span className="cursor-pointer hover:underline ml-[2px]">
                       others
                     </span>
@@ -283,20 +281,59 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
                 <DialogContent>
                   <DialogHeader>
                     <DialogTitle>
-                      <h1 className="text-green-500 font-bold">ALL</h1>
+                      <h1 className="text-blue-500 font-bold font-serif">
+                        All Reacter
+                      </h1>
                     </DialogTitle>
                     <div className="w-full h-[1px] bg-gray-500"></div>
                     <DialogDescription className="h-96 overflow-auto">
-                      hello
+                      <div className="mt-3">
+                        <div className="flex flex-col gap-6">
+                          {likedArray?.length === 0 ? (
+                            <div>
+                              <h1>No Comments in this post</h1>
+                            </div>
+                          ) : (
+                            likedArray &&
+                            likedArray.map((react: any) => (
+                              <div className="flex gap-3" key={react?._id}>
+                                <div className="cursor-pointer relative">
+                                  <Avatar>
+                                    {react?.user?.profileImage === null ? (
+                                      <AvatarFallback>
+                                        {react?.user?.name?.slice(0, 2)}
+                                      </AvatarFallback>
+                                    ) : (
+                                      <AvatarImage
+                                        src={react?.user?.profileImage}
+                                        alt={react?.user?.name}
+                                      />
+                                    )}
+                                  </Avatar>
+                                  <BiSolidLike className="absolute text-lg bg-slate-300 rounded-full p-[2px] right-[1px] -bottom-[3px] text-blue-500" />
+                                </div>
+                                <div>
+                                  <h1 className="text-sm font-semibold hover:underline cursor-pointer">
+                                    {react?.user?.name}
+                                  </h1>
+                                  <p className="text-xs">
+                                    <TimeAgo date={react?.createdAt} />
+                                  </p>
+                                </div>
+                              </div>
+                            ))
+                          )}
+                        </div>
+                      </div>
                     </DialogDescription>
                   </DialogHeader>
                 </DialogContent>
               </Dialog>
             </div>
             <div className="flex gap-1 items-center">
-              <BiComment className="text-green-400" />
+              <BiComment className="text-blue-400" />
               <Dialog>
-                <DialogTrigger >
+                <DialogTrigger>
                   <p className="text-xs text-gray-600">
                     {allComments?.length}
                     <span className="cursor-pointer hover:underline ml-[2px]">
@@ -315,22 +352,27 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
                     <DialogDescription className="h-96 overflow-auto">
                       <div className="mt-3">
                         <div className="flex flex-col gap-6">
-                          {allComments?.length === 0 ? <div><h1>No Comments in this post</h1></div> : allComments &&
+                          {allComments?.length === 0 ? (
+                            <div>
+                              <h1>No Comments in this post</h1>
+                            </div>
+                          ) : (
+                            allComments &&
                             allComments?.map((comment) => (
                               <div className="flex gap-3" key={comment?._id}>
                                 <div className="cursor-pointer relative">
-                                  {comment?.user?.profileImage === null ? (
-                                    <AvatarFallback>
-                                      {comment?.user?.name?.slice(0, 2)}
-                                    </AvatarFallback>
-                                  ) : (
-                                    <Avatar>
+                                  <Avatar>
+                                    {comment?.user?.profileImage === null ? (
+                                      <AvatarFallback>
+                                        {comment?.user?.name?.slice(0, 2)}
+                                      </AvatarFallback>
+                                    ) : (
                                       <AvatarImage
                                         src={comment?.user?.profileImage}
                                         alt={comment?.user?.name}
                                       />
-                                    </Avatar>
-                                  )}
+                                    )}
+                                  </Avatar>
                                   <BiSolidComment className="absolute text-lg bg-slate-300 rounded-full p-[2px] right-[1px] -bottom-[3px] text-blue-500" />
                                 </div>
                                 <div>
@@ -340,10 +382,10 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
                                   <p className="text-xs">
                                     <TimeAgo date={comment?.createdAt} />
                                   </p>
-
                                 </div>
                               </div>
-                            ))}
+                            ))
+                          )}
                         </div>
                       </div>
                     </DialogDescription>
@@ -352,29 +394,40 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
               </Dialog>
             </div>
             <div className="flex gap-1 items-center cursor-pointer">
-              <BiShare className="text-green-400" />
+              <BiShare className="text-blue-400" />
               <p className="text-xs text-gray-600">12</p>
             </div>
           </div>
         </div>
         <div className="sm:px-4 w-11/12 mx-auto h-[1px] bg-gray-200 dark:bg-gray-700"></div>
         <div className="sm:px-4 mt-2 flex gap-6 sm:gap-0 items-center justify-between ">
-
           {/* _________________ Like Button _________________  */}
-          <button onClick={() => LikeOnclick(notice?._id)} className="flex items-center gap-1 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 py-1 justify-start rounded-sm duration-200 px-4">
-            <BiLike className="text-[21px] text-gray-500 dark:text-gray-300" />
-            <p className="text-[17px] font-bold text-gray-500 dark:text-gray-300">
-              Like
-            </p>
-          </button>
+          {likedArray?.find(
+            (react: any) =>
+              react?.notice === notice?._id && react?.user?._id === userId
+          ) ? (
+            <button className="flex items-center gap-1 cursor-pointer  dark:hover:bg-gray-700 py-1 justify-start rounded-sm duration-200 px-4">
+              <BiSolidLike className="text-[21px] text-[#639cdc]  dark:text-blue-400 " />
+              <p className="text-[17px] font-bold text-blue-400 dark:text-blue-400">
+                Like
+              </p>
+            </button>
+          ) : (
+            <button
+              onClick={() => LikeOnclick(notice?._id)}
+              className="flex items-center gap-1 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 py-1 justify-start rounded-sm duration-200 px-4"
+            >
+              <BiLike className="text-[21px] text-gray-500 dark:text-gray-300" />
+              <p className="text-[17px] font-bold text-gray-500 dark:text-gray-300">
+                Like
+              </p>
+            </button>
+          )}
           <div className="relative">
             <AlertDialog>
               <AlertDialogTrigger>
                 {" "}
-                <div
-                  className="flex items-center gap-1 cursor-pointer w-full hover:bg-gray-100 dark:hover:bg-gray-700 py-1 justify-center rounded-sm duration-200 px-4"
-
-                >
+                <div className="flex items-center gap-1 cursor-pointer w-full hover:bg-gray-100 dark:hover:bg-gray-700 py-1 justify-center rounded-sm duration-200 px-4">
                   <BiComment className="text-[21px] w-full text-gray-500 dark:text-gray-300" />
                   <p className="text-[17px] font-bold text-gray-500 dark:text-gray-300">
                     Comment
@@ -514,14 +567,35 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
                               </p>
                               <h2 className="mt-2 text-sm">{comment?.text}</h2>
                               <div className="mt-2">
-                                {
-                                  (comment?.commentImage === "" || comment?.commentImage === null) ? "" : <div className="cursor-pointer" onClick={() => setShowImageModal(!showImageModal)}><Image src={comment?.commentImage} alt="commentImage" width={100} height={100} /></div>
-                                }
+                                {comment?.commentImage === "" ||
+                                comment?.commentImage === null ? (
+                                  ""
+                                ) : (
+                                  <div
+                                    className="cursor-pointer"
+                                    onClick={() =>
+                                      setShowImageModal(!showImageModal)
+                                    }
+                                  >
+                                    <Image
+                                      src={comment?.commentImage}
+                                      alt="commentImage"
+                                      width={100}
+                                      height={100}
+                                    />
+                                  </div>
+                                )}
                               </div>
 
-                              {
-                                comment?.commentImage === "" || null ? "" : <ImageModal image={comment?.commentImage} showImageModal={showImageModal} setShowImageModal={setShowImageModal} />
-                              }
+                              {comment?.commentImage === "" || null ? (
+                                ""
+                              ) : (
+                                <ImageModal
+                                  image={comment?.commentImage}
+                                  showImageModal={showImageModal}
+                                  setShowImageModal={setShowImageModal}
+                                />
+                              )}
                             </div>
                           </div>
                         ))}
@@ -540,7 +614,7 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
         </div>
         <div className="sm:px-4 w-11/12 mx-auto h-[1px] mt-2 bg-gray-200 dark:bg-gray-700"></div>
       </div>
-    </div >
+    </div>
   );
 };
 

@@ -85,13 +85,12 @@ const stayManagerApi = createApi({
         url: `/react/create/${noticeId}`,
         method: "POST",
         body: { react: "Liked" },
-      })
+      }),
     }),
 
     getReact: builder.query({
-      query: (noticeId) => `/react/find-notice-react/${noticeId}`
-    })
-
+      query: (noticeId) => `/react/find-notice-react/${noticeId}`,
+    }),
   }),
 });
 
