@@ -59,6 +59,7 @@ import { toast } from "@/components/ui/use-toast";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import TimeAgo from "./TimeAgo";
 import ImageModal from "./ImageModal";
+import SaveNotice from "./SaveNotice";
 const NoticeCard = ({ notice }: { notice?: any }) => {
   const [inputStr, setInputStr] = useState("");
   const [showPicker, setShowPicker] = useState<boolean>(false);
@@ -160,15 +161,14 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
     try {
       await createReact({ noticeId }).unwrap();
       reactRefetch();
-      console.log(data);
+     
     } catch (error) {
       console.log(error);
     }
   };
 
-  console.log({ likedArray });
-  console.log({ userId });
-  console.log({ notice: notice?._id });
+
+ 
 
   return (
     <div className="">
@@ -224,10 +224,7 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuItem>
-                  <div className="flex gap-1 items-center cursor-pointer">
-                    <LuBookmarkPlus />
-                    Save
-                  </div>
+                  <SaveNotice noticeId={notice?._id}/>
                 </DropdownMenuItem>
                 <>
                   <DropdownMenuItem>
@@ -485,7 +482,7 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
                                 className="flex items-center space-x-1 cursor-pointer"
                                 onClick={() => {
                                   setShowPicker((val) => !val);
-                                  console.log("Picker Toggled");
+                              
                                 }}
                               >
                                 <BsEmojiFrown className="sm:text-xl text-gray-500 dark:text-gray-300 cursor-pointer" />

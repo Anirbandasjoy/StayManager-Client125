@@ -173,6 +173,24 @@ export interface allNoticeResponse {
   }[];
 }
 
+// save notice 
+
+export interface saveNoticeRequest {
+  notice : string
+}
+
+export interface saveNoticeResponse {
+  success : true,
+  statusCode : 201,
+  message : string,
+  payload : {
+    _id : string,
+    user : string,
+    notice : string
+  }
+
+}
+
 export type DateTimeFormatOptions = {
   month?: "long" | "numeric" | "2-digit" | "short" | "narrow";
   day?: "numeric" | "2-digit";

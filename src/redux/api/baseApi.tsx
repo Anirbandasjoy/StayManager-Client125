@@ -12,6 +12,8 @@ import {
   processRegistrationResponse,
   registrationRequest,
   registrationResponse,
+  saveNoticeRequest,
+  saveNoticeResponse,
 } from "@/helper/type";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
@@ -91,6 +93,16 @@ const stayManagerApi = createApi({
     getReact: builder.query({
       query: (noticeId) => `/react/find-notice-react/${noticeId}`,
     }),
+
+    // Notice Save api
+
+    saveNotice : builder.mutation<saveNoticeResponse, saveNoticeRequest>({
+      query : ({notice}) => ({
+        url : "/save/notice",
+        method : "POST",
+        body : {notice}
+      })
+    })
   }),
 });
 
@@ -105,6 +117,7 @@ export const {
   useGetNoticeCommentQuery,
   useCreateReactMutation,
   useGetReactQuery,
+  useSaveNoticeMutation
 } = stayManagerApi;
 
 export default stayManagerApi;

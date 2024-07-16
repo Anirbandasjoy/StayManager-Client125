@@ -1,8 +1,11 @@
-import Navbar from "@/extraComponents/home/Navbar"
-
+import Navbar from "@/extraComponents/dashboard/sidebar/Navbar"
 const Save = () => {
   return (
-    <div>Save page</div>
+    <div>
+      <Navbar />
+      Save page
+  
+    </div>
     
   )
 }
