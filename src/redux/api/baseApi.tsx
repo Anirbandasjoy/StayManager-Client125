@@ -4,6 +4,7 @@ import {
   CommentCreateResponse,
   CommentRequest,
   curretUserResponse,
+  findSaveNotice,
   GetNoticeCommentResponse,
   loginRequest,
   loginResponse,
@@ -96,13 +97,15 @@ const stayManagerApi = createApi({
 
     // Notice Save api
 
-    saveNotice : builder.mutation<saveNoticeResponse, saveNoticeRequest>({
-      query : ({notice}) => ({
-        url : "/save/notice",
-        method : "POST",
-        body : {notice}
-      })
-    })
+    saveNotice: builder.mutation<saveNoticeResponse, saveNoticeRequest>({
+      query: ({ notice }) => ({
+        url: `/save/notice/${notice}`,
+        method: "POST",
+      }),
+    }),
+    findSaveNotice: builder.query<findSaveNotice, void>({
+      query: () => "/save/find-notice",
+    }),
   }),
 });
 
@@ -117,7 +120,8 @@ export const {
   useGetNoticeCommentQuery,
   useCreateReactMutation,
   useGetReactQuery,
-  useSaveNoticeMutation
+  useSaveNoticeMutation,
+  useFindSaveNoticeQuery
 } = stayManagerApi;
 
 export default stayManagerApi;

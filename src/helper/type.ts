@@ -180,15 +180,26 @@ export interface saveNoticeRequest {
 }
 
 export interface saveNoticeResponse {
-  success : true,
-  statusCode : 201,
+  success : boolean,
   message : string,
   payload : {
     _id : string,
     user : string,
     notice : string
+    createdAt: string;
+    updatedAt: string;
   }
 
+}
+
+export interface findSaveNotice {
+  success : boolean,
+  message : string,
+  payload : {
+    _id : string,
+    user : User
+    notice : Notice
+  }
 }
 
 export type DateTimeFormatOptions = {
