@@ -6,7 +6,7 @@ import { useFindNoticeQuery } from "@/redux/api/baseApi";
 import React from "react";
 
 const DashboardHome = () => {
-  const {data, isLoading} = useFindNoticeQuery();
+  const {data, isLoading,refetch : noticeRefetch} = useFindNoticeQuery();
   if(isLoading){
     return <h1>Loading...</h1>
   }
@@ -19,7 +19,7 @@ const DashboardHome = () => {
         
       {
         notice?.map((notice) => (
-          <NoticeCard key={notice?._id} notice={notice} />
+          <NoticeCard key={notice?._id} notice={notice} noticeRefetch={noticeRefetch} />
         ))
       }
       </div>

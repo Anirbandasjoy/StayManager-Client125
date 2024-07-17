@@ -4,6 +4,8 @@ import {
   CommentCreateResponse,
   CommentRequest,
   curretUserResponse,
+  deleteNoticeRequest,
+  deleteNoticeResponse,
   findSaveNotice,
   GetNoticeCommentResponse,
   loginRequest,
@@ -95,6 +97,14 @@ const stayManagerApi = createApi({
       query: (noticeId) => `/react/find-notice-react/${noticeId}`,
     }),
 
+    deleteNotice : builder.mutation<deleteNoticeResponse,deleteNoticeRequest>({
+      query : ({noticeId}) => ({
+       url : `/notice/delete/${noticeId}`,
+       method : "DELETE",
+      
+      })
+    }),
+
     // Notice Save api
 
     saveNotice: builder.mutation<saveNoticeResponse, saveNoticeRequest>({
@@ -121,7 +131,8 @@ export const {
   useCreateReactMutation,
   useGetReactQuery,
   useSaveNoticeMutation,
-  useFindSaveNoticeQuery
+  useFindSaveNoticeQuery,
+  useDeleteNoticeMutation
 } = stayManagerApi;
 
 export default stayManagerApi;

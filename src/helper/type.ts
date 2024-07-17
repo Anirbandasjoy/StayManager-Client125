@@ -88,8 +88,8 @@ interface User {
 export interface Notice {
   _id: string;
   caption: string;
-  author: string | User;
-  noticeImage: string | null;
+  author:  User;
+  noticeImage: string 
 }
 
 interface Comment {
@@ -173,6 +173,15 @@ export interface allNoticeResponse {
   }[];
 }
 
+export interface deleteNoticeResponse {
+  success : boolean,
+  message : string
+}
+
+export interface deleteNoticeRequest {
+  noticeId : string
+}
+
 // save notice 
 
 export interface saveNoticeRequest {
@@ -199,7 +208,7 @@ export interface findSaveNotice {
     _id : string,
     user : User
     notice : Notice
-  }
+  }[]
 }
 
 export type DateTimeFormatOptions = {

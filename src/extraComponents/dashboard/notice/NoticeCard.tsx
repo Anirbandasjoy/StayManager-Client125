@@ -28,7 +28,7 @@ import { LuBookmarkPlus } from "react-icons/lu";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { FcApproval } from "react-icons/fc";
-import { DateTimeFormatOptions } from "@/helper/type";
+import { DateTimeFormatOptions, Notice } from "@/helper/type";
 import Image from "next/image";
 import ShareNotice from "./ShareNotice";
 
@@ -60,7 +60,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import TimeAgo from "./TimeAgo";
 import ImageModal from "./ImageModal";
 import SaveNotice from "./SaveNotice";
-const NoticeCard = ({ notice }: { notice?: any }) => {
+import DeleteNotice from "./DeleteNotice";
+const NoticeCard = ({ notice,noticeRefetch }: { notice : Notice,noticeRefetch : any }) => {
   const [inputStr, setInputStr] = useState("");
   const [showPicker, setShowPicker] = useState<boolean>(false);
   const [commetImageUploadLoading, setCommentImageUpLoading] = useState(false);
@@ -167,9 +168,6 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
     }
   };
 
-
- 
-
   return (
     <div className="">
       <div></div>
@@ -177,18 +175,19 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
         <div className="p-4 space-y-3">
           <div className="flex justify-between">
             <Link
-              href={`/profile/${notice?.profileId?.email}`}
+              href={`/profile/${notice?.author?._id}`}
               className="flex gap-3 "
             >
               <div className="relative">
-                {notice?.profileId?.profileImage ? (
+                {notice?.author?.profileImage ? (
                   <div className="w-11 h-11">
                     <Image
                       className="w-full h-full rounded-full object-cover cursor-pointer"
-                      src={notice?.profileId?.profileImage}
+                      src={notice?.author?.profileImage}
                       alt="profile"
                       width={44}
                       height={44}
+                      loading="lazy"
                     />
                   </div>
                 ) : (
@@ -196,23 +195,23 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
                     Ad
                   </div>
                 )}
-                {notice?.profileId?.isVerified === "verified" && (
+                {/* {notice?.author?.isVerified === "verified" && (
                   <FcApproval className="text-[17px] absolute -bottom-1 right-[1px]" />
-                )}
+                )} */}
               </div>
               <div className="relative">
                 <h1 className="font-semibold text-gray-600 dark:text-gray-300">
-                  {notice?.profileId?.fullName}
+                  {notice?.author?.name}
                 </h1>
                 <h2 className="text-xs text-gray-600 dark:text-gray-300">
-                  {formatDate(notice?.profileId?.createdAt)}
+                  <TimeAgo date={notice?.author?.createdAt}/>
                 </h2>
-                {notice?.status === "approved" && (
+                {/* {notice?.status === "approved" && (
                   <div className="flex gap-1 absolute -right-24 -top-1">
                     <AiOutlineCheckCircle className="text-red-500 text-[14px]" />
                     <h1 className="text-xs text-red-500">Verified News</h1>
                   </div>
-                )}
+                )} */}
               </div>
             </Link>
 
@@ -237,10 +236,7 @@ const NoticeCard = ({ notice }: { notice?: any }) => {
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
-                    <div className="flex gap-1 items-center cursor-pointer">
-                      <RiDeleteBin6Line />
-                      Delete
-                    </div>
+                    <DeleteNotice noticeId={notice?._id} noticeRefetch={noticeRefetch}/>
                   </DropdownMenuItem>
                 </>
               </DropdownMenuContent>
