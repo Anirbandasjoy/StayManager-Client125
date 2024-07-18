@@ -80,10 +80,12 @@ const DropDownMenu = ({
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuItem>
-              <Newspaper className="mr-2 h-4 w-4" />
-              <span>Create Notice</span>
+              <Link href="/dashboard/create-notice">
+            <DropdownMenuItem >
+            <Newspaper className="mr-2 h-4 w-4" />
+            <span>Create Notice</span>
             </DropdownMenuItem>
+              </Link>
             <DropdownMenuItem>
               <Users className="mr-2 h-4 w-4" />
               <span>Team</span>
