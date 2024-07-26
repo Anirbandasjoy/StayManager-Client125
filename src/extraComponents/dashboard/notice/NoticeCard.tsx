@@ -52,6 +52,7 @@ import {
   useCreateCommentMutation,
   useCreateReactMutation,
   useCurrentUserQuery,
+  useDisLikeMutation,
   useGetNoticeCommentQuery,
   useGetReactQuery,
 } from "@/redux/api/baseApi";
@@ -61,7 +62,13 @@ import TimeAgo from "./TimeAgo";
 import ImageModal from "./ImageModal";
 import SaveNotice from "./SaveNotice";
 import DeleteNotice from "./DeleteNotice";
-const NoticeCard = ({ notice,noticeRefetch }: { notice : Notice,noticeRefetch : any }) => {
+const NoticeCard = ({
+  notice,
+  noticeRefetch,
+}: {
+  notice: Notice;
+  noticeRefetch: any;
+}) => {
   const [inputStr, setInputStr] = useState("");
   const [showPicker, setShowPicker] = useState<boolean>(false);
   const [commetImageUploadLoading, setCommentImageUpLoading] = useState(false);
@@ -78,6 +85,7 @@ const NoticeCard = ({ notice,noticeRefetch }: { notice : Notice,noticeRefetch : 
     refetch: commentRefetch,
   } = useGetNoticeCommentQuery({ noticeId });
   const { data, refetch: reactRefetch } = useGetReactQuery(notice?._id);
+  const [setDisLike, { data: disLikeData }] = useDisLikeMutation();
   const likedArray = data?.payload || [];
 
   const formatDate = (dateString: string | undefined) => {
@@ -162,7 +170,15 @@ const NoticeCard = ({ notice,noticeRefetch }: { notice : Notice,noticeRefetch : 
     try {
       await createReact({ noticeId }).unwrap();
       reactRefetch();
-     
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleDisLike = async (id: string) => {
+    try {
+      await setDisLike({ noticeId: id }).unwrap();
+      reactRefetch();
     } catch (error) {
       console.log(error);
     }
@@ -204,7 +220,7 @@ const NoticeCard = ({ notice,noticeRefetch }: { notice : Notice,noticeRefetch : 
                   {notice?.author?.name}
                 </h1>
                 <h2 className="text-xs text-gray-600 dark:text-gray-300">
-                  <TimeAgo date={notice?.author?.createdAt}/>
+                  <TimeAgo date={notice?.author?.createdAt} />
                 </h2>
                 {/* {notice?.status === "approved" && (
                   <div className="flex gap-1 absolute -right-24 -top-1">
@@ -223,7 +239,7 @@ const NoticeCard = ({ notice,noticeRefetch }: { notice : Notice,noticeRefetch : 
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuItem>
-                  <SaveNotice noticeId={notice?._id}/>
+                  <SaveNotice noticeId={notice?._id} />
                 </DropdownMenuItem>
                 <>
                   <DropdownMenuItem>
@@ -236,7 +252,10 @@ const NoticeCard = ({ notice,noticeRefetch }: { notice : Notice,noticeRefetch : 
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
-                    <DeleteNotice noticeId={notice?._id} noticeRefetch={noticeRefetch}/>
+                    <DeleteNotice
+                      noticeId={notice?._id}
+                      noticeRefetch={noticeRefetch}
+                    />
                   </DropdownMenuItem>
                 </>
               </DropdownMenuContent>
@@ -399,7 +418,10 @@ const NoticeCard = ({ notice,noticeRefetch }: { notice : Notice,noticeRefetch : 
             (react: any) =>
               react?.notice === notice?._id && react?.user?._id === userId
           ) ? (
-            <button className="flex items-center gap-1 cursor-pointer  dark:hover:bg-gray-700 py-1 justify-start rounded-sm duration-200 px-4">
+            <button
+              onClick={() => handleDisLike(notice?._id)}
+              className="flex items-center gap-1 cursor-pointer  dark:hover:bg-gray-700 py-1 justify-start rounded-sm duration-200 px-4"
+            >
               <BiSolidLike className="text-[21px] text-[#639cdc]  dark:text-blue-400 " />
               <p className="text-[17px] font-bold text-blue-400 dark:text-blue-400">
                 Like
@@ -478,7 +500,6 @@ const NoticeCard = ({ notice,noticeRefetch }: { notice : Notice,noticeRefetch : 
                                 className="flex items-center space-x-1 cursor-pointer"
                                 onClick={() => {
                                   setShowPicker((val) => !val);
-                              
                                 }}
                               >
                                 <BsEmojiFrown className="sm:text-xl text-gray-500 dark:text-gray-300 cursor-pointer" />
@@ -539,9 +560,11 @@ const NoticeCard = ({ notice,noticeRefetch }: { notice : Notice,noticeRefetch : 
                           <div className="flex gap-3" key={comment?._id}>
                             <div>
                               {comment?.user?.profileImage === null ? (
-                                <AvatarFallback>
-                                  {comment?.user?.name?.slice(0, 2)}
-                                </AvatarFallback>
+                                <Avatar>
+                                  <AvatarFallback>
+                                    {comment?.user?.name?.slice(0, 2)}
+                                  </AvatarFallback>
+                                </Avatar>
                               ) : (
                                 <Avatar>
                                   <AvatarImage
