@@ -118,6 +118,13 @@ const stayManagerApi = createApi({
         method: "POST",
       }),
     }),
+    createNotice: builder.mutation({
+      query: ({ caption, noticeImage }) => ({
+        url: "/notice/create",
+        method: "POST",
+        body: { caption, noticeImage },
+      }),
+    }),
 
     findSaveNotice: builder.query<findSaveNotice, void>({
       query: () => "/save/find-notice",
@@ -139,7 +146,8 @@ export const {
   useSaveNoticeMutation,
   useFindSaveNoticeQuery,
   useDeleteNoticeMutation,
-  useDisLikeMutation
+  useDisLikeMutation,
+  useCreateNoticeMutation,
 } = stayManagerApi;
 
 export default stayManagerApi;

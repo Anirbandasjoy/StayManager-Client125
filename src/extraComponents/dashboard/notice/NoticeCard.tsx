@@ -24,10 +24,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LuBookmarkPlus } from "react-icons/lu";
-import { RiDeleteBin6Line } from "react-icons/ri";
-import { AiOutlineCheckCircle } from "react-icons/ai";
-import { FcApproval } from "react-icons/fc";
+
 import { DateTimeFormatOptions, Notice } from "@/helper/type";
 import Image from "next/image";
 import ShareNotice from "./ShareNotice";
@@ -39,7 +36,7 @@ import {
   AlertDialogFooter,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { uploadImage } from "@/helper/common";
+import { isImage, uploadImage } from "@/helper/common";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import Picker from "emoji-picker-react";
@@ -122,9 +119,6 @@ const NoticeCard = ({
       setCommentImageUpLoading(false);
     }
     event.target.value = "";
-  };
-  const isImage = (file: File): boolean => {
-    return file.type.startsWith("image/");
   };
 
   const handleDeleteImage = () => {
