@@ -20,6 +20,7 @@ const CreateNotice = () => {
   const [noticetext, setNoticeText] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [setNotice, { data: noticeData }] = useCreateNoticeMutation();
+  const { refetch: noticeRefetch } = useFindNoticeQuery();
   const router = useRouter();
   const handleSelectNoticeImage = () => {
     const noticeImage = document.getElementById(
@@ -62,6 +63,7 @@ const CreateNotice = () => {
       toast({
         title: "Create a New Comment",
       });
+      noticeRefetch();
       router.push("/dashboard");
     } catch (error) {
       console.log(error);
@@ -122,7 +124,9 @@ const CreateNotice = () => {
         </div>
       </div>
       <div className="mt-6 space-x-3 ml-[136px]">
-        <Button variant="outline">Discard</Button>
+        <Button variant="outline" onClick={() => router.push("/dashboard")}>
+          Discard
+        </Button>
         {noticetext && !loading ? (
           <Button onClick={handleCreateNotice}>Save Post</Button>
         ) : (
