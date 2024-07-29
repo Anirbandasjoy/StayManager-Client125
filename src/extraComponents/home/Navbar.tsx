@@ -1,15 +1,39 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DropDownMenu from "../share/DropDownMenu";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+  const [navBackground, setNavBackground] = useState("bg-[#5eaaf500]");
+  const [text, setText] = useState("text-white");
+
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      if (scrollPosition > 50) {
+        setNavBackground("bg-white");
+        setText("text-gray-500");
+      } else {
+        setNavBackground("bg-[#5eaaf500]");
+        setText("text-white");
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <nav className="bg-[#5eaaf500] absolute w-full p-3 shadow-md border-b border-gray-400 z-50">
+    <nav
+      className={`${navBackground} fixed  w-full p-3  border-b border-gray-300 z-50 transition duration-300`}
+    >
       <div className="container mx-auto flex justify-between items-center">
         <Link href="/">
           <div className="flex items-center gap-2">
@@ -31,7 +55,7 @@ const Navbar = () => {
                 ></path>
               </svg>
             </div>
-            <h1 className="text-xl text-white font-semibold">
+            <h1 className={`text-xl ${text} font-semibold`}>
               Stay-<span className="text-red-400 font-bold text-[28px]">M</span>
               anger
             </h1>
@@ -65,17 +89,23 @@ const Navbar = () => {
             }`}
           >
             <Link href="/rooms">
-              <h1 className=" block mt-4 md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold text-white">
+              <h1
+                className={` block mt-4 md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold ${text}`}
+              >
                 Rooms
               </h1>
             </Link>
             <Link href="/bookings">
-              <h1 className=" block mt-4 md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold text-white">
+              <h1
+                className={` block mt-4 md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold ${text}`}
+              >
                 Bookings
               </h1>
             </Link>
             <Link href="/students">
-              <h1 className=" block mt-4 md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold text-white">
+              <h1
+                className={` block mt-4 md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold ${text}`}
+              >
                 Students
               </h1>
             </Link>
