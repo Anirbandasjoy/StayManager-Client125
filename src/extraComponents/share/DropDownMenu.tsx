@@ -37,24 +37,26 @@ const DropDownMenu = ({
   return (
     <div>
       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          {
-            data?.payload ? <Avatar>
-            {data?.payload?.profileImage === null ? (
-              <AvatarFallback>
-                {data?.payload?.name?.slice(0, 2)}
-              </AvatarFallback>
-            ) : (
-              <AvatarImage
-                src={data?.payload?.profileImage}
-                alt={data?.payload?.name}
-              />
-            )}
-          </Avatar> :  <Avatar>
-      <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-      <AvatarFallback>CN</AvatarFallback>
-    </Avatar>
-          }
+        <DropdownMenuTrigger asChild className="">
+          {data?.payload ? (
+            <Avatar className="">
+              {data?.payload?.profileImage === null ? (
+                <AvatarFallback className="bg-gray-200">
+                  {data?.payload?.name?.slice(0, 2)}
+                </AvatarFallback>
+              ) : (
+                <AvatarImage
+                  src={data?.payload?.profileImage}
+                  alt={data?.payload?.name}
+                />
+              )}
+            </Avatar>
+          ) : (
+            <Avatar>
+              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+          )}
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56">
           <DropdownMenuLabel className="cursor-pointer">
@@ -80,10 +82,12 @@ const DropDownMenu = ({
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuItem>
-              <Newspaper className="mr-2 h-4 w-4" />
-              <span>Create Notice</span>
-            </DropdownMenuItem>
+            <Link href="/dashboard/create-notice">
+              <DropdownMenuItem>
+                <Newspaper className="mr-2 h-4 w-4" />
+                <span>Create Notice</span>
+              </DropdownMenuItem>
+            </Link>
             <DropdownMenuItem>
               <Users className="mr-2 h-4 w-4" />
               <span>Team</span>

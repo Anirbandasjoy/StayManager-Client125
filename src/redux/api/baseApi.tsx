@@ -4,6 +4,9 @@ import {
   CommentCreateResponse,
   CommentRequest,
   curretUserResponse,
+  deleteNoticeRequest,
+  deleteNoticeResponse,
+  findSaveNotice,
   GetNoticeCommentResponse,
   loginRequest,
   loginResponse,
@@ -12,6 +15,8 @@ import {
   processRegistrationResponse,
   registrationRequest,
   registrationResponse,
+  saveNoticeRequest,
+  saveNoticeResponse,
 } from "@/helper/type";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
@@ -78,6 +83,52 @@ const stayManagerApi = createApi({
     >({
       query: ({ noticeId }) => `/comment/find-NoticeComments/${noticeId}`,
     }),
+
+    // React Api (Like)
+    createReact: builder.mutation<void, any>({
+      query: ({ noticeId }) => ({
+        url: `/react/create/${noticeId}`,
+        method: "POST",
+        body: { react: "Liked" },
+      }),
+    }),
+    disLike: builder.mutation({
+      query: ({ noticeId }) => ({
+        url: `/react/dislike/${noticeId}`,
+        method: "DELETE",
+      }),
+    }),
+
+    getReact: builder.query({
+      query: (noticeId) => `/react/find-notice-react/${noticeId}`,
+    }),
+
+    deleteNotice: builder.mutation<deleteNoticeResponse, deleteNoticeRequest>({
+      query: ({ noticeId }) => ({
+        url: `/notice/delete/${noticeId}`,
+        method: "DELETE",
+      }),
+    }),
+
+    // Notice Save api
+
+    saveNotice: builder.mutation<saveNoticeResponse, saveNoticeRequest>({
+      query: ({ notice }) => ({
+        url: `/save/notice/${notice}`,
+        method: "POST",
+      }),
+    }),
+    createNotice: builder.mutation({
+      query: ({ caption, noticeImage }) => ({
+        url: "/notice/create",
+        method: "POST",
+        body: { caption, noticeImage },
+      }),
+    }),
+
+    findSaveNotice: builder.query<findSaveNotice, void>({
+      query: () => "/save/find-notice",
+    }),
   }),
 });
 
@@ -90,6 +141,13 @@ export const {
   useUserRegistrationMutation,
   useCreateCommentMutation,
   useGetNoticeCommentQuery,
+  useCreateReactMutation,
+  useGetReactQuery,
+  useSaveNoticeMutation,
+  useFindSaveNoticeQuery,
+  useDeleteNoticeMutation,
+  useDisLikeMutation,
+  useCreateNoticeMutation,
 } = stayManagerApi;
 
 export default stayManagerApi;

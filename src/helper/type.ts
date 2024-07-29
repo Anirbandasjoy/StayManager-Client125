@@ -88,8 +88,8 @@ interface User {
 export interface Notice {
   _id: string;
   caption: string;
-  author: string | User;
-  noticeImage: string | null;
+  author:  User;
+  noticeImage: string 
 }
 
 interface Comment {
@@ -171,6 +171,44 @@ export interface allNoticeResponse {
     noticeImage: string;
     author: User;
   }[];
+}
+
+export interface deleteNoticeResponse {
+  success : boolean,
+  message : string
+}
+
+export interface deleteNoticeRequest {
+  noticeId : string
+}
+
+// save notice 
+
+export interface saveNoticeRequest {
+  notice : string
+}
+
+export interface saveNoticeResponse {
+  success : boolean,
+  message : string,
+  payload : {
+    _id : string,
+    user : string,
+    notice : string
+    createdAt: string;
+    updatedAt: string;
+  }
+
+}
+
+export interface findSaveNotice {
+  success : boolean,
+  message : string,
+  payload : {
+    _id : string,
+    user : User
+    notice : Notice
+  }[]
 }
 
 export type DateTimeFormatOptions = {
