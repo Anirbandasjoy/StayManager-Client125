@@ -41,7 +41,7 @@ const DropDownMenu = ({
           {data?.payload ? (
             <Avatar className="">
               {data?.payload?.profileImage === null ? (
-                <AvatarFallback>
+                <AvatarFallback className="bg-gray-200">
                   {data?.payload?.name?.slice(0, 2)}
                 </AvatarFallback>
               ) : (

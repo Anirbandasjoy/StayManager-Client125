@@ -10,7 +10,16 @@ const Banner = () => {
           layout="fill"
           className="object-cover"
         />
-        <div className="w-full h-full  bg-gradient-to-b from-[#5eaaf590] absolute top-0"></div>
+        {/* <div className="w-full h-full  bg-gradient-to-b from-[#5eaaf590] absolute top-0"></div> */}
+        <div className="w-full h-full bg-gradient-to-b  from-[#5eaaf5ab] to-[#ffffff] absolute top-0"></div>
+        <div className="absolute w-full h-full flex justify-center items-center top-0">
+          <div className="text-center space-y-2">
+            <h1 className="text-6xl font-bold text-gray-700">Wellcome.</h1>
+            <p className="text-lg text-gray-600">
+              Pleas explore my hostel website visite here and my website
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
