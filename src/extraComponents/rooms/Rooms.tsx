@@ -45,7 +45,7 @@ const Rooms = () => {
     }
   }, []);
   return (
-    <div className="mb-20 container mr-auto">
+    <div className="mb-20 container mx-auto ">
       <div className="mb-8 flex justify-between items-center">
         <div className="flex items-center gap-2 cursor-pointer hover:underline">
           <h1 className="text-xl md:text-[20px] font-[500] text-gray-600">
@@ -70,7 +70,7 @@ const Rooms = () => {
       >
         {products?.map((product) => {
           return (
-            <SwiperSlide key={product.id} className=" p-4 rounded-sm ">
+            <SwiperSlide key={product.id} className="rounded-sm ">
               <div className="">
                 <div className="w-full md:h-[20rem] h-[3.7rem] bg-blue-200 rounded-sm">
                   <Image
@@ -100,7 +100,7 @@ const Rooms = () => {
                           </h1>
                         </div>
                       </TooltipTrigger>
-                      <TooltipContent className="bg-gray-400 text-white">
+                      <TooltipContent className="bg-gray-400 text-white z-50">
                         <p>Total beds 3</p>
                       </TooltipContent>
                     </Tooltip>
