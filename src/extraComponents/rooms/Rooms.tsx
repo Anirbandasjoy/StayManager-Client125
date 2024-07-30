@@ -23,7 +23,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 const Rooms = () => {
-  const SlideRef = useRef<Swiper | null>(null);
+  const SlideRef = useRef<any | null>(null);
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
   const handlePrev = () => {
