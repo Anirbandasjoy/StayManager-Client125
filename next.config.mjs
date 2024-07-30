@@ -6,6 +6,7 @@ const nextConfig = {
       "www.shareicon.net",
       "plus.unsplash.com",
       "images.unsplash.com",
+      "cdn.dummyjson.com",
     ],
   },
 };
