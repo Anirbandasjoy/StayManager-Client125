@@ -22,6 +22,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import Link from "next/link";
 const Rooms = () => {
   const SlideRef = useRef<any | null>(null);
   const [isBeginning, setIsBeginning] = useState(true);
@@ -48,9 +49,12 @@ const Rooms = () => {
     <div className="mb-20 container mx-auto ">
       <div className="mb-8 flex justify-between items-center">
         <div className="flex items-center gap-2 cursor-pointer hover:underline">
-          <h1 className="text-xl md:text-[20px] font-[500] text-gray-600">
+          <Link
+            href="/rooms"
+            className="text-xl md:text-[20px] font-[500] text-gray-600"
+          >
             View All
-          </h1>
+          </Link>
           <IoIosArrowForward className="text-[20px]" />
         </div>
         <SwiperNavButton
@@ -146,13 +150,15 @@ const Rooms = () => {
                       <FaDollarSign />
                       800 <span>BDT</span>
                     </div>
-                    <Button
-                      className="text-xs rounded-sm px-3 hover:text-gray-600 text-gray-200 py-1 bg-blue-500 hover:border hover:border-blue-500 space-x-1"
-                      variant="outline"
-                    >
-                      <BiPurchaseTag />
-                      <span>Purchase</span>
-                    </Button>
+                    <Link href="/rooms/roomId">
+                      <Button
+                        className="text-xs rounded-sm px-3 hover:text-gray-600 text-gray-200 py-1 bg-blue-500 hover:border hover:border-blue-500 space-x-1"
+                        variant="outline"
+                      >
+                        <BiPurchaseTag />
+                        <span>Purchase</span>
+                      </Button>
+                    </Link>
                   </div>
                 </div>
               </div>
