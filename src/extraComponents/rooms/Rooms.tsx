@@ -150,13 +150,13 @@ const Rooms = () => {
                       <FaDollarSign />
                       800 <span>BDT</span>
                     </div>
-                    <Link href="/rooms/roomId">
+                    <Link href={`/rooms/${product?.id}`}>
                       <Button
                         className="text-xs rounded-sm px-3 hover:text-gray-600 text-gray-200 py-1 bg-blue-500 hover:border hover:border-blue-500 space-x-1"
                         variant="outline"
                       >
                         <BiPurchaseTag />
-                        <span>Purchase</span>
+                        <span>Explore</span>
                       </Button>
                     </Link>
                   </div>

@@ -9,7 +9,7 @@ const Rooms = () => {
         headingText="Rooms."
         subheadingText="Pleas explore my hostel all rooms and purches your chouse room"
       />
-      Rooms
+      <div className="container">Rooms</div>
     </div>
   );
 };
