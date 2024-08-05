@@ -7,6 +7,7 @@ const nextConfig = {
       "plus.unsplash.com",
       "images.unsplash.com",
       "cdn.dummyjson.com",
+      "images.remotePatterns",
     ],
   },
 };

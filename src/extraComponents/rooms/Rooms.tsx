@@ -6,7 +6,6 @@ import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
 import { useEffect, useRef, useState } from "react";
 import SwiperNavButton from "../home/roooms/SwipperNavButton";
-import { products } from "@/product";
 import Image from "next/image";
 import { IoIosArrowForward, IoIosStarOutline } from "react-icons/io";
 import { IoBedOutline } from "react-icons/io5";
@@ -94,94 +93,114 @@ const Rooms = () => {
         modules={[Pagination]}
         className="mySwiper"
         ref={SlideRef}
+        breakpoints={{
+          0: {
+            slidesPerView: 1,
+            spaceBetween: 10,
+          },
+          640: {
+            slidesPerView: 3,
+            spaceBetween: 10,
+          },
+          768: {
+            slidesPerView: 3,
+            spaceBetween: 15,
+          },
+          1040: {
+            slidesPerView: 4,
+            spaceBetween: 15,
+          },
+        }}
       >
-        {roomData?.payload?.map((product) => (
-          <SwiperSlide key={product?._id} className="rounded-sm">
-            <div>
-              <div className="w-full md:h-[20rem] h-[3.7rem] rounded-sm">
-                <Image
-                  className="w-full h-full"
-                  src={product?.roomImage}
-                  alt="thumbnail"
-                  width={500}
-                  height={500}
-                />
-              </div>
-            </div>
-            <div className="mt-2">
-              <div className="flex items-end gap-1">
-                <IoIosStarOutline className="text-[24px] text-gray-600" />
-                <h1 className="font-semibold clear-start text-[16px] text-gray-600">
-                  4.9
-                </h1>
-              </div>
-              <div className="mt-3 flex justify-between items-center">
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <div className="flex items-center gap-2 cursor-pointer">
-                        <IoBedOutline className="text-xl text-gray-600" />
-                        <h1 className="text-sm font-semibold text-gray-600">
-                          3 bed
-                        </h1>
-                      </div>
-                    </TooltipTrigger>
-                    <TooltipContent className="bg-gray-400 text-white z-50">
-                      <p>Total beds 3</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <div className="flex items-center gap-2 cursor-pointer">
-                        <MdOutlineEventAvailable className="text-xl text-gray-600" />
-                        <h1 className="text-sm font-semibold text-gray-600">
-                          2 bed
-                        </h1>
-                      </div>
-                    </TooltipTrigger>
-                    <TooltipContent className="bg-gray-400 text-white">
-                      <p>Empty beds 2</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <div className="flex items-center gap-2 cursor-pointer">
-                        <TbBrandBooking className="text-xl text-gray-600" />
-                        <h1 className="text-sm font-semibold text-gray-600">
-                          1 bed
-                        </h1>
-                      </div>
-                    </TooltipTrigger>
-                    <TooltipContent className="bg-gray-400 text-white">
-                      <p>Booking beds 1</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              </div>
-              <div className="mt-5">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1">
-                    <FaDollarSign />
-                    800 <span>BDT</span>
-                  </div>
-                  <Link href={`/rooms/${product?._id}`}>
-                    <Button
-                      className="text-xs rounded-sm px-3 hover:text-gray-600 text-gray-200 py-1 bg-blue-500 hover:border hover:border-blue-500 space-x-1"
-                      variant="outline"
-                    >
-                      <BiPurchaseTag />
-                      <span>Explore</span>
-                    </Button>
-                  </Link>
+        {roomData?.payload?.map((product) => {
+          return (
+            <SwiperSlide key={product?._id} className="rounded-sm">
+              <div>
+                <div className="w-full md:h-[20rem] h-[15rem] rounded-sm">
+                  <Image
+                    className="w-full h-full"
+                    src={product?.roomImage}
+                    alt="thumbnail"
+                    width={500}
+                    height={500}
+                  />
                 </div>
               </div>
-            </div>
-          </SwiperSlide>
-        ))}
+              <div className="mt-2">
+                <div className="flex items-end gap-1">
+                  <IoIosStarOutline className="text-[24px] text-gray-600" />
+                  <h1 className="font-semibold clear-start text-[16px] text-gray-600">
+                    4.9
+                  </h1>
+                </div>
+                <div className="mt-3 flex justify-between items-center">
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <div className="flex items-center gap-2 cursor-pointer">
+                          <IoBedOutline className="text-xl text-gray-600" />
+                          <h1 className="text-sm font-semibold text-gray-600">
+                            3 bed
+                          </h1>
+                        </div>
+                      </TooltipTrigger>
+                      <TooltipContent className="bg-gray-400 text-white z-50">
+                        <p>Total beds 3</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <div className="flex items-center gap-2 cursor-pointer">
+                          <MdOutlineEventAvailable className="text-xl text-gray-600" />
+                          <h1 className="text-sm font-semibold text-gray-600">
+                            2 bed
+                          </h1>
+                        </div>
+                      </TooltipTrigger>
+                      <TooltipContent className="bg-gray-400 text-white">
+                        <p>Empty beds 2</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <div className="flex items-center gap-2 cursor-pointer">
+                          <TbBrandBooking className="text-xl text-gray-600" />
+                          <h1 className="text-sm font-semibold text-gray-600">
+                            1 bed
+                          </h1>
+                        </div>
+                      </TooltipTrigger>
+                      <TooltipContent className="bg-gray-400 text-white">
+                        <p>Booking beds 1</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </div>
+                <div className="mt-5">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-1">
+                      <FaDollarSign />
+                      800 <span>BDT</span>
+                    </div>
+                    <Link href={`/rooms/${product?._id}`}>
+                      <Button
+                        className="text-xs rounded-sm px-3 hover:text-gray-600 text-gray-200 py-1 bg-blue-500 hover:border hover:border-blue-500 space-x-1"
+                        variant="outline"
+                      >
+                        <BiPurchaseTag />
+                        <span>Explore</span>
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
     </div>
   );
