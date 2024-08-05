@@ -93,24 +93,6 @@ const Rooms = () => {
         modules={[Pagination]}
         className="mySwiper"
         ref={SlideRef}
-        breakpoints={{
-          0: {
-            slidesPerView: 1,
-            spaceBetween: 10,
-          },
-          640: {
-            slidesPerView: 3,
-            spaceBetween: 10,
-          },
-          768: {
-            slidesPerView: 3,
-            spaceBetween: 15,
-          },
-          1040: {
-            slidesPerView: 4,
-            spaceBetween: 15,
-          },
-        }}
       >
         {roomData?.payload?.map((product) => {
           return (
