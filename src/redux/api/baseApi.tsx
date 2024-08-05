@@ -6,6 +6,7 @@ import {
   curretUserResponse,
   deleteNoticeRequest,
   deleteNoticeResponse,
+  findAllRoomsResponse,
   findSaveNotice,
   GetNoticeCommentResponse,
   loginRequest,
@@ -129,6 +130,9 @@ const stayManagerApi = createApi({
     findSaveNotice: builder.query<findSaveNotice, void>({
       query: () => "/save/find-notice",
     }),
+    findAllRooms: builder.query<findAllRoomsResponse, void>({
+      query: () => "room/find-allRooms",
+    }),
   }),
 });
 
@@ -148,6 +152,7 @@ export const {
   useDeleteNoticeMutation,
   useDisLikeMutation,
   useCreateNoticeMutation,
+  useFindAllRoomsQuery,
 } = stayManagerApi;
 
 export default stayManagerApi;
