@@ -13,9 +13,21 @@ import { BiPurchaseTag } from "react-icons/bi";
 import { FaDollarSign } from "react-icons/fa";
 import { GoStarFill } from "react-icons/go";
 import { IoBedOutline } from "react-icons/io5";
+import RoomCardLoading from "../loading/RoomCardLoading";
 
 const RoomPage = () => {
   const { data: roomData, isLoading } = useFindAllRoomsQuery();
+  if (isLoading) {
+    return (
+      <div className="mb-20 container mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {Array.from({ length: 8 }).map((_, index) => (
+            <RoomCardLoading key={index} />
+          ))}
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-20">
       {roomData?.payload?.map((product) => {

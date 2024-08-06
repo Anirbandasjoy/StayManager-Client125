@@ -8,6 +8,7 @@ const nextConfig = {
       "images.unsplash.com",
       "cdn.dummyjson.com",
       "images.remotePatterns",
+      "themes.webdevia.com",
     ],
   },
 };

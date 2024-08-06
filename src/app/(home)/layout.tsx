@@ -1,3 +1,4 @@
+import Footer from "@/extraComponents/footer/Footer";
 import Navbar from "@/extraComponents/home/Navbar";
 import type { Metadata } from "next";
 
@@ -15,6 +16,7 @@ export default function HomeLayout({
     <div>
       <Navbar />
       {children}
+      <Footer />
     </div>
   );
 }
