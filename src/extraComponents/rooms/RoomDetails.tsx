@@ -5,10 +5,10 @@ import { IoBedOutline, IoPersonAddOutline } from "react-icons/io5";
 import { PiEmptyThin } from "react-icons/pi";
 import Banner from "../home/Banner";
 import Review from "./Review";
-import StarRatings from "react-star-ratings";
 import { FaStar } from "react-icons/fa";
 import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
 
 const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
   const { data: singleRoom } = useFindSingleRoomQuery({ id: roomId });
@@ -160,6 +160,9 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
               className="border-2 border-blue-400 "
               placeholder="Send you feedback..."
             />
+            <Button className="bg-blue-600 text-white mt-2 hover:bg-blue-500">
+              Submit
+            </Button>
           </div>
           <h1 className="mt-10">All Reviews</h1>
 
