@@ -4,6 +4,7 @@ import Image from "next/image";
 import { IoBedOutline, IoPersonAddOutline } from "react-icons/io5";
 import { PiEmptyThin } from "react-icons/pi";
 import Banner from "../home/Banner";
+import Review from "./Review";
 
 const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
   const { data: singleRoom } = useFindSingleRoomQuery({ id: roomId });
@@ -116,6 +117,11 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
               height={500}
             />
           </div>
+        </div>
+        <div className="mt-10">
+          <div className="w-full bg-gray-200 h-[2px] "></div>
+
+          <Review review={"hello"} />
         </div>
       </div>
     </div>
