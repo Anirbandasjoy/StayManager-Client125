@@ -5,10 +5,15 @@ import { IoBedOutline, IoPersonAddOutline } from "react-icons/io5";
 import { PiEmptyThin } from "react-icons/pi";
 import Banner from "../home/Banner";
 import Review from "./Review";
+import StarRatings from "react-star-ratings";
+import { FaStar } from "react-icons/fa";
+import { useState } from "react";
+import { Textarea } from "@/components/ui/textarea";
 
 const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
   const { data: singleRoom } = useFindSingleRoomQuery({ id: roomId });
-
+  const [rating, setRating] = useState<number | null | string>(null);
+  const [hover, setHover] = useState<null | any>(null);
   return (
     <div className="mb-10">
       <Banner
@@ -119,7 +124,44 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
           </div>
         </div>
         <div className="mt-10">
-          <div className="w-full bg-gray-200 h-[2px] "></div>
+          <div className="flex items-center gap-1">
+            <h1 className="text-blue-400  text-nowrap">
+              Please provide feedback
+            </h1>
+            <div className="w-full bg-gray-200 h-[2px] "></div>
+          </div>
+          <div className="flex items-center gap-1 mt-3">
+            {Array.from({ length: 5 }).map((start, index) => {
+              const currentRating = index + 1;
+              return (
+                <label key={index}>
+                  <input
+                    style={{ display: "none" }}
+                    type="radio"
+                    name="rating"
+                    value={currentRating}
+                    onClick={() => setRating(currentRating)}
+                  />
+                  <FaStar
+                    className="cursor-pointer"
+                    size={50}
+                    color={
+                      currentRating <= (hover || rating) ? "#ffc107" : "#e4e5e9"
+                    }
+                    onMouseEnter={() => setHover(currentRating)}
+                    onMouseLeave={() => setHover(null)}
+                  />
+                </label>
+              );
+            })}
+          </div>
+          <div className="mt-5 w-full sm:w-4/12 ">
+            <Textarea
+              className="border-2 border-blue-400 "
+              placeholder="Send you feedback..."
+            />
+          </div>
+          <h1 className="mt-10">All Reviews</h1>
 
           <Review review={"hello"} />
         </div>

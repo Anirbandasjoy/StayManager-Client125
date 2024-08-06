@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <div className="mt-20">
       <footer className="bg-blue-200 text-gray-700 py-8">
-        <div className="container mx-auto px-4 py-14 flex flex-wrap justify-between">
+        <div className="container mx-auto px-6 sm:px-4 py-14 flex flex-wrap justify-between">
           {/* Logo and Contact Information */}
           <div className="flex items-start space-x-4 mb-6 md:mb-0">
             <div className="flex-shrink-0">
@@ -45,7 +45,7 @@ const Footer = () => {
           </div>
           {/* Newsletter Signup */}
           <div className="flex flex-col items-start mb-6 md:mb-0">
-            <h2 className="text-2xl font-bold mb-4">NEWSLETTER</h2>
+            <h2 className="text-2xl font-bold mb-4">Contact Us</h2>
             <form className="flex w-full max-w-sm">
               <input
                 type="email"
