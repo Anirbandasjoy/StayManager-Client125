@@ -225,6 +225,25 @@ export interface findAllRoomsResponse {
   }[];
 }
 
+export interface findSingleRoomResponse {
+  success: boolean;
+  message: string;
+  payload: {
+    _id: string;
+    sitRent: number;
+    roomImage: string;
+    sitOne: User | string | null;
+    sitTwo: User | string | null;
+    sitthree: User | string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+}
+
+export interface findSingleRoomRequest {
+  id: string;
+}
+
 export type DateTimeFormatOptions = {
   month?: "long" | "numeric" | "2-digit" | "short" | "narrow";
   day?: "numeric" | "2-digit";

@@ -1,0 +1,125 @@
+"use client";
+import { useFindSingleRoomQuery } from "@/redux/api/baseApi";
+import Image from "next/image";
+import { IoBedOutline, IoPersonAddOutline } from "react-icons/io5";
+import { PiEmptyThin } from "react-icons/pi";
+import Banner from "../home/Banner";
+
+const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
+  const { data: singleRoom } = useFindSingleRoomQuery({ id: roomId });
+
+  return (
+    <div className="mb-10">
+      <Banner
+        imageURL={singleRoom?.payload?.roomImage || ""}
+        headingText="Explore this room."
+        subheadingText="Pleas explore my hostel all rooms and purches your chouse room"
+      />
+      <div className="container">
+        <div className="flex gap-2 flex-col-reverse md:flex-row">
+          <div className="flex-1 font-semibold text-gray-600">
+            <div className="flex flex-col justify-between  md:h-[433px]">
+              <div>
+                <div className="flex  gap-2 items-center">
+                  <h1 className="text-xl text-nowrap">
+                    See details in this room{" "}
+                  </h1>
+                  <div className="w-full h-[2px] bg-gray-300"></div>
+                </div>
+                <div className="mt-2 space-y-2">
+                  <div className="flex gap-2 ">
+                    <div className="flex-1 bg-blue-200 py-3 px-3 text-white rounded-sm flex items-center gap-2 cursor-pointer ">
+                      <IoBedOutline className="text-xl font-bold text-gray-600" />
+                      <h1 className="text-gray-600">Sit number one</h1>
+                    </div>
+                    <div className="bg-transparent border-2 border-blue-300 py-3 px-3 text-white rounded-sm flex items-center gap-2 cursor-pointer md:w-48">
+                      <IoPersonAddOutline className="text-xl font-bold text-gray-600" />
+                      <h1 className="text-gray-600">Booking</h1>
+                    </div>
+                  </div>
+                  <div className="flex gap-2 ">
+                    <div className="flex-1 bg-blue-200 py-3 px-3 text-white rounded-sm flex items-center gap-2 cursor-pointer ">
+                      <IoBedOutline className="text-xl font-bold text-gray-600" />
+                      <h1 className="text-gray-600">Sit number two</h1>
+                    </div>
+                    <div className="bg-transparent border-2 border-blue-100 py-3 px-3 md:w-48 text-white rounded-sm flex items-center gap-2 cursor-pointer ">
+                      <PiEmptyThin className="text-xl font-bold text-gray-600" />
+                      <h1 className="text-gray-300">Booked</h1>
+                    </div>
+                  </div>
+                  <div className="flex gap-2 ">
+                    <div className="flex-1 bg-blue-200 py-3 px-3 text-white rounded-sm flex items-center gap-2 cursor-pointer ">
+                      <IoBedOutline className="text-xl font-bold text-gray-600" />
+                      <h1 className="text-gray-600">Sit number three</h1>
+                    </div>
+                    <div className="bg-transparent border-2 border-blue-300 py-3 md:w-48 px-3 text-white rounded-sm flex items-center gap-2 cursor-pointer ">
+                      <IoPersonAddOutline className="text-xl font-bold text-gray-600" />
+                      <h1 className="text-gray-600">Booking</h1>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-wrap gap-3 mt-2">
+                <div className="h-24 cursor-pointer w-36 border-2 border-blue-200 flex justify-center items-center">
+                  <div>
+                    <h2 className="text-[16px] mb-1 text-center text-gray-600">
+                      Sit One
+                    </h2>
+                    <div className="flex items-center gap-2 cursor-pointer">
+                      <IoBedOutline className="text-lg text-blue-600" />
+                      <h1 className="text-xs font-semibold text-blue-600">
+                        {singleRoom?.payload?.sitOne === null
+                          ? "Avilable"
+                          : "booked"}
+                      </h1>
+                    </div>
+                  </div>
+                </div>
+                <div className="h-24 cursor-pointer w-36 border-2 border-red-200 flex justify-center items-center">
+                  <div>
+                    <h2 className="text-[16px] mb-1 text-center text-gray-600">
+                      Sit Two
+                    </h2>
+                    <div className="flex items-center gap-2 cursor-pointer">
+                      <IoBedOutline className="text-lg text-red-400" />
+                      <h1 className="text-xs font-semibold text-red-400">
+                        {singleRoom?.payload?.sitOne === null
+                          ? "Avilable"
+                          : "booked"}
+                      </h1>
+                    </div>
+                  </div>
+                </div>
+                <div className="h-24 cursor-pointer w-36 border-2 border-green-200 flex justify-center items-center">
+                  <div>
+                    <h2 className="text-[16px] mb-1 text-center text-gray-600">
+                      Sit Three
+                    </h2>
+                    <div className="flex items-center gap-2 cursor-pointer">
+                      <IoBedOutline className="text-lg text-green-400" />
+                      <h1 className="text-xs font-semibold text-green-400">
+                        {singleRoom?.payload?.sitOne === null
+                          ? "Avilable"
+                          : "booked"}
+                      </h1>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="flex-1">
+            <Image
+              src={singleRoom?.payload?.roomImage || ""}
+              alt="image"
+              width={650}
+              height={500}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default RoomDetailsCom;
