@@ -1,6 +1,5 @@
 import Banner from "@/extraComponents/home/Banner";
-import React from "react";
-
+import RoomPage from "@/extraComponents/rooms/RoomPage";
 const Rooms = () => {
   return (
     <div>
@@ -9,7 +8,9 @@ const Rooms = () => {
         headingText="Rooms."
         subheadingText="Pleas explore my hostel all rooms and purches your chouse room"
       />
-      <div className="container">Rooms</div>
+      <div className="container">
+        <RoomPage />
+      </div>
     </div>
   );
 };
