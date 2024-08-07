@@ -22,7 +22,9 @@ const Banner = ({
         <div className="w-full h-full bg-gradient-to-b  from-[#5eaaf5ab] to-[#ffffff] absolute top-0"></div>
         <div className="absolute w-full h-full flex justify-center items-center top-0">
           <div className="text-center space-y-2">
-            <h1 className="text-6xl font-bold text-gray-700">{headingText}</h1>
+            <h1 className="lg:text-6xl text-4xl   font-bold text-gray-700">
+              {headingText}
+            </h1>
             <p className="text-lg text-gray-600">{subheadingText}</p>
           </div>
         </div>

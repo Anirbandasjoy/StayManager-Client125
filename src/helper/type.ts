@@ -88,8 +88,8 @@ interface User {
 export interface Notice {
   _id: string;
   caption: string;
-  author:  User;
-  noticeImage: string 
+  author: User;
+  noticeImage: string;
 }
 
 interface Comment {
@@ -174,41 +174,104 @@ export interface allNoticeResponse {
 }
 
 export interface deleteNoticeResponse {
-  success : boolean,
-  message : string
+  success: boolean;
+  message: string;
 }
 
 export interface deleteNoticeRequest {
-  noticeId : string
+  noticeId: string;
 }
 
-// save notice 
+// save notice
 
 export interface saveNoticeRequest {
-  notice : string
+  notice: string;
 }
 
 export interface saveNoticeResponse {
-  success : boolean,
-  message : string,
-  payload : {
-    _id : string,
-    user : string,
-    notice : string
+  success: boolean;
+  message: string;
+  payload: {
+    _id: string;
+    user: string;
+    notice: string;
     createdAt: string;
     updatedAt: string;
-  }
-
+  };
 }
 
 export interface findSaveNotice {
-  success : boolean,
-  message : string,
-  payload : {
-    _id : string,
-    user : User
-    notice : Notice
-  }[]
+  success: boolean;
+  message: string;
+  payload: {
+    _id: string;
+    user: User;
+    notice: Notice;
+  }[];
+}
+
+export interface findAllRoomsResponse {
+  success: boolean;
+  message: string;
+  payload: {
+    _id: string;
+    sitRent: number;
+    roomImage: string;
+    sitOne: User | string | null;
+    sitTwo: User | string | null;
+    sitthree: User | string | null;
+    createdAt: string;
+    updatedAt: string;
+  }[];
+}
+
+export interface findSingleRoomResponse {
+  success: boolean;
+  message: string;
+  payload: {
+    _id: string;
+    sitRent: number;
+    roomImage: string;
+    sitOne: User | string | null;
+    sitTwo: User | string | null;
+    sitthree: User | string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+}
+
+export interface findSingleRoomRequest {
+  id: string;
+}
+
+// room review types
+
+export interface createReviewResponse {
+  success: boolean;
+  message: string;
+}
+
+export interface createReviewRequest {
+  roomId: string;
+  message: string;
+  rating: string | number | null;
+}
+
+export interface findRoomReviewResponse {
+  success: boolean;
+  message: string;
+  payload: {
+    _id: string;
+    message: string;
+    rating: number;
+    user: User;
+    createdAt: string;
+    updatedAt: string;
+  }[];
+}
+
+export interface findRoomReviewRequest {
+  roomId: string;
 }
 
 export type DateTimeFormatOptions = {

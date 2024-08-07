@@ -2,17 +2,13 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
-// import "./Product.module.css";
 import { Pagination } from "swiper/modules";
-
 import { useEffect, useRef, useState } from "react";
 import SwiperNavButton from "../home/roooms/SwipperNavButton";
-import { products } from "@/product";
 import Image from "next/image";
-import { IoIosArrowForward, IoIosStarOutline } from "react-icons/io";
+import { IoIosArrowForward } from "react-icons/io";
 import { IoBedOutline } from "react-icons/io5";
-import { MdOutlineEventAvailable } from "react-icons/md";
-import { TbBrandBooking } from "react-icons/tb";
+import { GoStarFill } from "react-icons/go";
 import { FaDollarSign } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import { BiPurchaseTag } from "react-icons/bi";
@@ -23,10 +19,15 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import Link from "next/link";
+import { useFindAllRoomsQuery } from "@/redux/api/baseApi";
+import RoomCardLoading from "../loading/RoomCardLoading";
+
 const Rooms = () => {
+  const { data: roomData, isLoading } = useFindAllRoomsQuery();
   const SlideRef = useRef<any | null>(null);
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
+
   const handlePrev = () => {
     SlideRef.current?.swiper.slidePrev();
   };
@@ -37,7 +38,6 @@ const Rooms = () => {
 
   useEffect(() => {
     const swiperInstance = SlideRef.current?.swiper;
-
     if (swiperInstance) {
       swiperInstance.on("slideChange", () => {
         setIsBeginning(swiperInstance.isBeginning);
@@ -45,8 +45,28 @@ const Rooms = () => {
       });
     }
   }, []);
+
+  if (isLoading) {
+    return (
+      <div className="mb-20 container mx-auto">
+        <div className="mb-4 flex justify-between items-center">
+          <div className="bg-gray-300 h-[1rem] rounded-sm w-[8rem] animate-pulse"></div>
+          <div className="flex gap-2 items-center">
+            <div className="w-9 h-9 bg-gray-300 animate-pulse"></div>
+            <div className="w-9 h-9 bg-gray-300 animate-pulse"></div>
+          </div>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {Array.from({ length: 4 }).map((_, index) => (
+            <RoomCardLoading key={index} />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="mb-20 container mx-auto ">
+    <div className="mb-20 container mx-auto">
       <div className="mb-8 flex justify-between items-center">
         <div className="flex items-center gap-2 cursor-pointer hover:underline">
           <Link
@@ -71,15 +91,33 @@ const Rooms = () => {
         modules={[Pagination]}
         className="mySwiper"
         ref={SlideRef}
+        breakpoints={{
+          0: {
+            slidesPerView: 1,
+            spaceBetween: 10,
+          },
+          640: {
+            slidesPerView: 3,
+            spaceBetween: 10,
+          },
+          768: {
+            slidesPerView: 3,
+            spaceBetween: 15,
+          },
+          1040: {
+            slidesPerView: 4,
+            spaceBetween: 15,
+          },
+        }}
       >
-        {products?.map((product) => {
+        {roomData?.payload?.map((product) => {
           return (
-            <SwiperSlide key={product.id} className="rounded-sm ">
-              <div className="">
-                <div className="w-full md:h-[20rem] h-[3.7rem] bg-blue-200 rounded-sm">
+            <SwiperSlide key={product?._id} className="rounded-sm">
+              <div>
+                <div className="w-full md:h-[16rem] h-[15rem] rounded-sm">
                   <Image
-                    className="w-full h-full "
-                    src={product.thumbnail}
+                    className="w-full h-full"
+                    src={product?.roomImage}
                     alt="thumbnail"
                     width={500}
                     height={500}
@@ -88,7 +126,7 @@ const Rooms = () => {
               </div>
               <div className="mt-2">
                 <div className="flex items-end gap-1">
-                  <IoIosStarOutline className="text-[24px] text-gray-600 " />
+                  <GoStarFill className="text-[24px] text-yellow-400" />
                   <h1 className="font-semibold clear-start text-[16px] text-gray-600">
                     4.9
                   </h1>
@@ -97,49 +135,45 @@ const Rooms = () => {
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <div className="flex  items-center gap-2 cursor-pointer">
-                          <IoBedOutline className="text-xl text-gray-600" />
-                          <h1 className="text-sm font-semibold text-gray-600">
-                            3 bed
+                        <div className="flex items-center gap-2 cursor-pointer">
+                          <IoBedOutline className="text-lg text-blue-600" />
+                          <h1 className="text-xs font-semibold text-blue-600">
+                            {product?.sitOne === null ? "Avilable" : "booked"}
                           </h1>
                         </div>
                       </TooltipTrigger>
                       <TooltipContent className="bg-gray-400 text-white z-50">
-                        <p>Total beds 3</p>
+                        <p>Sit one status</p>
                       </TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <div className="flex  items-center gap-2 cursor-pointer">
-                          <MdOutlineEventAvailable className="text-xl text-gray-600" />
-                          <h1 className="text-sm font-semibold text-gray-600">
-                            2 bed
+                        <div className="flex items-center gap-2 cursor-pointer">
+                          <IoBedOutline className="text-lg text-red-300" />
+                          <h1 className="text-xs font-semibold text-red-300">
+                            {product?.sitTwo === null ? "Avilable" : "booked"}
                           </h1>
                         </div>
                       </TooltipTrigger>
-                      <TooltipContent>
-                        <TooltipContent className="bg-gray-400 text-white">
-                          <p>Empty beds 2</p>
-                        </TooltipContent>
+                      <TooltipContent className="bg-gray-400 text-white z-50">
+                        <p>Sit two status</p>
                       </TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <div className="flex  items-center gap-2 cursor-pointer">
-                          <TbBrandBooking className="text-xl text-gray-600" />
-                          <h1 className="text-sm font-semibold text-gray-600">
-                            1 bed
+                        <div className="flex items-center gap-2 cursor-pointer">
+                          <IoBedOutline className="text-lg text-green-400" />
+                          <h1 className="text-xs font-semibold text-green-400">
+                            {product?.sitthree === null ? "Avilable" : "booked"}
                           </h1>
                         </div>
                       </TooltipTrigger>
-                      <TooltipContent>
-                        <TooltipContent className="bg-gray-400 text-white">
-                          <p>Booking beds 1</p>
-                        </TooltipContent>
+                      <TooltipContent className="bg-gray-400 text-white z-50">
+                        <p>Sit three status</p>
                       </TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
@@ -148,9 +182,9 @@ const Rooms = () => {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-1">
                       <FaDollarSign />
-                      800 <span>BDT</span>
+                      {product?.sitRent} <span>BDT</span>
                     </div>
-                    <Link href={`/rooms/${product?.id}`}>
+                    <Link href={`/rooms/${product?._id}`}>
                       <Button
                         className="text-xs rounded-sm px-3 hover:text-gray-600 text-gray-200 py-1 bg-blue-500 hover:border hover:border-blue-500 space-x-1"
                         variant="outline"
