@@ -244,6 +244,19 @@ export interface findSingleRoomRequest {
   id: string;
 }
 
+// room review types
+
+export interface createReviewResponse {
+  success: boolean;
+  message: string;
+}
+
+export interface createReviewRequest {
+  roomId: string;
+  message: string;
+  rating: number;
+}
+
 export type DateTimeFormatOptions = {
   month?: "long" | "numeric" | "2-digit" | "short" | "narrow";
   day?: "numeric" | "2-digit";

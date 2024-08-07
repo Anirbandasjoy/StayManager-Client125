@@ -3,6 +3,8 @@ import {
   allUserResponse,
   CommentCreateResponse,
   CommentRequest,
+  createReviewRequest,
+  createReviewResponse,
   curretUserResponse,
   deleteNoticeRequest,
   deleteNoticeResponse,
@@ -140,6 +142,14 @@ const stayManagerApi = createApi({
       findSingleRoomRequest
     >({
       query: ({ id }) => `/room/find-single-room/${id}`,
+    }),
+    // review api
+    createReview: builder.mutation<createReviewResponse, createReviewRequest>({
+      query: ({ roomId, message, rating }) => ({
+        url: `/review/create/${roomId}`,
+        method: "POST",
+        body: { message, rating },
+      }),
     }),
   }),
 });
