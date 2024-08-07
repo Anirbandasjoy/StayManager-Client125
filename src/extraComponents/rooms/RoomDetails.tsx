@@ -1,5 +1,8 @@
 "use client";
-import { useFindSingleRoomQuery } from "@/redux/api/baseApi";
+import {
+  useCreateReviewMutation,
+  useFindSingleRoomQuery,
+} from "@/redux/api/baseApi";
 import Image from "next/image";
 import { IoBedOutline, IoPersonAddOutline } from "react-icons/io5";
 import { PiEmptyThin } from "react-icons/pi";
@@ -9,11 +12,34 @@ import { FaStar } from "react-icons/fa";
 import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { toast } from "@/components/ui/use-toast";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
   const { data: singleRoom } = useFindSingleRoomQuery({ id: roomId });
   const [rating, setRating] = useState<number | null | string>(null);
+  const [message, setMessage] = useState<string>("");
   const [hover, setHover] = useState<null | any>(null);
+  const [setReviewData, { data: reviewResponse, isLoading }] =
+    useCreateReviewMutation();
+
+  const handleCreateReview = () => {
+    console.log({ roomId, message, rating });
+    try {
+      setReviewData({ roomId, message, rating }).unwrap();
+      toast({
+        title: "Create a new Review.",
+      });
+    } catch (error) {
+      console.log(error);
+      toast({
+        variant: "destructive",
+        title: "Invalid Creadential.",
+        description: "There was a problem with your request.",
+      });
+    }
+  };
+  console.log(reviewResponse);
   return (
     <div className="mb-10">
       <Banner
@@ -159,10 +185,25 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
             <Textarea
               className="border-2 border-blue-400 "
               placeholder="Send you feedback..."
+              value={message}
+              onChange={(e: any) => setMessage(e.target.value)}
             />
-            <Button className="bg-blue-600 text-white mt-2 hover:bg-blue-500">
-              Submit
-            </Button>
+            {message === "" || rating === null ? (
+              <Button className="bg-blue-400 text-white w-[5rem] mt-2 cursor-pointer hover:bg-blue-400">
+                Submit
+              </Button>
+            ) : (
+              <Button
+                onClick={handleCreateReview}
+                className="bg-blue-600 text-white mt-2 w-[5rem] cursor-pointer hover:bg-blue-500"
+              >
+                {isLoading ? (
+                  <AiOutlineLoading3Quarters className="animate-spin" />
+                ) : (
+                  "Submit"
+                )}
+              </Button>
+            )}
           </div>
           <h1 className="mt-10">All Reviews</h1>
 

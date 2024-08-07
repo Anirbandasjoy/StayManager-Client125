@@ -254,7 +254,24 @@ export interface createReviewResponse {
 export interface createReviewRequest {
   roomId: string;
   message: string;
-  rating: number;
+  rating: string | number | null;
+}
+
+export interface findRoomReviewResponse {
+  success: boolean;
+  message: string;
+  payload: {
+    _id: string;
+    message: string;
+    rating: number;
+    user: User;
+    createAt: string;
+    updatedAt: string;
+  };
+}
+
+export interface findRoomReviewRequest {
+  roomId: string;
 }
 
 export type DateTimeFormatOptions = {

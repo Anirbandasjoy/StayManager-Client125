@@ -9,6 +9,8 @@ import {
   deleteNoticeRequest,
   deleteNoticeResponse,
   findAllRoomsResponse,
+  findRoomReviewRequest,
+  findRoomReviewResponse,
   findSaveNotice,
   findSingleRoomRequest,
   findSingleRoomResponse,
@@ -151,6 +153,9 @@ const stayManagerApi = createApi({
         body: { message, rating },
       }),
     }),
+    findRoomReview : builder.query<findRoomReviewResponse, findRoomReviewRequest>({
+       query : ({roomId}) => `/review/find-review/${roomId}`
+    }),
   }),
 });
 
@@ -172,6 +177,7 @@ export const {
   useCreateNoticeMutation,
   useFindAllRoomsQuery,
   useFindSingleRoomQuery,
+  useCreateReviewMutation,
 } = stayManagerApi;
 
 export default stayManagerApi;
