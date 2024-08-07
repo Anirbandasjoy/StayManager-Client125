@@ -265,9 +265,9 @@ export interface findRoomReviewResponse {
     message: string;
     rating: number;
     user: User;
-    createAt: string;
+    createdAt: string;
     updatedAt: string;
-  };
+  }[];
 }
 
 export interface findRoomReviewRequest {

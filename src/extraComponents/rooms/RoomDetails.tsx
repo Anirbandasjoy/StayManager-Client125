@@ -1,6 +1,7 @@
 "use client";
 import {
   useCreateReviewMutation,
+  useFindRoomReviewQuery,
   useFindSingleRoomQuery,
 } from "@/redux/api/baseApi";
 import Image from "next/image";
@@ -14,6 +15,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import ReviewLoading from "../loading/ReviewLoading";
 
 const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
   const { data: singleRoom } = useFindSingleRoomQuery({ id: roomId });
@@ -22,6 +24,11 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
   const [hover, setHover] = useState<null | any>(null);
   const [setReviewData, { data: reviewResponse, isLoading }] =
     useCreateReviewMutation();
+  const {
+    data: roomReviewData,
+    refetch: reviewRefetch,
+    isLoading: reviewLoading,
+  } = useFindRoomReviewQuery({ roomId });
 
   const handleCreateReview = () => {
     console.log({ roomId, message, rating });
@@ -30,6 +37,9 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
       toast({
         title: "Create a new Review.",
       });
+      reviewRefetch();
+      setMessage("");
+      setRating(null);
     } catch (error) {
       console.log(error);
       toast({
@@ -39,7 +49,7 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
       });
     }
   };
-  console.log(reviewResponse);
+
   return (
     <div className="mb-10">
       <Banner
@@ -206,8 +216,19 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
             )}
           </div>
           <h1 className="mt-10">All Reviews</h1>
-
-          <Review review={"hello"} />
+          {reviewLoading ? (
+            <div className="mt-5">
+              {Array.from({ length: 3 }).map((_, index) => {
+                return <ReviewLoading key={index} />;
+              })}
+            </div>
+          ) : (
+            <>
+              {roomReviewData?.payload?.map((review: any) => {
+                return <Review review={review} key={review?._id} />;
+              })}
+            </>
+          )}
         </div>
       </div>
     </div>
