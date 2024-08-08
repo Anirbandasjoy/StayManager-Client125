@@ -10,6 +10,8 @@ import {
   curretUserResponse,
   deleteNoticeRequest,
   deleteNoticeResponse,
+  existBookingRequest,
+  existBookingResponse,
   findAllRoomsResponse,
   findRoomReviewRequest,
   findRoomReviewResponse,
@@ -173,10 +175,17 @@ const stayManagerApi = createApi({
       createBookingRequestResponse,
       createBookingRequest
     >({
-      query: ({ id }) => ({
+      query: ({ id, sitNumber }) => ({
         url: `/booking/booking-request/${id}`,
         method: "POST",
+        body: { sitNumber },
       }),
+    }),
+    existBookingRequest: builder.query<
+      existBookingResponse,
+      existBookingRequest
+    >({
+      query: ({ roomId }) => `/booking/exist-request/${roomId}`,
     }),
   }),
 });
@@ -203,6 +212,7 @@ export const {
   useFindRoomReviewQuery,
   useCreateBookingRequestMutation,
   useLogOutMutation,
+  useExistBookingRequestQuery,
 } = stayManagerApi;
 
 export default stayManagerApi;

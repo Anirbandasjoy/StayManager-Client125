@@ -223,6 +223,17 @@ export interface findAllRoomsResponse {
   }[];
 }
 
+interface Room {
+  _id: string;
+  sitRent: number;
+  roomImage: string;
+  sitOne: User | string | null;
+  sitTwo: User | string | null;
+  sitthree: User | string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface findSingleRoomResponse {
   success: boolean;
   message: string;
@@ -281,6 +292,26 @@ export interface createBookingRequestResponse {
 
 export interface createBookingRequest {
   id: string;
+  sitNumber: number;
+}
+
+export interface existBookingResponse {
+  success: boolean;
+  stausCode: number;
+  message: string;
+  payload: {
+    _id: string;
+    user: User;
+    room: Room;
+    staus: string;
+    sitNumber: number;
+    createdAt: string;
+    updatedAt: string;
+  };
+}
+
+export interface existBookingRequest {
+  roomId: string;
 }
 
 // auth types

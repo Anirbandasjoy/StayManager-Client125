@@ -1,12 +1,12 @@
 "use client";
 import {
   useCreateReviewMutation,
+  useExistBookingRequestQuery,
   useFindRoomReviewQuery,
   useFindSingleRoomQuery,
 } from "@/redux/api/baseApi";
 import Image from "next/image";
 import { IoBedOutline, IoPersonAddOutline } from "react-icons/io5";
-import { PiEmptyThin } from "react-icons/pi";
 import Banner from "../home/Banner";
 import Review from "./Review";
 import { FaStar } from "react-icons/fa";
@@ -21,8 +21,12 @@ import RequestModal from "./RequestModal";
 
 const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
   const [openRequestModal, setopenRequestModal] = useState<boolean>(false);
+  const [sitNumber, setSitNumber] = useState<number>(0);
   const { data: singleRoom, isLoading: roomLoading } = useFindSingleRoomQuery({
     id: roomId,
+  });
+  const { data: roomBookingExistData } = useExistBookingRequestQuery({
+    roomId,
   });
   const [rating, setRating] = useState<number | null | string>(null);
   const [message, setMessage] = useState<string>("");
@@ -55,6 +59,12 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
     }
   };
 
+  const handleBookingReqInfo = (st: number) => {
+    setopenRequestModal(true);
+    setSitNumber(st);
+  };
+
+  console.log(roomBookingExistData);
   return (
     <div className="mb-10">
       <Banner
@@ -79,7 +89,7 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
                   <div className="mt-2 space-y-2">
                     <div
                       className="flex gap-2 "
-                      onClick={() => setopenRequestModal(true)}
+                      onClick={() => handleBookingReqInfo(1)}
                     >
                       <div className="flex-1 bg-blue-200 py-3 px-3 text-white rounded-sm flex items-center gap-2 cursor-pointer ">
                         <IoBedOutline className="text-xl font-bold text-gray-600" />
@@ -87,25 +97,53 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
                       </div>
                       <div className="bg-transparent border-2 border-blue-300 py-3 px-3 text-white rounded-sm flex items-center gap-2 cursor-pointer md:w-48">
                         <IoPersonAddOutline className="text-xl font-bold text-gray-600" />
-                        <h1 className="text-gray-600">Booking</h1>
+                        <h1 className="text-gray-600">
+                          {!roomBookingExistData?.payload ? (
+                            "Booking"
+                          ) : (
+                            <>
+                              {roomBookingExistData?.payload.staus === "pending"
+                                ? "Pending"
+                                : roomBookingExistData?.payload?.room
+                                    ?.sitOne === null &&
+                                  roomBookingExistData?.payload?.sitNumber === 1
+                                ? "Pending"
+                                : "Booked"}
+                            </>
+                          )}
+                        </h1>
                       </div>
                     </div>
                     <div
                       className="flex gap-2 "
-                      onClick={() => setopenRequestModal(true)}
+                      onClick={() => handleBookingReqInfo(1)}
                     >
                       <div className="flex-1 bg-blue-200 py-3 px-3 text-white rounded-sm flex items-center gap-2 cursor-pointer ">
                         <IoBedOutline className="text-xl font-bold text-gray-600" />
                         <h1 className="text-gray-600">Sit number two</h1>
                       </div>
                       <div className="bg-transparent border-2 border-blue-100 py-3 px-3 md:w-48 text-white rounded-sm flex items-center gap-2 cursor-pointer ">
-                        <PiEmptyThin className="text-xl font-bold text-gray-600" />
-                        <h1 className="text-gray-300">Booked</h1>
+                        <IoPersonAddOutline className="text-xl font-bold text-gray-600" />
+                        <h1 className="text-gray-600">
+                          {!roomBookingExistData?.payload ? (
+                            "Booking"
+                          ) : (
+                            <>
+                              {roomBookingExistData?.payload.staus === "pending"
+                                ? "Pending"
+                                : roomBookingExistData?.payload?.room
+                                    ?.sitOne === null &&
+                                  roomBookingExistData?.payload?.sitNumber === 2
+                                ? "Pending"
+                                : "Booked"}
+                            </>
+                          )}
+                        </h1>
                       </div>
                     </div>
                     <div
                       className="flex gap-2 "
-                      onClick={() => setopenRequestModal(true)}
+                      onClick={() => handleBookingReqInfo(1)}
                     >
                       <div className="flex-1 bg-blue-200 py-3 px-3 text-white rounded-sm flex items-center gap-2 cursor-pointer ">
                         <IoBedOutline className="text-xl font-bold text-gray-600" />
@@ -113,7 +151,20 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
                       </div>
                       <div className="bg-transparent border-2 border-blue-300 py-3 md:w-48 px-3 text-white rounded-sm flex items-center gap-2 cursor-pointer ">
                         <IoPersonAddOutline className="text-xl font-bold text-gray-600" />
-                        <h1 className="text-gray-600">Booking</h1>
+                        <h1 className="text-gray-600">
+                          {!roomBookingExistData?.payload ? (
+                            "Booking"
+                          ) : (
+                            <>
+                              {roomBookingExistData?.payload.staus === "pending"
+                                ? "Pending"
+                                : roomBookingExistData?.payload?.room
+                                    ?.sitthree === null
+                                ? "Pending"
+                                : "Booked"}
+                            </>
+                          )}
+                        </h1>
                       </div>
                     </div>
                   </div>
@@ -251,6 +302,7 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
         </div>
       </div>
       <RequestModal
+        sitNumber={sitNumber}
         roomId={roomId}
         open={openRequestModal}
         setOpen={setopenRequestModal}

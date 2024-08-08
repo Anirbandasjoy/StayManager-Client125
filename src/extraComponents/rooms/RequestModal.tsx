@@ -13,10 +13,12 @@ import { useCreateBookingRequestMutation } from "@/redux/api/baseApi";
 
 const RequestModal = ({
   roomId,
+  sitNumber,
   open,
   setOpen,
 }: {
   roomId: string;
+  sitNumber: number;
   open: boolean;
   setOpen: (open: boolean) => void;
 }) => {
@@ -24,7 +26,7 @@ const RequestModal = ({
 
   const handleCreateBookingRequest = () => {
     try {
-      setData({ id: roomId }).unwrap();
+      setData({ id: roomId, sitNumber }).unwrap();
       toast({
         title: "Request send done.",
       });
