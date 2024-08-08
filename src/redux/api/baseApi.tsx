@@ -46,8 +46,11 @@ const stayManagerApi = createApi({
         body: loginData,
       }),
     }),
-    logOut: builder.query<logOutResponse, void>({
-      query: () => "/auth/logout",
+    logOut: builder.mutation<logOutResponse, void>({
+      query: () => ({
+        url: "/auth/logout",
+        method: "POST",
+      }),
     }),
 
     // user api
@@ -199,6 +202,7 @@ export const {
   useCreateReviewMutation,
   useFindRoomReviewQuery,
   useCreateBookingRequestMutation,
+  useLogOutMutation,
 } = stayManagerApi;
 
 export default stayManagerApi;

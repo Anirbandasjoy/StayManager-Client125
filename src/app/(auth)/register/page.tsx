@@ -14,19 +14,20 @@ import { toast } from "@/components/ui/use-toast";
 import { useProcessRegisterMutation } from "@/redux/api/baseApi";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { FaGithub, FaGoogle } from "react-icons/fa";
 
 interface IFormInputs {
   name: string;
   email: string;
-  phone: string,
+  phone: string;
   password: string;
   confirmPassword: string;
 }
 
 const Register = () => {
-
   const router = useRouter();
-  const [setProcessRegistration, { data, isLoading }] = useProcessRegisterMutation();
+  const [setProcessRegistration, { data, isLoading }] =
+    useProcessRegisterMutation();
 
   const {
     control,
@@ -34,85 +35,95 @@ const Register = () => {
     formState: { errors },
   } = useForm<IFormInputs>();
 
-  const response = data
-  // console.log(response?.message);
-
-
   const onSubmit: SubmitHandler<IFormInputs> = async (data) => {
-
     if (data.password !== data.confirmPassword) {
       return toast({
-        title: "Validataion error.",
-        description: "Password and confirm password will same.",
-      })
+        title: "Validation error.",
+        description: "Password and confirm password must be the same.",
+      });
     }
 
     try {
-
       await setProcessRegistration({
         name: data.name,
         email: data.email,
         password: data.password,
         phone: data.phone,
-        profileImage: "https://www.shareicon.net/data/512x512/2016/09/15/829459_man_512x512.png"
+        profileImage:
+          "https://www.shareicon.net/data/512x512/2016/09/15/829459_man_512x512.png",
       }).unwrap();
       toast({
-        title: "Registration Succesfull",
-        description: `Please Active you email: ${data.email}`
+        title: "Registration Successful",
+        description: `Please activate your email: ${data.email}`,
       });
       router.push("/login");
-
     } catch (error: any) {
-      console.error("Failed to login:", error);
+      console.error("Failed to register:", error);
       toast({
         variant: "destructive",
-        title: "Invalid Creadential.",
+        title: "Registration Failed",
         description: error?.data?.message,
       });
     }
-    console.log(data);
   };
 
   return (
-    <>
-      <div className="flex h-screen w-full justify-center items-center bg-green-100">
-        <Card className="w-[350px] bg-blue-300 shadow-xl">
-          <CardHeader>
-            <CardTitle>Create Your Account</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="grid w-full items-center gap-4">
-                <div className="flex flex-col space-y-1.5">
-
-                  {/* Name */}
-                  <Label htmlFor="name">Name</Label>
-                  <Controller
-                    name="name"
-                    control={control}
-                    rules={{
-                      required: "name is required",
-                    }}
-                    render={({ field }) => (
-                      <>
-                        <Input
-                          {...field}
-                          id="name"
-                          placeholder="Enter your Name.."
-                          className="py-6"
-                        />
-                        {errors.name && (
-                          <span className="text-red-500 text-xs">
-                            {errors.name.message}
-                          </span>
-                        )}
-                      </>
-                    )}
-                  />
-                </div>
-
-                {/* email */}
-                <div className="flex flex-col space-y-1.5">
+    <div className="flex h-screen w-full justify-center items-center bg-gray-100">
+      <Card className="w-[600px] shadow-md p-3 bg-white">
+        <CardHeader className="text-center">
+          <CardTitle className="text-2xl font-semibold">
+            Create Your Account
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="">
+          <div className="flex gap-2">
+            <Button
+              variant="outline"
+              className="w-full flex items-center justify-center gap-2"
+            >
+              <FaGithub />
+              Github
+            </Button>
+            <Button
+              variant="outline"
+              className="w-full flex items-center justify-center gap-2"
+            >
+              <FaGoogle />
+              Google
+            </Button>
+          </div>
+          <div className="relative flex items-center my-4">
+            <span className="flex-grow border-t border-gray-300"></span>
+            <span className="mx-4 text-gray-500">OR CONTINUE WITH</span>
+            <span className="flex-grow border-t border-gray-300"></span>
+          </div>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="flex flex-col space-y-8">
+              <div className="flex flex-col">
+                <Label htmlFor="name">Name</Label>
+                <Controller
+                  name="name"
+                  control={control}
+                  rules={{ required: "Name is required" }}
+                  render={({ field }) => (
+                    <>
+                      <Input
+                        {...field}
+                        id="name"
+                        placeholder="Your Name"
+                        className="py-2 mt-1"
+                      />
+                      {errors.name && (
+                        <span className="text-red-500 text-xs mt-1">
+                          {errors.name.message}
+                        </span>
+                      )}
+                    </>
+                  )}
+                />
+              </div>
+              <div className="flex gap-2 items-center">
+                <div className="flex flex-col w-full">
                   <Label htmlFor="email">Email</Label>
                   <Controller
                     name="email"
@@ -120,7 +131,8 @@ const Register = () => {
                     rules={{
                       required: "Email is required",
                       pattern: {
-                        value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                        value:
+                          /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
                         message: "Invalid email address",
                       },
                     }}
@@ -129,11 +141,11 @@ const Register = () => {
                         <Input
                           {...field}
                           id="email"
-                          placeholder="Enter your email address.."
-                          className="py-6"
+                          placeholder="m@example.com"
+                          className="py-2 mt-1"
                         />
                         {errors.email && (
-                          <span className="text-red-500 text-xs">
+                          <span className="text-red-500 text-xs mt-1">
                             {errors.email.message}
                           </span>
                         )}
@@ -141,18 +153,17 @@ const Register = () => {
                     )}
                   />
                 </div>
-
-                {/* pnone number  */}
-                <div className="flex flex-col space-y-1.5">
-                  <Label htmlFor="phone">Pnone Number</Label>
+                <div className="flex flex-col w-full">
+                  <Label htmlFor="phone">Phone Number</Label>
                   <Controller
                     name="phone"
                     control={control}
                     rules={{
-                      required: "Phone Number is required",
+                      required: "Phone number is required",
                       pattern: {
                         value: /^(\+8801|01)[3-9]\d{8}$/,
-                        message: "Please enter a valid Bangladeshi phone number",
+                        message:
+                          "Please enter a valid Bangladeshi phone number",
                       },
                     }}
                     render={({ field }) => (
@@ -160,11 +171,11 @@ const Register = () => {
                         <Input
                           {...field}
                           id="phone"
-                          placeholder="Enter your Phone Number .."
-                          className="py-6"
+                          placeholder="Enter your Phone Number"
+                          className="py-2 mt-1"
                         />
                         {errors.phone && (
-                          <span className="text-red-500 text-xs">
+                          <span className="text-red-500 text-xs mt-1">
                             {errors.phone.message}
                           </span>
                         )}
@@ -172,9 +183,9 @@ const Register = () => {
                     )}
                   />
                 </div>
-
-                {/* Password */}
-                <div className="flex flex-col space-y-1.5">
+              </div>
+              <div className="flex gap-2 items-center">
+                <div className="flex flex-col w-full">
                   <Label htmlFor="password">Password</Label>
                   <Controller
                     name="password"
@@ -194,10 +205,10 @@ const Register = () => {
                           type="password"
                           id="password"
                           placeholder="Enter your Password"
-                          className="py-6"
+                          className="py-2 mt-1"
                         />
                         {errors.password && (
-                          <span className="text-red-500 text-xs">
+                          <span className="text-red-500 text-xs mt-1">
                             {errors.password.message}
                           </span>
                         )}
@@ -205,19 +216,17 @@ const Register = () => {
                     )}
                   />
                 </div>
-                <div className="flex flex-col space-y-1.5">
-
-                  {/* Confirm Password */}
-                  <Label htmlFor="password">Confirm Password</Label>
+                <div className="flex flex-col w-full">
+                  <Label htmlFor="confirmPassword">Confirm Password</Label>
                   <Controller
                     name="confirmPassword"
                     control={control}
                     rules={{
-                      required: "confirmPassword is required",
+                      required: "Confirm Password is required",
                       pattern: {
                         value:
                           /^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{6,}$/,
-                        message: "Invalid confirmPassword. Try again",
+                        message: "Invalid confirm password. Try again",
                       },
                     }}
                     render={({ field }) => (
@@ -226,11 +235,11 @@ const Register = () => {
                           {...field}
                           type="password"
                           id="confirmPassword"
-                          placeholder="Enter The Same Password"
-                          className="py-6"
+                          placeholder="Re-enter your Password"
+                          className="py-2 mt-1"
                         />
                         {errors.confirmPassword && (
-                          <span className="text-red-500 text-xs">
+                          <span className="text-red-500 text-xs mt-1">
                             {errors.confirmPassword.message}
                           </span>
                         )}
@@ -239,20 +248,21 @@ const Register = () => {
                   />
                 </div>
               </div>
-
-              {/* Submit Button */}
-              <Button type="submit" className="w-full mt-5">
-                {isLoading ? "Loading..." : "SignUp"}
-              </Button>
-              <CardDescription className="mt-4 ms-2">
-                Already have an Account ? <Link href={'/login'} className="text-blue-600"> login. </Link>
-              </CardDescription>
-            </form>
-          </CardContent>
-        </Card>
-      </div>
-    </>
-  )
+            </div>
+            <Button type="submit" className="w-full mt-6">
+              {isLoading ? "Loading..." : "Create Account"}
+            </Button>
+          </form>
+          <CardDescription className="mt-4 text-center">
+            Already have an account?{" "}
+            <Link href="/login" className="text-blue-600">
+              Login
+            </Link>
+          </CardDescription>
+        </CardContent>
+      </Card>
+    </div>
+  );
 };
 
 export default Register;
