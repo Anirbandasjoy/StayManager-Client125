@@ -1,7 +1,12 @@
+import BookingsTab from "@/extraComponents/dashboard/bookings/BookingsTab";
 import React from "react";
 
 const Bookings = () => {
-  return <div>Bookings page</div>;
+  return (
+    <div>
+      <BookingsTab />
+    </div>
+  );
 };
 
 export default Bookings;

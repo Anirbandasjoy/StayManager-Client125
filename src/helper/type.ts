@@ -1,5 +1,3 @@
-import internal from "stream";
-
 export interface loginRequest {
   email: string;
   password: string;
@@ -225,6 +223,17 @@ export interface findAllRoomsResponse {
   }[];
 }
 
+interface Room {
+  _id: string;
+  sitRent: number;
+  roomImage: string;
+  sitOne: User | string | null;
+  sitTwo: User | string | null;
+  sitthree: User | string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface findSingleRoomResponse {
   success: boolean;
   message: string;
@@ -272,6 +281,44 @@ export interface findRoomReviewResponse {
 
 export interface findRoomReviewRequest {
   roomId: string;
+}
+
+// booking types
+
+export interface createBookingRequestResponse {
+  success: boolean;
+  message: string;
+}
+
+export interface createBookingRequest {
+  id: string;
+  sitNumber: number;
+}
+
+export interface existBookingResponse {
+  success: boolean;
+  stausCode: number;
+  message: string;
+  payload: {
+    _id: string;
+    user: User;
+    room: Room;
+    staus: string;
+    sitNumber: number;
+    createdAt: string;
+    updatedAt: string;
+  };
+}
+
+export interface existBookingRequest {
+  roomId: string;
+}
+
+// auth types
+
+export interface logOutResponse {
+  success: boolean;
+  message: string;
 }
 
 export type DateTimeFormatOptions = {
