@@ -28,6 +28,7 @@ import { useState } from "react";
 import LogOutModal from "../modal/LogOutModal";
 
 const DropDownMenu = () => {
+  // currentUser get hook
   const { data } = useCurrentUserQuery();
   const [openLogOutModal, setOpenLogOutModal] = useState<boolean>(false);
 
