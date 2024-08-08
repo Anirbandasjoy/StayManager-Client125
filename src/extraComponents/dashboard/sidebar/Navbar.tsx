@@ -3,12 +3,9 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { BellRing } from "lucide-react";
-import { useState } from "react";
 
 import DropDownMenu from "@/extraComponents/share/DropDownMenu";
 const Navbar = () => {
-  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
-
   return (
     <div className="py-4 bg-blue-300 rounded-sm dark:bg-gray-800 ">
       <div>
@@ -39,10 +36,7 @@ const Navbar = () => {
                   </SheetContent>
                 </Sheet>
 
-                <DropDownMenu
-                  isOpenModal={isOpenModal}
-                  setIsOpenModal={setIsOpenModal}
-                />
+                <DropDownMenu />
               </div>
             </div>
             <div

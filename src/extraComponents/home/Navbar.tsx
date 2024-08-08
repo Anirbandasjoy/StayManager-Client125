@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import DropDownMenu from "../share/DropDownMenu";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [navBackground, setNavBackground] = useState("bg-[#5eaaf500]");
   const [text, setText] = useState("text-white");
 
@@ -111,10 +110,7 @@ const Navbar = () => {
             </Link>
           </div>
           <div className="cursor-pointer">
-            <DropDownMenu
-              isOpenModal={isOpenModal}
-              setIsOpenModal={setIsOpenModal}
-            />
+            <DropDownMenu />
           </div>
         </div>
       </div>
