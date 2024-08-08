@@ -3,6 +3,8 @@ import {
   allUserResponse,
   CommentCreateResponse,
   CommentRequest,
+  createBookingRequest,
+  createBookingRequestResponse,
   createReviewRequest,
   createReviewResponse,
   curretUserResponse,
@@ -17,6 +19,7 @@ import {
   GetNoticeCommentResponse,
   loginRequest,
   loginResponse,
+  logOutResponse,
   NoticeCommentRequest,
   ProcessRegistrationRequest,
   processRegistrationResponse,
@@ -42,6 +45,9 @@ const stayManagerApi = createApi({
         method: "POST",
         body: loginData,
       }),
+    }),
+    logOut: builder.query<logOutResponse, void>({
+      query: () => "/auth/logout",
     }),
 
     // user api
@@ -159,6 +165,16 @@ const stayManagerApi = createApi({
     >({
       query: ({ roomId }) => `/review/find-review/${roomId}`,
     }),
+    // booking api
+    createBookingRequest: builder.mutation<
+      createBookingRequestResponse,
+      createBookingRequest
+    >({
+      query: ({ id }) => ({
+        url: `/booking/booking-request/${id}`,
+        method: "POST",
+      }),
+    }),
   }),
 });
 
@@ -182,6 +198,7 @@ export const {
   useFindSingleRoomQuery,
   useCreateReviewMutation,
   useFindRoomReviewQuery,
+  useCreateBookingRequestMutation,
 } = stayManagerApi;
 
 export default stayManagerApi;

@@ -1,5 +1,3 @@
-import internal from "stream";
-
 export interface loginRequest {
   email: string;
   password: string;
@@ -272,6 +270,24 @@ export interface findRoomReviewResponse {
 
 export interface findRoomReviewRequest {
   roomId: string;
+}
+
+// booking types
+
+export interface createBookingRequestResponse {
+  success: boolean;
+  message: string;
+}
+
+export interface createBookingRequest {
+  id: string;
+}
+
+// auth types
+
+export interface logOutResponse {
+  success: boolean;
+  message: string;
 }
 
 export type DateTimeFormatOptions = {

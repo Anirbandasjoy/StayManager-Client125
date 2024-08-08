@@ -17,8 +17,10 @@ import { toast } from "@/components/ui/use-toast";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import ReviewLoading from "../loading/ReviewLoading";
 import RoomDetailsLoading from "../loading/RoomDetailsLoading";
+import RequestModal from "./RequestModal";
 
 const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
+  const [openRequestModal, setopenRequestModal] = useState<boolean>(false);
   const { data: singleRoom, isLoading: roomLoading } = useFindSingleRoomQuery({
     id: roomId,
   });
@@ -75,7 +77,10 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
                     <div className="w-full h-[2px] bg-gray-300"></div>
                   </div>
                   <div className="mt-2 space-y-2">
-                    <div className="flex gap-2 ">
+                    <div
+                      className="flex gap-2 "
+                      onClick={() => setopenRequestModal(true)}
+                    >
                       <div className="flex-1 bg-blue-200 py-3 px-3 text-white rounded-sm flex items-center gap-2 cursor-pointer ">
                         <IoBedOutline className="text-xl font-bold text-gray-600" />
                         <h1 className="text-gray-600">Sit number one</h1>
@@ -85,7 +90,10 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
                         <h1 className="text-gray-600">Booking</h1>
                       </div>
                     </div>
-                    <div className="flex gap-2 ">
+                    <div
+                      className="flex gap-2 "
+                      onClick={() => setopenRequestModal(true)}
+                    >
                       <div className="flex-1 bg-blue-200 py-3 px-3 text-white rounded-sm flex items-center gap-2 cursor-pointer ">
                         <IoBedOutline className="text-xl font-bold text-gray-600" />
                         <h1 className="text-gray-600">Sit number two</h1>
@@ -95,7 +103,10 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
                         <h1 className="text-gray-300">Booked</h1>
                       </div>
                     </div>
-                    <div className="flex gap-2 ">
+                    <div
+                      className="flex gap-2 "
+                      onClick={() => setopenRequestModal(true)}
+                    >
                       <div className="flex-1 bg-blue-200 py-3 px-3 text-white rounded-sm flex items-center gap-2 cursor-pointer ">
                         <IoBedOutline className="text-xl font-bold text-gray-600" />
                         <h1 className="text-gray-600">Sit number three</h1>
@@ -239,6 +250,11 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
           )}
         </div>
       </div>
+      <RequestModal
+        roomId={roomId}
+        open={openRequestModal}
+        setOpen={setopenRequestModal}
+      />
     </div>
   );
 };

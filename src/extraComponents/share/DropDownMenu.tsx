@@ -24,15 +24,12 @@ import {
   Users,
 } from "lucide-react";
 import { useCurrentUserQuery } from "@/redux/api/baseApi";
+import { useState } from "react";
+import LogOutModal from "../modal/LogOutModal";
 
-const DropDownMenu = ({
-  isOpenModal,
-  setIsOpenModal,
-}: {
-  isOpenModal: boolean;
-  setIsOpenModal: any;
-}) => {
+const DropDownMenu = () => {
   const { data } = useCurrentUserQuery();
+  const [openLogOutModal, setOpenLogOutModal] = useState<boolean>(false);
 
   return (
     <div>
@@ -64,17 +61,17 @@ const DropDownMenu = ({
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuItem>
+            <DropdownMenuItem className="cursor-pointer">
               <User className="mr-2 h-4 w-4" />
               <span>Profile</span>
               <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem className="cursor-pointer">
               <LayoutDashboard className="mr-2 h-4 w-4" />
               <Link href="/dashboard">Dashboard</Link>
               {/* <DropdownMenuShortcut>⌘B</DropdownMenuShortcut> */}
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem className="cursor-pointer">
               <Settings className="mr-2 h-4 w-4" />
               <Link href="/dashboard/settings">Settings</Link>
               <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
@@ -83,56 +80,43 @@ const DropDownMenu = ({
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
             <Link href="/dashboard/create-notice">
-              <DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer">
                 <Newspaper className="mr-2 h-4 w-4" />
                 <span>Create Notice</span>
               </DropdownMenuItem>
             </Link>
-            <DropdownMenuItem>
+            <DropdownMenuItem className="cursor-pointer">
               <Users className="mr-2 h-4 w-4" />
               <span>Team</span>
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem className="cursor-pointer">
               <BellRing className="mr-2 h-4 w-4" />
               <span>Notifications</span>
               <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>
+          <DropdownMenuItem className="cursor-pointer">
             <Github className="mr-2 h-4 w-4" />
             <span>GitHub</span>
           </DropdownMenuItem>
-          <DropdownMenuItem>
+          <DropdownMenuItem className="cursor-pointer">
             <LifeBuoy className="mr-2 h-4 w-4" />
             <span>Support</span>
           </DropdownMenuItem>
 
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => setIsOpenModal(!isOpenModal)}>
+          <DropdownMenuItem
+            className="cursor-pointer"
+            onClick={() => setOpenLogOutModal(true)}
+          >
             <LogOut className="mr-2 h-4 w-4" />
             <h1>Log out</h1>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
 
-      {/* <AlertDialog open={isOpenModal} onOpenChange={setIsOpenModal}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle className="text-center">
-              Are you absolutely sure?
-            </AlertDialogTitle>
-          </AlertDialogHeader>
-          <AlertDialogFooter className=" text-left">
-            <AlertDialogCancel className="text-center w-full">
-              No
-            </AlertDialogCancel>
-            <AlertDialogAction className="w-full" onClick={handleLogOut}>
-              Yes
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog> */}
+      <LogOutModal open={openLogOutModal} setOpen={setOpenLogOutModal} />
     </div>
   );
 };

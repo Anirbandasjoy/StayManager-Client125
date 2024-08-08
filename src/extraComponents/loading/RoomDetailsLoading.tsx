@@ -1,6 +1,6 @@
 const RoomDetailsLoading = () => {
   return (
-    <div className="flex gap-3">
+    <div className="flex gap-3 sm:flex-row flex-col-reverse">
       <div className="w-full h-[400px] mt-2 flex flex-col justify-between">
         <div>
           <div className="w-11/12 animate-pulse h-3 mb-10 bg-gray-300 rounded-sm"></div>
