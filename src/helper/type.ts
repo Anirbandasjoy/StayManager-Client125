@@ -303,7 +303,7 @@ export interface existBookingResponse {
     _id: string;
     user: User;
     room: Room;
-    staus: string;
+    status: string;
     sitNumber: number;
     createdAt: string;
     updatedAt: string;

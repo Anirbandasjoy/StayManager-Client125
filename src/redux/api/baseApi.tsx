@@ -1,3 +1,4 @@
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
   allNoticeResponse,
   allUserResponse,
@@ -30,12 +31,13 @@ import {
   saveNoticeRequest,
   saveNoticeResponse,
 } from "@/helper/type";
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+
+const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
 const stayManagerApi = createApi({
   reducerPath: "stayManagerApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5000/api/v1",
+    baseUrl: baseUrl,
     credentials: "include",
   }),
 
