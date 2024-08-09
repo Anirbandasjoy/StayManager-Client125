@@ -18,11 +18,17 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import ReviewLoading from "../loading/ReviewLoading";
 import RoomDetailsLoading from "../loading/RoomDetailsLoading";
 import RequestModal from "./RequestModal";
+import RoomStatus from "./RoomStatus";
+import RequestStatus from "./RequestStatus";
 
 const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
   const [openRequestModal, setopenRequestModal] = useState<boolean>(false);
   const [sitNumber, setSitNumber] = useState<number>(0);
-  const { data: singleRoom, isLoading: roomLoading } = useFindSingleRoomQuery({
+  const {
+    data: singleRoom,
+    isLoading: roomLoading,
+    refetch: singRoomRefetch,
+  } = useFindSingleRoomQuery({
     id: roomId,
   });
   const { data: roomBookingExistData } = useExistBookingRequestQuery({
@@ -97,26 +103,15 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
                       </div>
                       <div className="bg-transparent border-2 border-blue-300 py-3 px-3 text-white rounded-sm flex items-center gap-2 cursor-pointer md:w-48">
                         <IoPersonAddOutline className="text-xl font-bold text-gray-600" />
-                        <h1 className="text-gray-600">
-                          {!roomBookingExistData?.payload ? (
-                            "Booking"
-                          ) : (
-                            <>
-                              {roomBookingExistData?.payload.staus === "pending"
-                                ? "Pending"
-                                : roomBookingExistData?.payload?.room
-                                    ?.sitOne === null &&
-                                  roomBookingExistData?.payload?.sitNumber === 1
-                                ? "Pending"
-                                : "Booked"}
-                            </>
-                          )}
-                        </h1>
+                        <RequestStatus
+                          roomBookingExistData={roomBookingExistData}
+                          sitNumber={1}
+                        />
                       </div>
                     </div>
                     <div
                       className="flex gap-2 "
-                      onClick={() => handleBookingReqInfo(1)}
+                      onClick={() => handleBookingReqInfo(2)}
                     >
                       <div className="flex-1 bg-blue-200 py-3 px-3 text-white rounded-sm flex items-center gap-2 cursor-pointer ">
                         <IoBedOutline className="text-xl font-bold text-gray-600" />
@@ -124,26 +119,15 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
                       </div>
                       <div className="bg-transparent border-2 border-blue-100 py-3 px-3 md:w-48 text-white rounded-sm flex items-center gap-2 cursor-pointer ">
                         <IoPersonAddOutline className="text-xl font-bold text-gray-600" />
-                        <h1 className="text-gray-600">
-                          {!roomBookingExistData?.payload ? (
-                            "Booking"
-                          ) : (
-                            <>
-                              {roomBookingExistData?.payload.staus === "pending"
-                                ? "Pending"
-                                : roomBookingExistData?.payload?.room
-                                    ?.sitOne === null &&
-                                  roomBookingExistData?.payload?.sitNumber === 2
-                                ? "Pending"
-                                : "Booked"}
-                            </>
-                          )}
-                        </h1>
+                        <RequestStatus
+                          roomBookingExistData={roomBookingExistData}
+                          sitNumber={2}
+                        />
                       </div>
                     </div>
                     <div
                       className="flex gap-2 "
-                      onClick={() => handleBookingReqInfo(1)}
+                      onClick={() => handleBookingReqInfo(3)}
                     >
                       <div className="flex-1 bg-blue-200 py-3 px-3 text-white rounded-sm flex items-center gap-2 cursor-pointer ">
                         <IoBedOutline className="text-xl font-bold text-gray-600" />
@@ -151,20 +135,10 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
                       </div>
                       <div className="bg-transparent border-2 border-blue-300 py-3 md:w-48 px-3 text-white rounded-sm flex items-center gap-2 cursor-pointer ">
                         <IoPersonAddOutline className="text-xl font-bold text-gray-600" />
-                        <h1 className="text-gray-600">
-                          {!roomBookingExistData?.payload ? (
-                            "Booking"
-                          ) : (
-                            <>
-                              {roomBookingExistData?.payload.staus === "pending"
-                                ? "Pending"
-                                : roomBookingExistData?.payload?.room
-                                    ?.sitthree === null
-                                ? "Pending"
-                                : "Booked"}
-                            </>
-                          )}
-                        </h1>
+                        <RequestStatus
+                          roomBookingExistData={roomBookingExistData}
+                          sitNumber={3}
+                        />
                       </div>
                     </div>
                   </div>
@@ -177,11 +151,10 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
                       </h2>
                       <div className="flex items-center gap-2 cursor-pointer">
                         <IoBedOutline className="text-lg text-blue-600" />
-                        <h1 className="text-xs font-semibold text-blue-600">
-                          {singleRoom?.payload?.sitOne === null
-                            ? "Avilable"
-                            : "booked"}
-                        </h1>
+                        <RoomStatus
+                          roomBookingExistData={roomBookingExistData}
+                          sitNumber={1}
+                        />
                       </div>
                     </div>
                   </div>
@@ -192,11 +165,10 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
                       </h2>
                       <div className="flex items-center gap-2 cursor-pointer">
                         <IoBedOutline className="text-lg text-red-400" />
-                        <h1 className="text-xs font-semibold text-red-400">
-                          {singleRoom?.payload?.sitOne === null
-                            ? "Avilable"
-                            : "booked"}
-                        </h1>
+                        <RoomStatus
+                          roomBookingExistData={roomBookingExistData}
+                          sitNumber={2}
+                        />
                       </div>
                     </div>
                   </div>
@@ -207,11 +179,10 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
                       </h2>
                       <div className="flex items-center gap-2 cursor-pointer">
                         <IoBedOutline className="text-lg text-green-400" />
-                        <h1 className="text-xs font-semibold text-green-400">
-                          {singleRoom?.payload?.sitOne === null
-                            ? "Avilable"
-                            : "booked"}
-                        </h1>
+                        <RoomStatus
+                          roomBookingExistData={roomBookingExistData}
+                          sitNumber={3}
+                        />
                       </div>
                     </div>
                   </div>
@@ -304,6 +275,7 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
       <RequestModal
         sitNumber={sitNumber}
         roomId={roomId}
+        singRoomRefetch={singRoomRefetch}
         open={openRequestModal}
         setOpen={setopenRequestModal}
       />

@@ -14,11 +14,13 @@ import { useCreateBookingRequestMutation } from "@/redux/api/baseApi";
 const RequestModal = ({
   roomId,
   sitNumber,
+  singRoomRefetch,
   open,
   setOpen,
 }: {
   roomId: string;
   sitNumber: number;
+  singRoomRefetch: any;
   open: boolean;
   setOpen: (open: boolean) => void;
 }) => {
@@ -27,6 +29,7 @@ const RequestModal = ({
   const handleCreateBookingRequest = () => {
     try {
       setData({ id: roomId, sitNumber }).unwrap();
+      singRoomRefetch();
       toast({
         title: "Request send done.",
       });
