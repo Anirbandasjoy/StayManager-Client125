@@ -1,12 +1,13 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/components/ui/use-toast";
 import Navbar from "@/extraComponents/dashboard/sidebar/Navbar";
 import { isImage, uploadImage } from "@/helper/common";
 import {
-  useCreateNoticeMutation,
   useFindNoticeQuery,
+  useUpdateNoticeMutation,
 } from "@/redux/api/baseApi";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -14,12 +15,14 @@ import { ChangeEvent, useState } from "react";
 import { BiSolidCloudUpload } from "react-icons/bi";
 import { GrClose } from "react-icons/gr";
 import { ThreeDot } from "react-loading-indicators";
-const CreateNotice = () => {
+
+const EditNoticeCom = ({ params }: { params: { noticeId: string } }) => {
+  const { noticeId } = params;
   const [imageURL, setImageURL] = useState<string>("");
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [noticetext, setNoticeText] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [setNotice, { data: noticeData }] = useCreateNoticeMutation();
+  const [setData, { data: updateNotice }] = useUpdateNoticeMutation();
   const { refetch: noticeRefetch } = useFindNoticeQuery();
   const router = useRouter();
   const handleSelectNoticeImage = () => {
@@ -56,12 +59,16 @@ const CreateNotice = () => {
       };
 
       console.log(noticeData);
-      await setNotice(noticeData).unwrap();
+      await setData({
+        id: noticeId,
+        caption: noticeData?.caption,
+        noticeImage: noticeData?.noticeImage,
+      }).unwrap();
       setImageURL("");
       setNoticeText("");
       setImageFile(null);
       toast({
-        title: "Create a New Comment",
+        title: "Update Notice",
       });
       noticeRefetch();
       router.push("/dashboard");
@@ -82,7 +89,7 @@ const CreateNotice = () => {
       <Navbar />
       <div className="flex justify-center max-w-2xl  flex-col sm:flex-row gap-4 sm:gap-6 items-end">
         <div className="mt-5  w-full ">
-          <h1 className="text-lg font-semibold">Post Notice</h1>
+          <h1 className="text-lg font-semibold">Edit Notice : {noticeId}</h1>
           <Textarea
             className="border-2 border-gray-300 mt-1 resize-none h-[107px]"
             value={noticetext}
@@ -128,13 +135,13 @@ const CreateNotice = () => {
           Discard
         </Button>
         {noticetext && !loading ? (
-          <Button onClick={handleCreateNotice}>Save Post</Button>
+          <Button onClick={handleCreateNotice}>Save Edit</Button>
         ) : (
           <Button className="cursor-not-allowed bg-gray-500 hover:bg-gray-400">
             {loading ? (
               <ThreeDot color="#32cd32" size="small" text="" textColor="" />
             ) : (
-              "Save Post"
+              "Save Edit"
             )}
           </Button>
         )}
@@ -143,4 +150,4 @@ const CreateNotice = () => {
   );
 };
 
-export default CreateNotice;
+export default EditNoticeCom;

@@ -90,6 +90,18 @@ export interface Notice {
   noticeImage: string;
 }
 
+export interface updateNoticeResponse {
+  success: boolean;
+  stausCode: number;
+  message: string;
+}
+
+export interface updateNoticeRequest {
+  id: string;
+  caption: string;
+  noticeImage: string;
+}
+
 interface Comment {
   _id: string;
   text: string;

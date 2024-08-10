@@ -238,7 +238,7 @@ const NoticeCard = ({
                 <>
                   <DropdownMenuItem>
                     <Link
-                      href={`/edit-post/${notice?._id}`}
+                      href={`/dashboard/edit-notice/${notice?._id}`}
                       className="flex gap-1 items-center cursor-pointer"
                     >
                       <BiEdit />
