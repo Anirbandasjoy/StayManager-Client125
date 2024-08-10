@@ -30,6 +30,8 @@ import {
   registrationResponse,
   saveNoticeRequest,
   saveNoticeResponse,
+  updateNoticeRequest,
+  updateNoticeResponse,
 } from "@/helper/type";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
@@ -145,6 +147,16 @@ const stayManagerApi = createApi({
         body: { caption, noticeImage },
       }),
     }),
+    updateNotice: builder.mutation<updateNoticeResponse, updateNoticeRequest>({
+      query: ({ id, caption, noticeImage }) => ({
+        url: `/notice/update-notice/${id}`,
+        method: "PUT",
+        body: { caption, noticeImage },
+      }),
+    }),
+    findSingleNotice: builder.query({
+      query: (id) => `/notice/find-single-notice/${id}`,
+    }),
 
     findSaveNotice: builder.query<findSaveNotice, void>({
       query: () => "/save/find-notice",
@@ -215,6 +227,8 @@ export const {
   useCreateBookingRequestMutation,
   useLogOutMutation,
   useExistBookingRequestQuery,
+  useUpdateNoticeMutation,
+  useFindSingleNoticeQuery,
 } = stayManagerApi;
 
 export default stayManagerApi;

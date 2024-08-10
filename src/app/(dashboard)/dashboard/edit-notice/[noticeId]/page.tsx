@@ -1,33 +1,50 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/components/ui/use-toast";
 import Navbar from "@/extraComponents/dashboard/sidebar/Navbar";
 import { isImage, uploadImage } from "@/helper/common";
 import {
-  useCreateNoticeMutation,
   useFindNoticeQuery,
+  useFindSingleNoticeQuery,
+  useUpdateNoticeMutation,
 } from "@/redux/api/baseApi";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { BiSolidCloudUpload } from "react-icons/bi";
 import { GrClose } from "react-icons/gr";
 import { ThreeDot } from "react-loading-indicators";
-const CreateNotice = () => {
+
+const EditNoticeCom = ({ params }: { params: { noticeId: string } }) => {
+  const { noticeId } = params;
   const [imageURL, setImageURL] = useState<string>("");
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [noticetext, setNoticeText] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [setNotice, { data: noticeData }] = useCreateNoticeMutation();
+  const [updateNotice] = useUpdateNoticeMutation();
   const { refetch: noticeRefetch } = useFindNoticeQuery();
+  const { data: singleNotice, isLoading: singleNoticeLoading } =
+    useFindSingleNoticeQuery(noticeId);
   const router = useRouter();
+
+  useEffect(() => {
+    if (singleNotice && !singleNoticeLoading) {
+      setNoticeText(singleNotice.payload?.caption || "");
+      if (singleNotice.payload?.noticeImage) {
+        setImageURL(singleNotice.payload?.noticeImage);
+      }
+    }
+  }, [singleNotice, singleNoticeLoading]);
+
   const handleSelectNoticeImage = () => {
     const noticeImage = document.getElementById(
       "noticeImage"
     ) as HTMLInputElement;
     noticeImage.click();
   };
+
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file && isImage(file)) {
@@ -37,6 +54,7 @@ const CreateNotice = () => {
     }
     e.target.value = "";
   };
+
   const handleDeleteSelectedImage = () => {
     setImageURL("");
     setImageFile(null);
@@ -46,7 +64,7 @@ const CreateNotice = () => {
     try {
       setLoading(true);
       let mainImageURL = "";
-      if (imageURL && imageFile) {
+      if (imageFile) {
         mainImageURL = await uploadImage(imageFile);
       }
 
@@ -55,21 +73,25 @@ const CreateNotice = () => {
         noticeImage: mainImageURL,
       };
 
-      console.log(noticeData);
-      await setNotice(noticeData).unwrap();
+      await updateNotice({
+        id: noticeId,
+        caption: noticeData.caption,
+        noticeImage: noticeData.noticeImage,
+      }).unwrap();
+
       setImageURL("");
       setNoticeText("");
       setImageFile(null);
       toast({
-        title: "Create a New Comment",
+        title: "Update Notice",
       });
       noticeRefetch();
       router.push("/dashboard");
     } catch (error) {
-      console.log(error);
+      console.error(error);
       toast({
         variant: "destructive",
-        title: "Fail Process, please try again.",
+        title: "Failed Process",
         description: "There was a problem with your request.",
       });
     } finally {
@@ -80,9 +102,9 @@ const CreateNotice = () => {
   return (
     <div>
       <Navbar />
-      <div className="flex justify-center max-w-2xl  flex-col sm:flex-row gap-4 sm:gap-6 items-end">
-        <div className="mt-5  w-full ">
-          <h1 className="text-lg font-semibold">Post Notice</h1>
+      <div className="flex justify-center max-w-2xl flex-col sm:flex-row gap-4 sm:gap-6 items-end">
+        <div className="mt-5 w-full">
+          <h1 className="text-lg font-semibold">Edit Notice: {noticeId}</h1>
           <Textarea
             className="border-2 border-gray-300 mt-1 resize-none h-[107px]"
             value={noticetext}
@@ -90,7 +112,7 @@ const CreateNotice = () => {
           />
         </div>
         <div
-          className=" w-[170px] sm:w-[230px] bg-gray-100 border-2  rounded-md h-[107px] cursor-pointer border-gray-300 flex justify-center items-center"
+          className="w-[170px] sm:w-[230px] bg-gray-100 border-2 rounded-md h-[107px] cursor-pointer border-gray-300 flex justify-center items-center"
           onClick={handleSelectNoticeImage}
         >
           {imageURL ? (
@@ -107,13 +129,9 @@ const CreateNotice = () => {
                 fill
                 style={{ objectFit: "cover" }}
               />
-
-              {/* <div className="flex justify-center items-center h-full w-full">
-                <Riple color="#32cd32" size="large" text="" textColor="" />
-              </div> */}
             </div>
           ) : (
-            <BiSolidCloudUpload className="text-4xl text-gray-300 " />
+            <BiSolidCloudUpload className="text-4xl text-gray-300" />
           )}
           <input
             type="file"
@@ -123,19 +141,15 @@ const CreateNotice = () => {
           />
         </div>
       </div>
-      <div className="mt-6 space-x-3 max-w-2xl  ">
+      <div className="mt-6 space-x-3 max-w-2xl">
         <Button variant="outline" onClick={() => router.push("/dashboard")}>
           Discard
         </Button>
         {noticetext && !loading ? (
-          <Button onClick={handleCreateNotice}>Save Post</Button>
+          <Button onClick={handleCreateNotice}>Save Edit</Button>
         ) : (
           <Button className="cursor-not-allowed bg-gray-500 hover:bg-gray-400">
-            {loading ? (
-              <ThreeDot color="#32cd32" size="small" text="" textColor="" />
-            ) : (
-              "Save Post"
-            )}
+            {loading ? <ThreeDot color="#32cd32" size="small" /> : "Save Edit"}
           </Button>
         )}
       </div>
@@ -143,4 +157,4 @@ const CreateNotice = () => {
   );
 };
 
-export default CreateNotice;
+export default EditNoticeCom;
