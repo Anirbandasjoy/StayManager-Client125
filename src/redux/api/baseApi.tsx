@@ -154,6 +154,9 @@ const stayManagerApi = createApi({
         body: { caption, noticeImage },
       }),
     }),
+    findSingleNotice: builder.query({
+      query: (id) => `/notice/find-single-notice/${id}`,
+    }),
 
     findSaveNotice: builder.query<findSaveNotice, void>({
       query: () => "/save/find-notice",
@@ -225,6 +228,7 @@ export const {
   useLogOutMutation,
   useExistBookingRequestQuery,
   useUpdateNoticeMutation,
+  useFindSingleNoticeQuery,
 } = stayManagerApi;
 
 export default stayManagerApi;

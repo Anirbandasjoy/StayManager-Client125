@@ -102,6 +102,23 @@ export interface updateNoticeRequest {
   noticeImage: string;
 }
 
+export interface findSingleNoticeResponse {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  payload: {
+    _id: string;
+    caption: string;
+    noticeImage: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+}
+
+export interface findSingleNoticeRequest {
+  id: string;
+}
+
 interface Comment {
   _id: string;
   text: string;
