@@ -1,13 +1,12 @@
 "use client";
 import NoticeCard from "@/extraComponents/dashboard/notice/NoticeCard";
+import NoticeCardLoading from "@/extraComponents/loading/NoticeCardLoading";
 import { useFindNoticeQuery } from "@/redux/api/baseApi";
 import Image from "next/image";
 
 const HomeNotice = () => {
   const { data, isLoading, refetch: noticeRefetch } = useFindNoticeQuery();
-  if (isLoading) {
-    return <h1>Loading...</h1>;
-  }
+
   const notice = data?.payload || [];
   return (
     <div>
@@ -26,13 +25,23 @@ const HomeNotice = () => {
         </div>
       </div>
       <div className=" flex flex-col gap-4 ">
-        {notice?.map((notice) => (
-          <NoticeCard
-            key={notice?._id}
-            notice={notice}
-            noticeRefetch={noticeRefetch}
-          />
-        ))}
+        {isLoading ? (
+          <div className="space-y-4">
+            {[...Array(5)].map((_, index) => {
+              return <NoticeCardLoading key={index} />;
+            })}
+          </div>
+        ) : (
+          <>
+            {notice?.map((notice: any) => (
+              <NoticeCard
+                key={notice?._id}
+                notice={notice}
+                noticeRefetch={noticeRefetch}
+              />
+            ))}
+          </>
+        )}
       </div>
     </div>
   );

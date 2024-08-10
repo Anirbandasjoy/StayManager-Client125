@@ -1,27 +1,37 @@
-"use client"
-import CreateNotice from "@/extraComponents/dashboard/notice/CreateNotice";
+"use client";
+
 import NoticeCard from "@/extraComponents/dashboard/notice/NoticeCard";
 import Navbar from "@/extraComponents/dashboard/sidebar/Navbar";
+import NoticeCardLoading from "@/extraComponents/loading/NoticeCardLoading";
 import { useFindNoticeQuery } from "@/redux/api/baseApi";
 import React from "react";
 
 const DashboardHome = () => {
-  const {data, isLoading,refetch : noticeRefetch} = useFindNoticeQuery();
-  if(isLoading){
-    return <h1>Loading...</h1>
-  }
-  const notice = data?.payload || [] 
+  const { data, isLoading, refetch: noticeRefetch } = useFindNoticeQuery();
+
+  const notice = data?.payload || [];
   return (
     <div>
       <Navbar />
-      
+
       <div className="md:h-[calc(100vh-100px)] h-[calc(100vh-150px)] flex flex-col gap-4 overflow-auto">
-        
-      {
-        notice?.map((notice) => (
-          <NoticeCard key={notice?._id} notice={notice} noticeRefetch={noticeRefetch} />
-        ))
-      }
+        {isLoading ? (
+          <div className="space-y-4">
+            {[...Array(5)].map((_, index) => {
+              return <NoticeCardLoading key={index} />;
+            })}
+          </div>
+        ) : (
+          <>
+            {notice?.map((notice: any) => (
+              <NoticeCard
+                key={notice?._id}
+                notice={notice}
+                noticeRefetch={noticeRefetch}
+              />
+            ))}
+          </>
+        )}
       </div>
     </div>
   );
