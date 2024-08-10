@@ -11,7 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/components/ui/use-toast";
-import { useLoginMutation } from "@/redux/api/baseApi";
+import { useCurrentUserQuery, useLoginMutation } from "@/redux/api/baseApi";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { FaGithub, FaGoogle } from "react-icons/fa";
@@ -24,6 +24,7 @@ interface IFormInputs {
 const Login = () => {
   const router = useRouter();
   const [setLogin, { data, isLoading }] = useLoginMutation();
+  const { refetch: currentUserRefetch } = useCurrentUserQuery();
   const {
     control,
     handleSubmit,
@@ -32,6 +33,7 @@ const Login = () => {
   const onSubmit: SubmitHandler<IFormInputs> = async (data) => {
     try {
       await setLogin({ email: data.email, password: data.password }).unwrap();
+      currentUserRefetch();
       toast({
         title: "Login Successfully.",
       });

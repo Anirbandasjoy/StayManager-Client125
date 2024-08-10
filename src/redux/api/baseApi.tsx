@@ -34,12 +34,12 @@ import {
   updateNoticeResponse,
 } from "@/helper/type";
 
-const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+// const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
 const stayManagerApi = createApi({
   reducerPath: "stayManagerApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: baseUrl,
+    baseUrl: "http://localhost:5000/api/v1",
     credentials: "include",
   }),
 

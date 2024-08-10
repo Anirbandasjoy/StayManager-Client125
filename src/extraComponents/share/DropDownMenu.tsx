@@ -31,7 +31,7 @@ const DropDownMenu = () => {
   // currentUser get hook
   const { data } = useCurrentUserQuery();
   const [openLogOutModal, setOpenLogOutModal] = useState<boolean>(false);
-
+ console.log({currentUser : data})
   return (
     <div>
       <DropdownMenu>
