@@ -15,6 +15,7 @@ import { useCurrentUserQuery, useLoginMutation } from "@/redux/api/baseApi";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { FaGithub, FaGoogle } from "react-icons/fa";
+import { handleGoogleLogin } from "@/helper/auth";
 
 interface IFormInputs {
   email: string;
@@ -46,10 +47,6 @@ const Login = () => {
         description: "There was a problem with your request.",
       });
     }
-  };
-
-  const handleGoogleLogin = () => {
-    window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/auth/google`;
   };
 
   return (
