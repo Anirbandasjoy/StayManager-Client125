@@ -59,6 +59,10 @@ const stayManagerApi = createApi({
       }),
     }),
 
+    googleLogin: builder.query({
+      query: () => "/auth/google",
+    }),
+
     // user api
     currentUser: builder.query<curretUserResponse, void>({
       query: () => "/user/current-user",

@@ -48,6 +48,10 @@ const Login = () => {
     }
   };
 
+  const handleGoogleLogin = () => {
+    window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/auth/google`;
+  };
+
   return (
     <div className="flex h-screen w-full justify-center items-center">
       <Card className="w-[400px] shadow-md p-3 ">
@@ -69,6 +73,7 @@ const Login = () => {
               Github
             </Button>
             <Button
+              onClick={handleGoogleLogin}
               variant="outline"
               className="w-full flex items-center justify-center gap-2"
             >
