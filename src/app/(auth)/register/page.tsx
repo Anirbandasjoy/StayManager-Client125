@@ -15,7 +15,7 @@ import { useProcessRegisterMutation } from "@/redux/api/baseApi";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { FaGithub, FaGoogle } from "react-icons/fa";
-import { handleGoogleLogin } from "@/helper/auth";
+import { handleGithubLogin, handleGoogleLogin } from "@/helper/auth";
 
 interface IFormInputs {
   name: string;
@@ -79,6 +79,7 @@ const Register = () => {
         <CardContent className="">
           <div className="flex gap-2">
             <Button
+              onClick={handleGithubLogin}
               variant="outline"
               className="w-full flex items-center justify-center gap-2"
             >
