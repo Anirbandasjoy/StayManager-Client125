@@ -31,9 +31,10 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
   } = useFindSingleRoomQuery({
     id: roomId,
   });
-  const { data: roomBookingExistData } = useExistBookingRequestQuery({
-    roomId,
-  });
+  const { data: roomBookingExistData, refetch: roomBookingExistRefetch } =
+    useExistBookingRequestQuery({
+      roomId,
+    });
   const [rating, setRating] = useState<number | null | string>(null);
   const [message, setMessage] = useState<string>("");
   const [hover, setHover] = useState<null | any>(null);
@@ -46,7 +47,6 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
   } = useFindRoomReviewQuery({ roomId });
 
   const handleCreateReview = () => {
-    console.log({ roomId, message, rating });
     try {
       setReviewData({ roomId, message, rating }).unwrap();
       toast({
@@ -276,6 +276,7 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
         sitNumber={sitNumber}
         roomId={roomId}
         singRoomRefetch={singRoomRefetch}
+        roomBookingExistRefetch={roomBookingExistRefetch}
         open={openRequestModal}
         setOpen={setopenRequestModal}
       />

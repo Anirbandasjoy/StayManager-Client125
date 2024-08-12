@@ -15,12 +15,14 @@ const RequestModal = ({
   roomId,
   sitNumber,
   singRoomRefetch,
+  roomBookingExistRefetch,
   open,
   setOpen,
 }: {
   roomId: string;
   sitNumber: number;
   singRoomRefetch: any;
+  roomBookingExistRefetch: any;
   open: boolean;
   setOpen: (open: boolean) => void;
 }) => {
@@ -29,6 +31,7 @@ const RequestModal = ({
   const handleCreateBookingRequest = () => {
     try {
       setData({ id: roomId, sitNumber }).unwrap();
+      roomBookingExistRefetch();
       singRoomRefetch();
       toast({
         title: "Request send done.",

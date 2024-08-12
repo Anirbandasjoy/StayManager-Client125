@@ -32,6 +32,7 @@ import {
   saveNoticeResponse,
   updateNoticeRequest,
   updateNoticeResponse,
+  userAllBookingRequestResponse,
 } from "@/helper/type";
 
 // const baseUrl = process.env.NEXT_PUBLIC_API_URL;
@@ -205,6 +206,9 @@ const stayManagerApi = createApi({
     >({
       query: ({ roomId }) => `/booking/exist-request/${roomId}`,
     }),
+    userALlBookingRequest: builder.query<userAllBookingRequestResponse, void>({
+      query: () => "/booking/user-allBooking-request",
+    }),
   }),
 });
 
@@ -233,6 +237,7 @@ export const {
   useExistBookingRequestQuery,
   useUpdateNoticeMutation,
   useFindSingleNoticeQuery,
+  useUserALlBookingRequestQuery,
 } = stayManagerApi;
 
 export default stayManagerApi;

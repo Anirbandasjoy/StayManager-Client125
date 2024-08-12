@@ -343,6 +343,21 @@ export interface existBookingRequest {
   roomId: string;
 }
 
+export interface userAllBookingRequestResponse {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  payload: {
+    _id: string;
+    user: User;
+    room: Room;
+    sitNumber: string;
+    status: string;
+    createdAt: string;
+    updatedAt: string;
+  }[];
+}
+
 // auth types
 
 export interface logOutResponse {

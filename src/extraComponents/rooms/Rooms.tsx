@@ -21,6 +21,8 @@ import {
 import Link from "next/link";
 import { useFindAllRoomsQuery } from "@/redux/api/baseApi";
 import RoomCardLoading from "../loading/RoomCardLoading";
+import RoomStatus from "./RoomStatus";
+import RoomStausHomePageRoomCard from "./RoomStausHomePageRoomCard";
 
 const Rooms = () => {
   const { data: roomData, isLoading } = useFindAllRoomsQuery();
@@ -137,9 +139,11 @@ const Rooms = () => {
                       <TooltipTrigger asChild>
                         <div className="flex items-center gap-2 cursor-pointer">
                           <IoBedOutline className="text-lg text-blue-600" />
-                          <h1 className="text-xs font-semibold text-blue-600">
-                            {product?.sitOne === null ? "Avilable" : "booked"}
-                          </h1>
+                          <RoomStausHomePageRoomCard
+                            roomId={product?._id}
+                            sitNumber={1}
+                            text="text-blue-600"
+                          />
                         </div>
                       </TooltipTrigger>
                       <TooltipContent className="bg-gray-400 text-white z-50">
@@ -152,9 +156,11 @@ const Rooms = () => {
                       <TooltipTrigger asChild>
                         <div className="flex items-center gap-2 cursor-pointer">
                           <IoBedOutline className="text-lg text-red-300" />
-                          <h1 className="text-xs font-semibold text-red-300">
-                            {product?.sitTwo === null ? "Avilable" : "booked"}
-                          </h1>
+                          <RoomStausHomePageRoomCard
+                            roomId={product?._id}
+                            sitNumber={2}
+                            text="text-red-300"
+                          />
                         </div>
                       </TooltipTrigger>
                       <TooltipContent className="bg-gray-400 text-white z-50">
@@ -167,9 +173,11 @@ const Rooms = () => {
                       <TooltipTrigger asChild>
                         <div className="flex items-center gap-2 cursor-pointer">
                           <IoBedOutline className="text-lg text-green-400" />
-                          <h1 className="text-xs font-semibold text-green-400">
-                            {product?.sitthree === null ? "Avilable" : "booked"}
-                          </h1>
+                          <RoomStausHomePageRoomCard
+                            roomId={product?._id}
+                            sitNumber={3}
+                            text="text-green-400"
+                          />
                         </div>
                       </TooltipTrigger>
                       <TooltipContent className="bg-gray-400 text-white z-50">
