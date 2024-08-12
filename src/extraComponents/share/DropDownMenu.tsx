@@ -31,7 +31,7 @@ const DropDownMenu = () => {
   // currentUser get hook
   const { data } = useCurrentUserQuery();
   const [openLogOutModal, setOpenLogOutModal] = useState<boolean>(false);
- console.log({currentUser : data})
+  console.log({ currentUser: data });
   return (
     <div>
       <DropdownMenu>
@@ -74,7 +74,7 @@ const DropDownMenu = () => {
             </DropdownMenuItem>
             <DropdownMenuItem className="cursor-pointer">
               <Settings className="mr-2 h-4 w-4" />
-              <Link href="/dashboard/settings">Settings</Link>
+              <Link href="/settings">Settings</Link>
               <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
             </DropdownMenuItem>
           </DropdownMenuGroup>
