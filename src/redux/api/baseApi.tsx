@@ -30,6 +30,8 @@ import {
   registrationResponse,
   saveNoticeRequest,
   saveNoticeResponse,
+  singleUserRequest,
+  singleUserResponse,
   updateNoticeRequest,
   updateNoticeResponse,
   userAllBookingRequestResponse,
@@ -67,6 +69,9 @@ const stayManagerApi = createApi({
     // user api
     currentUser: builder.query<curretUserResponse, void>({
       query: () => "/user/current-user",
+    }),
+    singleUser: builder.query<singleUserResponse, singleUserRequest>({
+      query: ({ profileId }) => `/user/find-single-user/${profileId}`,
     }),
     allUser: builder.query<allUserResponse, void>({
       query: () => "/user/find-allUsers",
@@ -238,6 +243,7 @@ export const {
   useUpdateNoticeMutation,
   useFindSingleNoticeQuery,
   useUserALlBookingRequestQuery,
+  useSingleUserQuery,
 } = stayManagerApi;
 
 export default stayManagerApi;

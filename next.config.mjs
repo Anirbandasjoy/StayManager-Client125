@@ -11,6 +11,7 @@ const nextConfig = {
       "themes.webdevia.com",
       "download.logo.wine",
       "lh3.googleusercontent.com",
+      "avatars.githubusercontent.com",
     ],
   },
 };

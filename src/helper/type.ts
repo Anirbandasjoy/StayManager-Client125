@@ -83,6 +83,31 @@ interface User {
   __v: number;
 }
 
+export interface singleUserResponse {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  payload: {
+    _id: string;
+    name: string;
+    email: string;
+    password: string;
+    profileImage: string;
+    backgroundImage: string;
+    phone: string;
+    address: string;
+    department: string;
+    role: string;
+    createdAt: string;
+    updatedAt: string;
+    __v: number;
+  };
+}
+
+export interface singleUserRequest {
+  profileId: string;
+}
+
 export interface Notice {
   _id: string;
   caption: string;

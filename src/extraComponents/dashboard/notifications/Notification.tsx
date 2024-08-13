@@ -148,7 +148,7 @@ const Notifications = () => {
               <div className="flex justify-between ">
                 <div>
                   <h3 className="text-[16px] font-medium">{email.sender}</h3>
-                  <p className="text-gray-500 text-xs">{email.subject}</p>
+                  <p className="text-gray-500 text-xs">{email.time}</p>
                 </div>
                 <span className=" text-gray-400 text-xs">{email.time}</span>
               </div>

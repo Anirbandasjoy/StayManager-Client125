@@ -64,7 +64,7 @@ const DropDownMenu = () => {
           <DropdownMenuGroup>
             <DropdownMenuItem className="cursor-pointer">
               <User className="mr-2 h-4 w-4" />
-              <span>Profile</span>
+              <Link href={`/profile/${data?.payload?._id}`}>Profile</Link>
               <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
             </DropdownMenuItem>
             <DropdownMenuItem className="cursor-pointer">

@@ -104,7 +104,7 @@ const Accout = () => {
           </div>
 
           {/* Update Account Button */}
-          <div className="space-x-4">
+          <div className="space-x-3">
             <Button className="mt-6 w-full md:w-auto">Update account</Button>
             <Button className="mt-6 w-full bg-red-500 hover:bg-red-400 md:w-auto">
               Delete account
