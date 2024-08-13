@@ -2,13 +2,17 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { isImage } from "@/helper/common";
+import { useCurrentUserQuery } from "@/redux/api/baseApi";
 import Image from "next/image";
 import React, { ChangeEvent, useState } from "react";
 import { BiSolidCloudUpload } from "react-icons/bi";
 import { GrClose } from "react-icons/gr";
 
 const Settings = () => {
-  const [imageURL, setImageURL] = useState<string>("");
+  const { data: loginUser } = useCurrentUserQuery();
+  const [imageURL, setImageURL] = useState<string>(
+    loginUser?.payload?.profileImage || ""
+  );
   const [imageFile, setImageFile] = useState<File | null>(null);
   const handleSelectNoticeImage = () => {
     const noticeImage = document.getElementById(
@@ -41,7 +45,12 @@ const Settings = () => {
           <label className="block text-sm font-medium text-gray-700">
             Name
           </label>
-          <Input type="text" placeholder="Your name" className="mt-1 w-full " />
+          <Input
+            type="text"
+            placeholder="Your name"
+            className="mt-1 w-full "
+            defaultValue={loginUser?.payload?.name}
+          />
         </div>
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">
@@ -49,7 +58,7 @@ const Settings = () => {
           </label>
           <Input
             type="text"
-            value="joy600508@gmail.com"
+            value={loginUser?.payload?.email}
             className="mt-1 w-full"
           />
         </div>
@@ -60,6 +69,7 @@ const Settings = () => {
           <Input
             type="text"
             placeholder="Your phone number"
+            defaultValue={loginUser?.payload?.phone}
             className="mt-1 w-full"
           />
         </div>
@@ -72,6 +82,7 @@ const Settings = () => {
             type="text"
             placeholder="Your address"
             className="mt-1 w-full"
+            defaultValue={loginUser?.payload?.address}
           />
         </div>
         <div className="mb-4">
@@ -82,13 +93,18 @@ const Settings = () => {
             type="text"
             placeholder="Your department"
             className="mt-1 w-full"
+            defaultValue={loginUser?.payload?.department}
           />
         </div>
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">
             Role
           </label>
-          <Input type="text" value="User" className="mt-1 w-full" />
+          <Input
+            type="text"
+            value={loginUser?.payload?.role}
+            className="mt-1 w-full"
+          />
         </div>
         <div className="mb-6">
           <label className="block text-sm mb-1 font-medium text-gray-700">

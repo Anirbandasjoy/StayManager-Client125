@@ -31,7 +31,7 @@ const SettingsSidebar = () => {
           <Link href="/settings/appearance">Appearance</Link>
         </li>
         <li className="text-gray-500 text-sm font-semibold  rounded-sm py-2 px-3 cursor-pointer">
-          Notifications
+          <Link href="/settings/payment">Payment</Link>
         </li>
         <li className="text-gray-500 text-sm font-semibold  rounded-sm py-2 px-3 cursor-pointer">
           Display

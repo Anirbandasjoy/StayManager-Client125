@@ -9,6 +9,8 @@ const nextConfig = {
       "cdn.dummyjson.com",
       "images.remotePatterns",
       "themes.webdevia.com",
+      "download.logo.wine",
+      "lh3.googleusercontent.com",
     ],
   },
 };

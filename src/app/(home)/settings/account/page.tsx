@@ -19,9 +19,11 @@ import {
 } from "@/components/ui/select";
 import { CalendarIcon } from "lucide-react";
 import { useState } from "react";
+import { useCurrentUserQuery } from "@/redux/api/baseApi";
 
 const Accout = () => {
   const [date, setDate] = useState<Date>();
+  const { data: loginUser } = useCurrentUserQuery();
   return (
     <div className="col-span-12 md:col-span-9 bg-white sm:p-0 p-4 md:px-8  w-full">
       <h2 className="text-lg md:text-xl font-semibold mb-1">Account</h2>
@@ -36,7 +38,12 @@ const Accout = () => {
             <Label htmlFor="name" className="text-sm font-medium">
               Name
             </Label>
-            <Input id="name" placeholder="Your name" className="w-full" />
+            <Input
+              id="name"
+              placeholder="Your name"
+              className="w-full focus:ring-0 focus:border-red-100"
+              value={loginUser?.payload?.name}
+            />
             <p className="text-gray-500 text-xs">
               This is the name that will be displayed on your profile and in
               emails.
@@ -97,7 +104,12 @@ const Accout = () => {
           </div>
 
           {/* Update Account Button */}
-          <Button className="mt-6 w-full md:w-auto">Update account</Button>
+          <div className="space-x-4">
+            <Button className="mt-6 w-full md:w-auto">Update account</Button>
+            <Button className="mt-6 w-full bg-red-500 hover:bg-red-400 md:w-auto">
+              Delete account
+            </Button>
+          </div>
         </form>
       </div>
     </div>
