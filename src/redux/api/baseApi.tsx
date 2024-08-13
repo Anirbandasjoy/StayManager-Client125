@@ -30,16 +30,19 @@ import {
   registrationResponse,
   saveNoticeRequest,
   saveNoticeResponse,
+  singleUserRequest,
+  singleUserResponse,
   updateNoticeRequest,
   updateNoticeResponse,
+  userAllBookingRequestResponse,
 } from "@/helper/type";
 
-const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+// const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
 const stayManagerApi = createApi({
   reducerPath: "stayManagerApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: baseUrl,
+    baseUrl: "http://localhost:5000/api/v1",
     credentials: "include",
   }),
 
@@ -59,9 +62,16 @@ const stayManagerApi = createApi({
       }),
     }),
 
+    googleLogin: builder.query({
+      query: () => "/auth/google",
+    }),
+
     // user api
     currentUser: builder.query<curretUserResponse, void>({
       query: () => "/user/current-user",
+    }),
+    singleUser: builder.query<singleUserResponse, singleUserRequest>({
+      query: ({ profileId }) => `/user/find-single-user/${profileId}`,
     }),
     allUser: builder.query<allUserResponse, void>({
       query: () => "/user/find-allUsers",
@@ -201,6 +211,9 @@ const stayManagerApi = createApi({
     >({
       query: ({ roomId }) => `/booking/exist-request/${roomId}`,
     }),
+    userALlBookingRequest: builder.query<userAllBookingRequestResponse, void>({
+      query: () => "/booking/user-allBooking-request",
+    }),
   }),
 });
 
@@ -229,6 +242,8 @@ export const {
   useExistBookingRequestQuery,
   useUpdateNoticeMutation,
   useFindSingleNoticeQuery,
+  useUserALlBookingRequestQuery,
+  useSingleUserQuery,
 } = stayManagerApi;
 
 export default stayManagerApi;

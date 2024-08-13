@@ -11,10 +11,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/components/ui/use-toast";
-import { useLoginMutation } from "@/redux/api/baseApi";
+import { useCurrentUserQuery, useLoginMutation } from "@/redux/api/baseApi";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { FaGithub, FaGoogle } from "react-icons/fa";
+import { handleGithubLogin, handleGoogleLogin } from "@/helper/auth";
 
 interface IFormInputs {
   email: string;
@@ -24,6 +25,7 @@ interface IFormInputs {
 const Login = () => {
   const router = useRouter();
   const [setLogin, { data, isLoading }] = useLoginMutation();
+  const { refetch: currentUserRefetch } = useCurrentUserQuery();
   const {
     control,
     handleSubmit,
@@ -32,6 +34,7 @@ const Login = () => {
   const onSubmit: SubmitHandler<IFormInputs> = async (data) => {
     try {
       await setLogin({ email: data.email, password: data.password }).unwrap();
+      currentUserRefetch();
       toast({
         title: "Login Successfully.",
       });
@@ -60,6 +63,7 @@ const Login = () => {
         <CardContent className="mt-4">
           <div className="flex gap-2">
             <Button
+              onClick={handleGithubLogin}
               variant="outline"
               className="w-full flex items-center justify-center gap-2"
             >
@@ -67,6 +71,7 @@ const Login = () => {
               Github
             </Button>
             <Button
+              onClick={handleGoogleLogin}
               variant="outline"
               className="w-full flex items-center justify-center gap-2"
             >

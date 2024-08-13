@@ -10,7 +10,7 @@ const HomeNotice = () => {
   const notice = data?.payload || [];
   return (
     <div>
-      <div className="w-full ">
+      <div className="w-full">
         <div className="relative w-full h-[70px] ">
           <Image
             src={

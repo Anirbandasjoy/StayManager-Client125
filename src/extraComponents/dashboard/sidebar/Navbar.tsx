@@ -5,6 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BellRing } from "lucide-react";
 
 import DropDownMenu from "@/extraComponents/share/DropDownMenu";
+import Notifications from "../notifications/Notification";
 const Navbar = () => {
   return (
     <div className="py-4 bg-blue-300 rounded-sm dark:bg-gray-800 ">
@@ -29,7 +30,9 @@ const Navbar = () => {
                           <TabsTrigger value="all">All</TabsTrigger>
                           <TabsTrigger value="unread">Unread</TabsTrigger>
                         </TabsList>
-                        <TabsContent value="all">All content</TabsContent>
+                        <TabsContent value="all">
+                          <Notifications />
+                        </TabsContent>
                         <TabsContent value="unread">Unread content</TabsContent>
                       </Tabs>
                     </div>

@@ -31,7 +31,7 @@ const DropDownMenu = () => {
   // currentUser get hook
   const { data } = useCurrentUserQuery();
   const [openLogOutModal, setOpenLogOutModal] = useState<boolean>(false);
-
+  console.log({ currentUser: data });
   return (
     <div>
       <DropdownMenu>
@@ -64,7 +64,7 @@ const DropDownMenu = () => {
           <DropdownMenuGroup>
             <DropdownMenuItem className="cursor-pointer">
               <User className="mr-2 h-4 w-4" />
-              <span>Profile</span>
+              <Link href={`/profile/${data?.payload?._id}`}>Profile</Link>
               <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
             </DropdownMenuItem>
             <DropdownMenuItem className="cursor-pointer">
@@ -74,7 +74,7 @@ const DropDownMenu = () => {
             </DropdownMenuItem>
             <DropdownMenuItem className="cursor-pointer">
               <Settings className="mr-2 h-4 w-4" />
-              <Link href="/dashboard/settings">Settings</Link>
+              <Link href="/settings">Settings</Link>
               <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
             </DropdownMenuItem>
           </DropdownMenuGroup>
