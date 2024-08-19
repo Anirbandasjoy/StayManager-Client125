@@ -1,21 +1,23 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Navbar from "../sidebar/Navbar";
+import BookingRequest from "./BookingRequest";
+import BookingsList from "./BookingsList";
 const BookingsTab = () => {
   return (
     <div>
       <div className="mb-3">
         <Navbar />
       </div>
-      <Tabs defaultValue="booking-request" className="w-[400px]">
-        <TabsList className="grid w-full grid-cols-2">
+      <Tabs defaultValue="booking-request" className="w-full">
+        <TabsList className="grid w-full grid-cols-2 mx-auto">
           <TabsTrigger value="booking-request">Booking Request</TabsTrigger>
           <TabsTrigger value="booking-list">Booking List</TabsTrigger>
         </TabsList>
         <TabsContent value="booking-request">
-          <div>hello iam booking request</div>
+          <BookingRequest />
         </TabsContent>
         <TabsContent value="booking-list">
-          <div>hello iam booking list</div>
+          <BookingsList />
         </TabsContent>
       </Tabs>
     </div>
