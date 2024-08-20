@@ -178,6 +178,8 @@ const NoticeCard = ({
     }
   };
 
+  console.log({ notice });
+
   return (
     <div className="">
       <div></div>

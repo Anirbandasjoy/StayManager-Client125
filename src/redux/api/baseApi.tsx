@@ -214,6 +214,9 @@ const stayManagerApi = createApi({
     userALlBookingRequest: builder.query<userAllBookingRequestResponse, void>({
       query: () => "/booking/user-allBooking-request",
     }),
+    findAllBookingRequest: builder.query<userAllBookingRequestResponse, void>({
+      query: () => "/booking/findAll-booking-request",
+    }),
   }),
 });
 
@@ -244,6 +247,7 @@ export const {
   useFindSingleNoticeQuery,
   useUserALlBookingRequestQuery,
   useSingleUserQuery,
+  useFindAllBookingRequestQuery,
 } = stayManagerApi;
 
 export default stayManagerApi;

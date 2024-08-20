@@ -67,3 +67,22 @@ export const years = [
   { name: 2039, value: 2039 },
   { name: 2040, value: 2040 },
 ];
+
+// Define a function to format a date string
+export const formatDate = (dateString: string): string => {
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+    timeZone: "UTC",
+  };
+
+  const formattedDate = new Date(dateString).toLocaleDateString(
+    "en-US",
+    options
+  );
+  return formattedDate;
+};

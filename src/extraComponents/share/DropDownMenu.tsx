@@ -8,12 +8,10 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
 import {
-  BellRing,
   Github,
   LayoutDashboard,
   LifeBuoy,
@@ -26,26 +24,28 @@ import {
 import { useCurrentUserQuery } from "@/redux/api/baseApi";
 import { useState } from "react";
 import LogOutModal from "../modal/LogOutModal";
+import LoginAlertModal from "../modal/LoginAlertModal";
 
 const DropDownMenu = () => {
   // currentUser get hook
-  const { data } = useCurrentUserQuery();
+  const { data: user } = useCurrentUserQuery();
   const [openLogOutModal, setOpenLogOutModal] = useState<boolean>(false);
-  console.log({ currentUser: data });
+  const [openLoginAlertModa, setLoginAlertModal] = useState<boolean>(false);
+  console.log({ currentUser: user });
   return (
     <div>
       <DropdownMenu>
         <DropdownMenuTrigger asChild className="">
-          {data?.payload ? (
+          {user?.payload ? (
             <Avatar className="">
-              {data?.payload?.profileImage === null ? (
+              {user?.payload?.profileImage === null ? (
                 <AvatarFallback className="bg-gray-200">
-                  {data?.payload?.name?.slice(0, 2)}
+                  {user?.payload?.name?.slice(0, 2)}
                 </AvatarFallback>
               ) : (
                 <AvatarImage
-                  src={data?.payload?.profileImage}
-                  alt={data?.payload?.name}
+                  src={user?.payload?.profileImage}
+                  alt={user?.payload?.name}
                 />
               )}
             </Avatar>
@@ -62,38 +62,44 @@ const DropDownMenu = () => {
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuItem className="cursor-pointer">
-              <User className="mr-2 h-4 w-4" />
-              <Link href={`/profile/${data?.payload?._id}`}>Profile</Link>
-              <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-            </DropdownMenuItem>
-            <DropdownMenuItem className="cursor-pointer">
-              <LayoutDashboard className="mr-2 h-4 w-4" />
-              <Link href="/dashboard">Dashboard</Link>
-              {/* <DropdownMenuShortcut>⌘B</DropdownMenuShortcut> */}
-            </DropdownMenuItem>
+            {user ? (
+              <DropdownMenuItem className="cursor-pointer">
+                <User className="mr-2 h-4 w-4" />
+                <Link href={`/profile/${user?.payload?._id}`}>Profile</Link>
+              </DropdownMenuItem>
+            ) : (
+              <DropdownMenuItem
+                className="cursor-pointer"
+                onClick={() => setLoginAlertModal(true)}
+              >
+                <User className="mr-2 h-4 w-4" />
+                <h1>Profile</h1>
+              </DropdownMenuItem>
+            )}
+            {user?.payload?.role === "admin" && (
+              <DropdownMenuItem className="cursor-pointer">
+                <LayoutDashboard className="mr-2 h-4 w-4" />
+                <Link href="/dashboard">Dashboard</Link>
+              </DropdownMenuItem>
+            )}
             <DropdownMenuItem className="cursor-pointer">
               <Settings className="mr-2 h-4 w-4" />
               <Link href="/settings">Settings</Link>
-              <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <Link href="/dashboard/create-notice">
-              <DropdownMenuItem className="cursor-pointer">
-                <Newspaper className="mr-2 h-4 w-4" />
-                <span>Create Notice</span>
-              </DropdownMenuItem>
-            </Link>
+            {user?.payload?.role === "admin" && (
+              <Link href="/dashboard/create-notice">
+                <DropdownMenuItem className="cursor-pointer">
+                  <Newspaper className="mr-2 h-4 w-4" />
+                  <span>Create Notice</span>
+                </DropdownMenuItem>
+              </Link>
+            )}
             <DropdownMenuItem className="cursor-pointer">
               <Users className="mr-2 h-4 w-4" />
               <span>Team</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem className="cursor-pointer">
-              <BellRing className="mr-2 h-4 w-4" />
-              <span>Notifications</span>
-              <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
@@ -107,17 +113,24 @@ const DropDownMenu = () => {
           </DropdownMenuItem>
 
           <DropdownMenuSeparator />
-          <DropdownMenuItem
-            className="cursor-pointer"
-            onClick={() => setOpenLogOutModal(true)}
-          >
-            <LogOut className="mr-2 h-4 w-4" />
-            <h1>Log out</h1>
-          </DropdownMenuItem>
+          {user ? (
+            <DropdownMenuItem
+              className="cursor-pointer"
+              onClick={() => setOpenLogOutModal(true)}
+            >
+              <LogOut className="mr-2 h-4 w-4" />
+              <h1>Log out</h1>
+            </DropdownMenuItem>
+          ) : (
+            <DropdownMenuItem className="cursor-pointer">
+              <LogOut className="mr-2 h-4 w-4" />
+              <Link href="/login">Log in</Link>
+            </DropdownMenuItem>
+          )}
         </DropdownMenuContent>
       </DropdownMenu>
-
       <LogOutModal open={openLogOutModal} setOpen={setOpenLogOutModal} />
+      <LoginAlertModal open={openLoginAlertModa} setOpen={setLoginAlertModal} />
     </div>
   );
 };

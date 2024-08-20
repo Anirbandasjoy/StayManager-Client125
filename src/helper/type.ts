@@ -113,6 +113,8 @@ export interface Notice {
   caption: string;
   author: User;
   noticeImage: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface updateNoticeResponse {
