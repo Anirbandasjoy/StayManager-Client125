@@ -3,12 +3,13 @@ import Sidebar from "@/extraComponents/dashboard/sidebar/Sidebar";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useState } from "react";
 import { IoMdClose } from "react-icons/io";
+import isAdmin from "@/utils/auth/isAdmin";
 
-export default function DashboardLayout({
+const DashboardLayout = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>) => {
   const [sideOpen, setSideOpen] = useState(false);
   return (
     <div>
@@ -41,4 +42,6 @@ export default function DashboardLayout({
       </div>
     </div>
   );
-}
+};
+
+export default isAdmin(DashboardLayout);
