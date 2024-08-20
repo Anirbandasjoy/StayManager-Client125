@@ -24,11 +24,13 @@ import {
 import { useCurrentUserQuery } from "@/redux/api/baseApi";
 import { useState } from "react";
 import LogOutModal from "../modal/LogOutModal";
+import LoginAlertModal from "../modal/LoginAlertModal";
 
 const DropDownMenu = () => {
   // currentUser get hook
   const { data: user } = useCurrentUserQuery();
   const [openLogOutModal, setOpenLogOutModal] = useState<boolean>(false);
+  const [openLoginAlertModa, setLoginAlertModal] = useState<boolean>(false);
   console.log({ currentUser: user });
   return (
     <div>
@@ -68,7 +70,7 @@ const DropDownMenu = () => {
             ) : (
               <DropdownMenuItem
                 className="cursor-pointer"
-                onClick={() => setOpenLogOutModal(true)}
+                onClick={() => setLoginAlertModal(true)}
               >
                 <User className="mr-2 h-4 w-4" />
                 <h1>Profile</h1>
@@ -127,8 +129,8 @@ const DropDownMenu = () => {
           )}
         </DropdownMenuContent>
       </DropdownMenu>
-
       <LogOutModal open={openLogOutModal} setOpen={setOpenLogOutModal} />
+      <LoginAlertModal open={openLoginAlertModa} setOpen={setLoginAlertModal} />
     </div>
   );
 };

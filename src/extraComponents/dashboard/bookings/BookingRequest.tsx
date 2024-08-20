@@ -8,11 +8,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import DateComponent from "@/helper/dateFormetter/DateFormet";
+
 import { useFindAllBookingRequestQuery } from "@/redux/api/baseApi";
 import Image from "next/image";
 import Link from "next/link";
-import { BsThreeDots } from "react-icons/bs";
+import TimeAgo from "../notice/TimeAgo";
+import BookingRequestActionModal from "./BookingRequestActionModal";
 
 const BookingRequest = () => {
   const { data: bookingRequest } = useFindAllBookingRequestQuery();
@@ -62,11 +63,11 @@ const BookingRequest = () => {
                   </Link>
                 </TableCell>
                 <TableCell>
-                  <DateComponent dateString={req?.user?.createdAt} />
+                  <TimeAgo date={req?.user?.createdAt} />
                 </TableCell>
                 <TableCell>{req?.room?.sitRent} BDT</TableCell>
                 <TableCell className="text-right ">
-                  <BsThreeDots className="ml-auto text-2xl cursor-pointer text-gray-600" />
+                  <BookingRequestActionModal />
                 </TableCell>
               </TableRow>
             );

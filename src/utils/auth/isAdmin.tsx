@@ -4,18 +4,23 @@ import { useEffect } from "react";
 
 const isAdmin = (Component: any) => {
   return function IsAdmin(props: any) {
-    const { data: currentUser } = useCurrentUserQuery();
+    const { data: currentUser, isLoading } = useCurrentUserQuery();
     const admin = currentUser?.payload?.role === "admin";
 
     useEffect(() => {
-      if (!currentUser || !admin) {
-        return redirect("/");
+      if (!isLoading && (!currentUser || !admin)) {
+        redirect("/");
       }
-    }, [admin, currentUser]);
+    }, [admin, currentUser, isLoading]);
+
+    if (isLoading) {
+      return <h1>Loading....</h1>;
+    }
 
     if (!currentUser || !admin) {
       return null;
     }
+
     return <Component {...props} />;
   };
 };
