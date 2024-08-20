@@ -19,16 +19,18 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import Link from "next/link";
-import { useFindAllRoomsQuery } from "@/redux/api/baseApi";
+import { useCurrentUserQuery, useFindAllRoomsQuery } from "@/redux/api/baseApi";
 import RoomCardLoading from "../loading/RoomCardLoading";
-import RoomStatus from "./RoomStatus";
 import RoomStausHomePageRoomCard from "./RoomStausHomePageRoomCard";
+import LoginAlertModal from "../modal/LoginAlertModal";
 
 const Rooms = () => {
   const { data: roomData, isLoading } = useFindAllRoomsQuery();
   const SlideRef = useRef<any | null>(null);
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
+  const [openLoginAlertModal, setLoginAlertModal] = useState<boolean>(false);
+  const { data: user } = useCurrentUserQuery();
 
   const handlePrev = () => {
     SlideRef.current?.swiper.slidePrev();
@@ -192,15 +194,27 @@ const Rooms = () => {
                       <FaDollarSign />
                       {product?.sitRent} <span>BDT</span>
                     </div>
-                    <Link href={`/rooms/${product?._id}`}>
-                      <Button
-                        className="text-xs rounded-sm px-3 hover:text-gray-600 text-gray-200 py-1 bg-blue-500 hover:border hover:border-blue-500 space-x-1"
-                        variant="outline"
-                      >
-                        <BiPurchaseTag />
-                        <span>Explore</span>
-                      </Button>
-                    </Link>
+                    {user ? (
+                      <Link href={`/rooms/${product?._id}`}>
+                        <Button
+                          className="text-xs rounded-sm px-3 hover:text-gray-600 text-gray-200 py-1 bg-blue-500 hover:border hover:border-blue-500 space-x-1"
+                          variant="outline"
+                        >
+                          <BiPurchaseTag />
+                          <span>Explore</span>
+                        </Button>
+                      </Link>
+                    ) : (
+                      <div onClick={() => setLoginAlertModal(true)}>
+                        <Button
+                          className="text-xs rounded-sm px-3 hover:text-gray-600 text-gray-200 py-1 bg-blue-500 hover:border hover:border-blue-500 space-x-1"
+                          variant="outline"
+                        >
+                          <BiPurchaseTag />
+                          <span>Explore</span>
+                        </Button>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -208,6 +222,10 @@ const Rooms = () => {
           );
         })}
       </Swiper>
+      <LoginAlertModal
+        open={openLoginAlertModal}
+        setOpen={setLoginAlertModal}
+      />
     </div>
   );
 };

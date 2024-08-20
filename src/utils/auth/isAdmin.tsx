@@ -8,12 +8,12 @@ const isAdmin = (Component: any) => {
     const admin = currentUser?.payload?.role === "admin";
 
     useEffect(() => {
-      if (!currentUser && !admin) {
+      if (!currentUser || !admin) {
         return redirect("/");
       }
     }, [admin, currentUser]);
 
-    if (!currentUser && !admin) {
+    if (!currentUser || !admin) {
       return null;
     }
     return <Component {...props} />;

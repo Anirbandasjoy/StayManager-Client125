@@ -2,10 +2,14 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import DropDownMenu from "../share/DropDownMenu";
+import { useCurrentUserQuery } from "@/redux/api/baseApi";
+import LoginAlertModal from "../modal/LoginAlertModal";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [navBackground, setNavBackground] = useState("bg-[#5eaaf500]");
   const [text, setText] = useState("text-white");
+  const { data: user } = useCurrentUserQuery();
+  const [openLoginAlertModal, setLoginAlertModal] = useState<boolean>(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -87,13 +91,23 @@ const Navbar = () => {
                 : "hidden"
             }`}
           >
-            <Link href="/notice">
-              <h1
-                className={` block mt-4 md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold ${text}`}
-              >
-                Notice
+            {user ? (
+              <Link href="/notice">
+                <h1
+                  className={` block mt-4 md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold ${text}`}
+                >
+                  Notice
+                </h1>
+              </Link>
+            ) : (
+              <h1 onClick={() => setLoginAlertModal(true)}>
+                <h1
+                  className={` block mt-4 md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold ${text}`}
+                >
+                  Notice
+                </h1>
               </h1>
-            </Link>
+            )}
             <Link href="/rooms">
               <h1
                 className={` block mt-4 md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold ${text}`}
@@ -120,6 +134,10 @@ const Navbar = () => {
             <DropDownMenu />
           </div>
         </div>
+      <LoginAlertModal
+        open={openLoginAlertModal}
+        setOpen={setLoginAlertModal}
+      />
       </div>
     </nav>
   );
