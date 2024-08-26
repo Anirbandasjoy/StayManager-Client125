@@ -9,15 +9,34 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import { useFindAllBookingRequestQuery } from "@/redux/api/baseApi";
+import {
+  useBookingMutation,
+  useFindAllBookingRequestQuery,
+} from "@/redux/api/baseApi";
 import Image from "next/image";
 import Link from "next/link";
 import TimeAgo from "../notice/TimeAgo";
 import BookingRequestActionModal from "./BookingRequestActionModal";
+import { toast } from "@/components/ui/use-toast";
 
 const BookingRequest = () => {
-  const { data: bookingRequest } = useFindAllBookingRequestQuery();
-  console.log(bookingRequest);
+  const { data: bookingRequest, refetch } = useFindAllBookingRequestQuery();
+  const [setBookingRequestConfrim] = useBookingMutation();
+  const handleConfrimRequest = async (roomId: string) => {
+    try {
+      await setBookingRequestConfrim({ id: roomId });
+      toast({
+        title: "Confrim request",
+      });
+      refetch();
+    } catch (error) {
+      console.log(error);
+      toast({
+        title: "Something was wrong",
+      });
+    }
+    console.log("clicked", roomId);
+  };
   return (
     <div className="">
       <Table>
@@ -67,7 +86,10 @@ const BookingRequest = () => {
                 </TableCell>
                 <TableCell>{req?.room?.sitRent} BDT</TableCell>
                 <TableCell className="text-right ">
-                  <BookingRequestActionModal />
+                  <BookingRequestActionModal
+                    roomId={req?._id}
+                    handleConfrimRequest={handleConfrimRequest}
+                  />
                 </TableCell>
               </TableRow>
             );

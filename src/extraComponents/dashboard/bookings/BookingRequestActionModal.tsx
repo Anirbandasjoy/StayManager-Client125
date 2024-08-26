@@ -8,7 +8,16 @@ import {
 import { FcHighPriority, FcOk } from "react-icons/fc";
 import { BsThreeDots } from "react-icons/bs";
 
-const BookingRequestActionModal = () => {
+const BookingRequestActionModal = ({
+  roomId,
+  handleConfrimRequest,
+}: {
+  roomId: string;
+  handleConfrimRequest: (roomId: string) => void;
+}) => {
+  const handleConfrimClick = () => {
+    handleConfrimRequest(roomId);
+  };
   return (
     <div>
       <DropdownMenu>
@@ -19,7 +28,9 @@ const BookingRequestActionModal = () => {
           <DropdownMenuSeparator />
           <DropdownMenuItem className="cursor-pointer flex items-center gap-1">
             <FcOk className="text-xl" />
-            <h1 className="font-medium">Confrim</h1>
+            <h1 className="font-medium" onClick={handleConfrimClick}>
+              Confrim
+            </h1>
           </DropdownMenuItem>
           <DropdownMenuItem className="cursor-pointer flex items-center gap-1">
             <FcHighPriority className="text-xl" />

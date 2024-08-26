@@ -2,6 +2,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
   allNoticeResponse,
   allUserResponse,
+  bookingRequest,
+  bookingResponse,
   CommentCreateResponse,
   CommentRequest,
   createBookingRequest,
@@ -205,6 +207,12 @@ const stayManagerApi = createApi({
         body: { sitNumber },
       }),
     }),
+    booking: builder.mutation<bookingResponse, bookingRequest>({
+      query: ({ id }) => ({
+        url: `/booking/booking-room/${id}`,
+        method: "PUT",
+      }),
+    }),
     existBookingRequest: builder.query<
       existBookingResponse,
       existBookingRequest
@@ -248,6 +256,7 @@ export const {
   useUserALlBookingRequestQuery,
   useSingleUserQuery,
   useFindAllBookingRequestQuery,
+  useBookingMutation,
 } = stayManagerApi;
 
 export default stayManagerApi;

@@ -385,6 +385,16 @@ export interface userAllBookingRequestResponse {
   }[];
 }
 
+export interface bookingResponse {
+  success: boolean;
+  statusCode: number;
+  message: string;
+}
+
+export interface bookingRequest {
+  id: string;
+}
+
 // auth types
 
 export interface logOutResponse {
