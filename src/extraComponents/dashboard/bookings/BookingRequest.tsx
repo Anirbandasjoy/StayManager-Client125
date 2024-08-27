@@ -18,9 +18,11 @@ import Link from "next/link";
 import TimeAgo from "../notice/TimeAgo";
 import BookingRequestActionModal from "./BookingRequestActionModal";
 import { toast } from "@/components/ui/use-toast";
+import { useEffect, useState } from "react";
 
 const BookingRequest = () => {
   const { data: bookingRequest, refetch } = useFindAllBookingRequestQuery();
+  const [bookingRequestPending, setBookingRequestPending] = useState<any>([]);
   const [setBookingRequestConfrim] = useBookingMutation();
   const handleConfrimRequest = async (roomId: string) => {
     try {
@@ -37,6 +39,15 @@ const BookingRequest = () => {
     }
     console.log("clicked", roomId);
   };
+  useEffect(() => {
+    if (bookingRequest?.payload) {
+      const pendingBookings = bookingRequest.payload.filter(
+        (data) => data.status === "pending"
+      );
+      setBookingRequestPending(pendingBookings);
+    }
+  }, [bookingRequest?.payload]);
+
   return (
     <div className="">
       <Table>
@@ -52,7 +63,7 @@ const BookingRequest = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {bookingRequest?.payload?.map((req) => {
+          {bookingRequestPending?.map((req: any) => {
             return (
               <TableRow key={req._id}>
                 <TableCell className="font-medium ">
