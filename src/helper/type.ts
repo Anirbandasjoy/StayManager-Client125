@@ -395,6 +395,16 @@ export interface bookingRequest {
   id: string;
 }
 
+export interface bookingCencelResponse {
+  success: boolean;
+  statusCode: number;
+  message: string;
+}
+
+export interface bookinCencelRequest {
+  roomId: string;
+}
+
 // auth types
 
 export interface logOutResponse {

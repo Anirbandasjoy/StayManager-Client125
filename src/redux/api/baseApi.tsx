@@ -2,6 +2,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
   allNoticeResponse,
   allUserResponse,
+  bookinCencelRequest,
+  bookingCencelResponse,
   bookingRequest,
   bookingResponse,
   CommentCreateResponse,
@@ -219,6 +221,14 @@ const stayManagerApi = createApi({
     >({
       query: ({ roomId }) => `/booking/exist-request/${roomId}`,
     }),
+
+    cencelBookingRequest: builder.query<
+      bookingCencelResponse,
+      bookinCencelRequest
+    >({
+      query: ({ roomId }) => `/booking/cencel-request/${roomId}`,
+    }),
+
     userALlBookingRequest: builder.query<userAllBookingRequestResponse, void>({
       query: () => "/booking/user-allBooking-request",
     }),
