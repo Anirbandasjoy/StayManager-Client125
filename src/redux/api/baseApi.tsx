@@ -38,6 +38,8 @@ import {
   singleUserResponse,
   updateNoticeRequest,
   updateNoticeResponse,
+  updateUserInformationRequest,
+  updateUserInformationResponse,
   userAllBookingRequestResponse,
 } from "@/helper/type";
 
@@ -98,6 +100,16 @@ const stayManagerApi = createApi({
         url: "/user/registation-user",
         method: "POST",
         body: token,
+      }),
+    }),
+    updateUserInformation: builder.mutation<
+      updateUserInformationResponse,
+      updateUserInformationRequest
+    >({
+      query: ({ name, phone, address, profileImage, department }) => ({
+        url: "/user/update-userInfo",
+        method: "PUT",
+        body: { name, phone, address, profileImage, department },
       }),
     }),
     // notice api
@@ -222,11 +234,14 @@ const stayManagerApi = createApi({
       query: ({ roomId }) => `/booking/exist-request/${roomId}`,
     }),
 
-    cencelBookingRequest: builder.query<
+    cencelBookingRequest: builder.mutation<
       bookingCencelResponse,
       bookinCencelRequest
     >({
-      query: ({ roomId }) => `/booking/cencel-request/${roomId}`,
+      query: ({ roomId }) => ({
+        url: `/booking/cencel-request/${roomId}`,
+        method: "PATCH",
+      }),
     }),
 
     userALlBookingRequest: builder.query<userAllBookingRequestResponse, void>({
@@ -267,6 +282,8 @@ export const {
   useSingleUserQuery,
   useFindAllBookingRequestQuery,
   useBookingMutation,
+  useCencelBookingRequestMutation,
+  useUpdateUserInformationMutation,
 } = stayManagerApi;
 
 export default stayManagerApi;

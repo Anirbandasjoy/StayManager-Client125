@@ -11,6 +11,7 @@ import {
 
 import {
   useBookingMutation,
+  useCencelBookingRequestMutation,
   useFindAllBookingRequestQuery,
 } from "@/redux/api/baseApi";
 import Image from "next/image";
@@ -24,6 +25,7 @@ const BookingRequest = () => {
   const { data: bookingRequest, refetch } = useFindAllBookingRequestQuery();
   const [bookingRequestPending, setBookingRequestPending] = useState<any>([]);
   const [setBookingRequestConfrim] = useBookingMutation();
+  const [setBookingRequestCencel] = useCencelBookingRequestMutation();
   const handleConfrimRequest = async (roomId: string) => {
     try {
       await setBookingRequestConfrim({ id: roomId });
@@ -37,11 +39,21 @@ const BookingRequest = () => {
         title: "Something was wrong",
       });
     }
-    console.log("clicked", roomId);
   };
 
-  const handleBookingRequestCelcel = (roomId: string) => {
-    console.log("Cencel booking request", roomId);
+  const handleBookingRequestCelcel = async (roomId: string) => {
+    try {
+      await setBookingRequestCencel({ roomId });
+      toast({
+        title: "Cencel request",
+      });
+      refetch();
+    } catch (error) {
+      console.log(error);
+      toast({
+        title: "Something was wrong",
+      });
+    }
   };
 
   useEffect(() => {

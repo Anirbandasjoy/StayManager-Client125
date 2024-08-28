@@ -57,6 +57,20 @@ export interface curretUserResponse {
   };
 }
 
+export interface updateUserInformationResponse {
+  success: boolean;
+  statusCode: number;
+  message: string;
+}
+
+export interface updateUserInformationRequest {
+  name: string;
+  profileImage: string;
+  address: string;
+  phone: string;
+  department: string;
+}
+
 export interface registrationResponse {
   success: boolean;
   message: string;
