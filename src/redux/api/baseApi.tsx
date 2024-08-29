@@ -32,6 +32,7 @@ import {
   processRegistrationResponse,
   registrationRequest,
   registrationResponse,
+  roomsData,
   saveNoticeRequest,
   saveNoticeResponse,
   singleUserRequest,
@@ -206,6 +207,16 @@ const stayManagerApi = createApi({
     findSaveNotice: builder.query<findSaveNotice, void>({
       query: () => "/save/find-notice",
     }),
+
+    // Rooms create Api 
+    createRooms: builder.mutation<void, roomsData>({
+      query: (roomsData) => ({
+        url: '/room/create',
+        method: "POST",
+        body: roomsData,
+      }),
+    }),
+
     findAllRooms: builder.query<findAllRoomsResponse, void>({
       query: () => "/room/find-allRooms",
     }),
@@ -304,6 +315,7 @@ export const {
   useCencelBookingRequestMutation,
   useUpdateUserInformationMutation,
   useUpdateAccountPasswordMutation,
+  useCreateRoomsMutation,
 } = stayManagerApi;
 
 export default stayManagerApi;

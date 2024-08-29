@@ -451,3 +451,8 @@ export type DateTimeFormatOptions = {
   minute?: "numeric" | "2-digit";
   hour12?: boolean;
 };
+
+export interface roomsData {
+  sitRent: string,
+  roomImage: any,
+}
