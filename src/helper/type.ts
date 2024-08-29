@@ -51,10 +51,28 @@ export interface curretUserResponse {
     phone: string;
     address: string;
     department: string;
+    birthdate: string;
+    googleId: string;
+    githubId: string;
     role: string;
     createAt: string;
     updatedAt: string;
   };
+}
+
+export interface updateUserInformationResponse {
+  success: boolean;
+  statusCode: number;
+  message: string;
+}
+
+export interface updateUserInformationRequest {
+  name: string;
+  profileImage: string;
+  address: string;
+  phone: string;
+  department: string;
+  birthdate: string;
 }
 
 export interface registrationResponse {
@@ -78,9 +96,22 @@ interface User {
   address: string;
   department: string;
   role: string;
+  birthdate: string | Date | any;
   createdAt: string;
   updatedAt: string;
   __v: number;
+}
+
+export interface updateAccountPassowrdResponse {
+  success: boolean;
+  statusCode: number;
+  message: string;
+}
+
+export interface updateAccoutPasswordRequest {
+  oldPassword: string;
+  newPassword: string;
+  confrimPassword: string;
 }
 
 export interface singleUserResponse {
@@ -94,6 +125,7 @@ export interface singleUserResponse {
     password: string;
     profileImage: string;
     backgroundImage: string;
+    birthdate: string;
     phone: string;
     address: string;
     department: string;
@@ -385,6 +417,26 @@ export interface userAllBookingRequestResponse {
   }[];
 }
 
+export interface bookingResponse {
+  success: boolean;
+  statusCode: number;
+  message: string;
+}
+
+export interface bookingRequest {
+  id: string;
+}
+
+export interface bookingCencelResponse {
+  success: boolean;
+  statusCode: number;
+  message: string;
+}
+
+export interface bookinCencelRequest {
+  roomId: string;
+}
+
 // auth types
 
 export interface logOutResponse {
@@ -399,3 +451,8 @@ export type DateTimeFormatOptions = {
   minute?: "numeric" | "2-digit";
   hour12?: boolean;
 };
+
+export interface roomsData {
+  sitRent: string,
+  roomImage: any,
+}

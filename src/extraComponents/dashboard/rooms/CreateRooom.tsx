@@ -22,13 +22,16 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useToast } from "@/components/ui/use-toast";
+import { useCreateRoomsMutation, useFindAllRoomsQuery } from "@/redux/api/baseApi";
 
 const CreateRoom = () => {
   const [imageURL, setImageURL] = useState<string>("");
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [roomRate, setRoomRate] = useState<string>("");
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const [createRoom, { isSuccess }] = useCreateRoomsMutation()
 
   const handleSelectNoticeImage = () => {
     fileInputRef.current?.click();
@@ -49,34 +52,44 @@ const CreateRoom = () => {
     setImageFile(null);
   };
 
+  const { data } = useFindAllRoomsQuery()
+  console.log(data?.payload);
+  const roomsArray = data?.payload
+
+
   const handleRoomSave = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true)
 
     if (!imageFile) {
       console.log("Insert Image");
+      setLoading(false)
       return;
     }
 
     try {
-      const imgurl = await uploadImage(imageFile);
-      console.log(imgurl);
+      const imageUrl = await uploadImage(imageFile);
+      console.log("Uploaded Image URL:", imageUrl);
 
-      const Data = {
+      const data = {
         sitRent: roomRate,
-        roomImage: imgurl,
-      };
+        roomImage: imageUrl,
+      }
+      createRoom({ ...data })
+      setImageURL("");
+      setRoomRate('');
+      setImageFile(null);
+      setLoading(false);
 
-      console.log(Data);
-      setLoading(false)
     } catch (error) {
-      setLoading(false)
-      console.error("Error uploading image", error);
+      console.error("Failed to upload image:", error);
+      setLoading(false);
     }
+
   };
 
   return (
-    <div className="border-2 border-blue-400 h-[calc(100vh-120px)] screen mt-2 p-2">
+    <div className="border-2 border-blue-400 h-[calc(100vh-120px)] screen mt-2 p-2 overflow-y-scroll">
       <div>
         <div className="flex justify-between mb-4 lg:mb-0">
           <h1 className="font-semibold mb-1 text-blue-400 text-nowrap ">
@@ -147,42 +160,64 @@ const CreateRoom = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            <TableRow>
-              <TableCell>not available</TableCell>
-              <TableCell>500</TableCell>
-              <TableCell>
-                <div className="flex items-center gap-2">
-                  <Image
-                    src="https://i.ibb.co/vL3p03J/Whats-App-Image-2024-03-15-at-9-20-37-PM-Photoroom.jpg"
-                    alt="image"
-                    width={20}
-                    height={20}
-                    className="rounded-full cursor-pointer"
-                  />
-                  <div>
-                    <h1 className="text-sm hover:underline cursor-pointer">
-                      Anirban das joy
-                    </h1>
-                    <p className="text-xs hover:underline cursor-pointer">
-                      joy600508@gmail.com
-                    </p>
-                  </div>
-                </div>
-              </TableCell>
-              <TableCell>Empty</TableCell>
-              <TableCell>Empty</TableCell>
-              <TableCell className="text-right cursor-pointer">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="outline">Action</Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="flex flex-col">
-                    <button className="btn m-1">Edit</button>
-                    <button className="btn m-1">Delete</button>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </TableCell>
-            </TableRow>
+            {
+              roomsArray?.map((room, index) => (
+                <>
+                  <TableRow key={index}>
+                    <TableCell>
+                      <Image
+                        src={room.roomImage}
+                        alt="image"
+                        width={100}
+                        height={50}
+                        className="rounded-none cursor-pointer"
+                      />
+                    </TableCell>
+
+                    <TableCell>
+                      {room.sitRent}
+                    </TableCell>
+
+                    <TableCell>
+                      <div className="flex items-center gap-2">
+                        <Image
+                          src="https://i.ibb.co/vL3p03J/Whats-App-Image-2024-03-15-at-9-20-37-PM-Photoroom.jpg"
+                          alt="image"
+                          width={35}
+                          height={35}
+                          className="rounded-full cursor-pointer"
+                        />
+                        <div>
+                          <h1 className="text-sm hover:underline cursor-pointer">
+                            Anirban das joy
+                          </h1>
+                          <p className="text-xs hover:underline cursor-pointer">
+                            joy600508@gmail.com
+                          </p>
+                        </div>
+                      </div>
+                    </TableCell>
+
+                    <TableCell>Empty</TableCell>
+                    <TableCell>Empty</TableCell>
+
+                    <TableCell className="text-right cursor-pointer">
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="outline">Action</Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent className="flex flex-col">
+                          <button className="btn m-1">Edit</button>
+                          <button className="btn m-1">Delete</button>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </TableCell>
+                  </TableRow>
+
+                </>
+              ))
+            }
+
           </TableBody>
         </Table>
       </div>

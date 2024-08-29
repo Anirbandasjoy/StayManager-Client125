@@ -36,11 +36,11 @@ const RequestModal = ({
       toast({
         title: "Request send done.",
       });
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
       toast({
         variant: "destructive",
-        title: "Invalid Creadential.",
+        title: error?.data?.message || error,
         description: "There was a problem with your request.",
       });
     }

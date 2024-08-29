@@ -2,6 +2,10 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
   allNoticeResponse,
   allUserResponse,
+  bookinCencelRequest,
+  bookingCencelResponse,
+  bookingRequest,
+  bookingResponse,
   CommentCreateResponse,
   CommentRequest,
   createBookingRequest,
@@ -28,12 +32,17 @@ import {
   processRegistrationResponse,
   registrationRequest,
   registrationResponse,
+  roomsData,
   saveNoticeRequest,
   saveNoticeResponse,
   singleUserRequest,
   singleUserResponse,
+  updateAccountPassowrdResponse,
+  updateAccoutPasswordRequest,
   updateNoticeRequest,
   updateNoticeResponse,
+  updateUserInformationRequest,
+  updateUserInformationResponse,
   userAllBookingRequestResponse,
 } from "@/helper/type";
 
@@ -94,6 +103,33 @@ const stayManagerApi = createApi({
         url: "/user/registation-user",
         method: "POST",
         body: token,
+      }),
+    }),
+    updateUserInformation: builder.mutation<
+      updateUserInformationResponse,
+      updateUserInformationRequest
+    >({
+      query: ({
+        name,
+        phone,
+        address,
+        profileImage,
+        department,
+        birthdate,
+      }) => ({
+        url: "/user/update-userInfo",
+        method: "PUT",
+        body: { name, phone, address, profileImage, department, birthdate },
+      }),
+    }),
+    updateAccountPassword: builder.mutation<
+      updateAccountPassowrdResponse,
+      updateAccoutPasswordRequest
+    >({
+      query: ({ oldPassword, newPassword, confrimPassword }) => ({
+        url: "/user/update-password",
+        method: "PATCH",
+        body: { oldPassword, newPassword, confrimPassword },
       }),
     }),
     // notice api
@@ -173,7 +209,7 @@ const stayManagerApi = createApi({
     }),
 
     // Rooms create Api 
-    createRooms: builder.mutation<void, void>({
+    createRooms: builder.mutation<void, roomsData>({
       query: (roomsData) => ({
         url: '/room/create',
         method: "POST",
@@ -215,12 +251,29 @@ const stayManagerApi = createApi({
         body: { sitNumber },
       }),
     }),
+    booking: builder.mutation<bookingResponse, bookingRequest>({
+      query: ({ id }) => ({
+        url: `/booking/booking-room/${id}`,
+        method: "PUT",
+      }),
+    }),
     existBookingRequest: builder.query<
       existBookingResponse,
       existBookingRequest
     >({
       query: ({ roomId }) => `/booking/exist-request/${roomId}`,
     }),
+
+    cencelBookingRequest: builder.mutation<
+      bookingCencelResponse,
+      bookinCencelRequest
+    >({
+      query: ({ roomId }) => ({
+        url: `/booking/cencel-request/${roomId}`,
+        method: "PATCH",
+      }),
+    }),
+
     userALlBookingRequest: builder.query<userAllBookingRequestResponse, void>({
       query: () => "/booking/user-allBooking-request",
     }),
@@ -258,6 +311,10 @@ export const {
   useUserALlBookingRequestQuery,
   useSingleUserQuery,
   useFindAllBookingRequestQuery,
+  useBookingMutation,
+  useCencelBookingRequestMutation,
+  useUpdateUserInformationMutation,
+  useUpdateAccountPasswordMutation,
   useCreateRoomsMutation,
 } = stayManagerApi;
 

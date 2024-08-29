@@ -1,15 +1,9 @@
 "use client";
-import { cn } from "@/lib/utils";
-import { format } from "date-fns";
+
 import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
-import { Input } from "@/components/ui/input";
+
 import { Label } from "@/components/ui/label";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+
 import {
   Select,
   SelectContent,
@@ -17,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { CalendarIcon } from "lucide-react";
+
 import { useState } from "react";
 
 const Appearance = () => {
@@ -48,7 +42,25 @@ const Appearance = () => {
               </SelectContent>
             </Select>
             <p className="text-gray-500 text-xs">
-              Set the font you want to use in the dashboard.
+              Set the font you want to use in the webiste.
+            </p>
+          </div>
+
+          <div className="space-y-2 mt-6 w-6/12">
+            <Label htmlFor="language" className="text-sm font-medium">
+              Language
+            </Label>
+            <Select>
+              <SelectTrigger id="language" className="">
+                <SelectValue placeholder="Select language" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="english">English</SelectItem>
+                <SelectItem value="bangla">Bangla</SelectItem>
+              </SelectContent>
+            </Select>
+            <p className="text-gray-500 text-xs">
+              This is the language that will be used in the dashboard.
             </p>
           </div>
 

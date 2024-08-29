@@ -38,8 +38,7 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
   const [rating, setRating] = useState<number | null | string>(null);
   const [message, setMessage] = useState<string>("");
   const [hover, setHover] = useState<null | any>(null);
-  const [setReviewData, { data: reviewResponse, isLoading }] =
-    useCreateReviewMutation();
+  const [setReviewData, { isLoading }] = useCreateReviewMutation();
   const {
     data: roomReviewData,
     refetch: reviewRefetch,
@@ -70,7 +69,7 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
     setSitNumber(st);
   };
 
-  console.log(roomBookingExistData);
+  console.log(singleRoom);
   return (
     <div className="mb-10">
       <Banner
@@ -93,15 +92,15 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
                     <div className="w-full h-[2px] bg-gray-300"></div>
                   </div>
                   <div className="mt-2 space-y-2">
-                    <div
-                      className="flex gap-2 "
-                      onClick={() => handleBookingReqInfo(1)}
-                    >
+                    <div className="flex gap-2 ">
                       <div className="flex-1 bg-blue-200 py-3 px-3 text-white rounded-sm flex items-center gap-2 cursor-pointer ">
                         <IoBedOutline className="text-xl font-bold text-gray-600" />
                         <h1 className="text-gray-600">Sit number one</h1>
                       </div>
-                      <div className="bg-transparent border-2 border-blue-300 py-3 px-3 text-white rounded-sm flex items-center gap-2 cursor-pointer md:w-48">
+                      <div
+                        className="bg-transparent border-2 border-blue-300 py-3 px-3 text-white rounded-sm flex items-center gap-2 cursor-pointer md:w-48"
+                        onClick={() => handleBookingReqInfo(1)}
+                      >
                         <IoPersonAddOutline className="text-xl font-bold text-gray-600" />
                         <RequestStatus
                           roomBookingExistData={roomBookingExistData}
@@ -109,15 +108,15 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
                         />
                       </div>
                     </div>
-                    <div
-                      className="flex gap-2 "
-                      onClick={() => handleBookingReqInfo(2)}
-                    >
+                    <div className="flex gap-2 ">
                       <div className="flex-1 bg-blue-200 py-3 px-3 text-white rounded-sm flex items-center gap-2 cursor-pointer ">
                         <IoBedOutline className="text-xl font-bold text-gray-600" />
                         <h1 className="text-gray-600">Sit number two</h1>
                       </div>
-                      <div className="bg-transparent border-2 border-blue-100 py-3 px-3 md:w-48 text-white rounded-sm flex items-center gap-2 cursor-pointer ">
+                      <div
+                        className="bg-transparent border-2 border-blue-100 py-3 px-3 md:w-48 text-white rounded-sm flex items-center gap-2 cursor-pointer "
+                        onClick={() => handleBookingReqInfo(2)}
+                      >
                         <IoPersonAddOutline className="text-xl font-bold text-gray-600" />
                         <RequestStatus
                           roomBookingExistData={roomBookingExistData}
@@ -125,15 +124,15 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
                         />
                       </div>
                     </div>
-                    <div
-                      className="flex gap-2 "
-                      onClick={() => handleBookingReqInfo(3)}
-                    >
+                    <div className="flex gap-2 ">
                       <div className="flex-1 bg-blue-200 py-3 px-3 text-white rounded-sm flex items-center gap-2 cursor-pointer ">
                         <IoBedOutline className="text-xl font-bold text-gray-600" />
                         <h1 className="text-gray-600">Sit number three</h1>
                       </div>
-                      <div className="bg-transparent border-2 border-blue-300 py-3 md:w-48 px-3 text-white rounded-sm flex items-center gap-2 cursor-pointer ">
+                      <div
+                        className="bg-transparent border-2 border-blue-300 py-3 md:w-48 px-3 text-white rounded-sm flex items-center gap-2 cursor-pointer "
+                        onClick={() => handleBookingReqInfo(3)}
+                      >
                         <IoPersonAddOutline className="text-xl font-bold text-gray-600" />
                         <RequestStatus
                           roomBookingExistData={roomBookingExistData}
