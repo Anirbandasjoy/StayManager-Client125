@@ -36,6 +36,8 @@ import {
   saveNoticeResponse,
   singleUserRequest,
   singleUserResponse,
+  updateAccountPassowrdResponse,
+  updateAccoutPasswordRequest,
   updateNoticeRequest,
   updateNoticeResponse,
   updateUserInformationRequest,
@@ -106,10 +108,27 @@ const stayManagerApi = createApi({
       updateUserInformationResponse,
       updateUserInformationRequest
     >({
-      query: ({ name, phone, address, profileImage, department }) => ({
+      query: ({
+        name,
+        phone,
+        address,
+        profileImage,
+        department,
+        birthdate,
+      }) => ({
         url: "/user/update-userInfo",
         method: "PUT",
-        body: { name, phone, address, profileImage, department },
+        body: { name, phone, address, profileImage, department, birthdate },
+      }),
+    }),
+    updateAccountPassword: builder.mutation<
+      updateAccountPassowrdResponse,
+      updateAccoutPasswordRequest
+    >({
+      query: ({ oldPassword, newPassword, confrimPassword }) => ({
+        url: "/user/update-password",
+        method: "PATCH",
+        body: { oldPassword, newPassword, confrimPassword },
       }),
     }),
     // notice api
@@ -284,6 +303,7 @@ export const {
   useBookingMutation,
   useCencelBookingRequestMutation,
   useUpdateUserInformationMutation,
+  useUpdateAccountPasswordMutation,
 } = stayManagerApi;
 
 export default stayManagerApi;
