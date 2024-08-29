@@ -1,6 +1,3 @@
-import { existBookingResponse } from "@/helper/type";
-import React from "react";
-
 const RoomStatus = ({
   roomBookingExistData,
   sitNumber,

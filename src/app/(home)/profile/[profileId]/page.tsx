@@ -1,14 +1,18 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useCurrentUserQuery, useSingleUserQuery } from "@/redux/api/baseApi";
+import { useSingleUserQuery } from "@/redux/api/baseApi";
 import Image from "next/image";
 import Link from "next/link";
+import { format, parseISO } from "date-fns";
 
 const PublicProfile = ({ params }: { params: { profileId: string } }) => {
   const { profileId } = params;
   console.log(profileId);
   const { data: singleUser } = useSingleUserQuery({ profileId });
+  const formattedBirthdate = singleUser?.payload?.birthdate
+    ? format(parseISO(singleUser.payload.birthdate), "PPP")
+    : "Empty";
   return (
     <div className="">
       <div className="relative w-full h-[70px]">
@@ -93,6 +97,17 @@ const PublicProfile = ({ params }: { params: { profileId: string } }) => {
                   placeholder="Empty"
                   className="mt-1 w-full border-none bg-gray-50 rounded-sm"
                   value={singleUser?.payload?.department}
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700">
+                  Birthdate
+                </label>
+                <Input
+                  type="text"
+                  placeholder="Empty"
+                  className="mt-1 w-full border-none bg-gray-50 rounded-sm"
+                  value={formattedBirthdate}
                 />
               </div>
               <div className="mb-4">

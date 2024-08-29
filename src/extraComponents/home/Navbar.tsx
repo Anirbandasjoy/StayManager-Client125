@@ -115,11 +115,11 @@ const Navbar = () => {
                 Rooms
               </h1>
             </Link>
-            <Link href="/bookings">
+            <Link href="/schedule">
               <h1
                 className={` block mt-4 md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold ${text}`}
               >
-                Bookings
+                Schedule
               </h1>
             </Link>
             <Link href="/students">
@@ -134,10 +134,10 @@ const Navbar = () => {
             <DropDownMenu />
           </div>
         </div>
-      <LoginAlertModal
-        open={openLoginAlertModal}
-        setOpen={setLoginAlertModal}
-      />
+        <LoginAlertModal
+          open={openLoginAlertModal}
+          setOpen={setLoginAlertModal}
+        />
       </div>
     </nav>
   );
