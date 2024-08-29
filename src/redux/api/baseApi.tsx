@@ -171,6 +171,16 @@ const stayManagerApi = createApi({
     findSaveNotice: builder.query<findSaveNotice, void>({
       query: () => "/save/find-notice",
     }),
+
+    // Rooms create Api 
+    createRooms: builder.mutation<void, void>({
+      query: (roomsData) => ({
+        url: '/room/create',
+        method: "POST",
+        body: roomsData,
+      }),
+    }),
+
     findAllRooms: builder.query<findAllRoomsResponse, void>({
       query: () => "/room/find-allRooms",
     }),
@@ -248,6 +258,7 @@ export const {
   useUserALlBookingRequestQuery,
   useSingleUserQuery,
   useFindAllBookingRequestQuery,
+  useCreateRoomsMutation,
 } = stayManagerApi;
 
 export default stayManagerApi;

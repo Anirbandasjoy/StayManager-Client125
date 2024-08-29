@@ -1,9 +1,10 @@
 // upload image comment Image in image bb
 
 import axios from "axios";
+// const apiKey = "6e1db85f6ab88ea2edc5847ca2be6134"; 
 
 export const uploadImage = async (image: File) => {
-  const apiKey = "6e1db85f6ab88ea2edc5847ca2be6134";
+  const apiKey = "6e1db85f6ab88ea2edc5847ca2be6134"; 
   const formData = new FormData();
   formData.append("image", image);
   const { data } = await axios.post(
