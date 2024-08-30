@@ -14,7 +14,9 @@ const PublicProfile = ({ params }: { params: { profileId: string } }) => {
     ? format(parseISO(singleUser.payload.birthdate), "PPP")
     : "Empty";
   return (
-    <div className="">
+
+    <>
+
       <div className="relative w-full h-[70px]">
         <Image
           src={
@@ -26,125 +28,90 @@ const PublicProfile = ({ params }: { params: { profileId: string } }) => {
         />
         <div className="w-full h-full bg-gradient-to-b from-[#5eaaf5ab] to-[#ffffff] absolute top-0"></div>
       </div>
-      <div className="max-w-4xl mx-auto px-4 sm:px-0">
-        <h1 className="text-xl md:text-2xl font-bold mb-2">
-          {singleUser?.payload?.name}
-        </h1>
-        <div className="space-y-3 md:space-y-5 mb-8">
-          <p className="text-gray-500">
-            Present your personal profile publicly show you details
-          </p>
-          <div className="bg-gray-200 w-full h-[2px]"></div>
+      <section className="w-full overflow-hidden ">
+        <div className="flex flex-col">
+          {/* <!-- Cover Image --> */}
+          <figure className="w-full h-48 md:h-80 flex justify-center items-center overflow-hidden">
+            <Image
+              width={500}
+              height={300}
+              layout="responsive"
+              quality={75}
+              priority={true}
+              // placeholder="blur"
+              src={singleUser?.payload?.backgroundImage || "https://images.unsplash.com/photo-1709805619372-40de3f158e83?q=80&w=1795&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
+              alt="User Cover"
+              className="items-center justify-center w-full" />
+          </figure>
 
-          <div className="col-span-12 md:col-span-9 bg-white sm:p-0  w-full">
-            <h2 className="text-lg md:text-xl font-semibold mb-1">Profile</h2>
-            <p className="text-gray-500 mb-6 text-[15px]">
-              This is how others will see you on the site.
-            </p>
+          {/* <!-- Profile Image --> */}
+          <div className="sm:w-[80%] xs:w-[90%] mx-auto flex flex-col md:flex-row justify-center text-center">
+            <Image width={100} height={100} src={singleUser?.payload?.profileImage || "https://avatar.iran.liara.run/public"} alt="User Profile"
+              className="rounded-md lg:w-[12rem] lg:h-[12rem] md:w-[10rem] md:h-[10rem] sm:w-[8rem] sm:h-[8rem] xs:w-[7rem] xs:h-[7rem] outline outline-2 outline-offset-2 outline-blue-500 relative lg:bottom-[5rem] sm:bottom-[4rem] xs:bottom-[3rem]" />
 
-            <div>
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700">
-                  Name
-                </label>
-                <Input
-                  type="text"
-                  placeholder="Empty"
-                  className="mt-1 w-full border-none bg-gray-50 rounded-sm "
-                  value={singleUser?.payload?.name}
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700">
-                  Email
-                </label>
-                <Input
-                  type="text"
-                  placeholder="Empty"
-                  value={singleUser?.payload?.email}
-                  className="mt-1 w-full border-none bg-gray-50 rounded-sm"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700">
-                  Phone
-                </label>
-                <Input
-                  type="text"
-                  placeholder="Empty"
-                  value={singleUser?.payload?.phone}
-                  className="mt-1 w-full border-none bg-gray-50 rounded-sm"
-                />
-              </div>
+            {/* <!-- FullName --> */}
+            <div className="w-full text-center md:text-left my-4 xs:pl-4 text-gray-800 md:ms-6 lg:text-4xl text-3xl  xs:text-xl font-serif">
+              {singleUser?.payload?.name}
+            </div>
 
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700">
-                  Address
-                </label>
-                <Input
-                  type="text"
-                  placeholder="Empty"
-                  className="mt-1 w-full border-none bg-gray-50 rounded-sm"
-                  value={singleUser?.payload?.address}
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700">
-                  Department
-                </label>
-                <Input
-                  type="text"
-                  placeholder="Empty"
-                  className="mt-1 w-full border-none bg-gray-50 rounded-sm"
-                  value={singleUser?.payload?.department}
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700">
-                  Birthdate
-                </label>
-                <Input
-                  type="text"
-                  placeholder="Empty"
-                  className="mt-1 w-full border-none bg-gray-50 rounded-sm"
-                  value={formattedBirthdate}
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700">
-                  Role
-                </label>
-                <Input
-                  type="text"
-                  placeholder="Empty"
-                  value={singleUser?.payload?.role}
-                  className="mt-1 w-full border-none bg-gray-50 rounded-sm"
-                />
-              </div>
-              <div className="mb-6">
-                <label className="block text-sm mb-1 font-medium text-gray-700">
-                  Profile picture
-                </label>
-                <div className=" w-[170px] sm:w-[170px] bg-gray-100 border-2  rounded-md h-[107px] cursor-pointer border-gray-300 flex justify-center items-center">
-                  <div className="relative w-full h-full">
-                    <Image
-                      src={singleUser?.payload?.profileImage || ""}
-                      alt="Notice Image"
-                      fill
-                      style={{ objectFit: "cover" }}
-                    />
-                  </div>
+          </div>
+
+          <div
+            className="xl:w-[80%] lg:w-[90%] md:w-[90%] sm:w-[92%] xs:w-[90%] mx-auto flex flex-col gap-4 items-center relative lg:-top-8 md:-top-6 sm:-top-4 xs:-top-4">
+
+            {/* <!-- Detail --> */}
+            <div className="w-full my-auto py-6 flex flex-col justify-center gap-2">
+              <div className="w-full flex flex-col md:flex-row gap-2 justify-center">
+                <div className="w-full">
+                  <dl className="text-gray-900 divide-y divide-gray-200">
+                    <div className="flex flex-col pb-3">
+                      <dt className="mb-1 text-gray-500 md:text-lg">First Name</dt>
+                      <dd className="text-lg font-semibold">{singleUser?.payload?.name}</dd>
+                    </div>
+                    <div className="flex flex-col py-3">
+                      <dt className="mb-1 text-gray-500 md:text-lg">Role</dt>
+                      <dd className="text-lg font-semibold">{singleUser?.payload?.role}</dd>
+                    </div>
+                    <div className="flex flex-col py-3">
+                      <dt className="mb-1 text-gray-500 md:text-lg">Date Of Birth</dt>
+                      <dd className="text-lg font-semibold"> {formattedBirthdate} </dd>
+                    </div>
+                    <div className="flex flex-col py-3">
+                      <dt className="mb-1 text-gray-500 md:text-lg">Department</dt>
+                      <dd className="text-lg font-semibold mb-4">{singleUser?.payload?.department}</dd>
+                      <hr className="md:hidden" />
+                    </div>
+                  </dl>
+                </div>
+                <div className="w-full">
+                  <dl className="text-gray-900 divide-y divide-gray-200">
+                    <div className="flex flex-col pb-3">
+                      <dt className="mb-1 text-gray-500 md:text-lg">Location</dt>
+                      <dd className="text-lg font-semibold">{singleUser?.payload?.address}</dd>
+                    </div>
+
+                    <div className="flex flex-col pt-3">
+                      <dt className="mb-1 text-gray-500 md:text-lg">Phone Number</dt>
+                      <dd className="text-lg font-semibold mb-3">{singleUser?.payload?.phone}</dd>
+                    </div>
+                    <div className="flex flex-col pt-3">
+                      <dt className="mb-1 text-gray-500 md:text-lg">Email</dt>
+                      <dd className="text-lg font-semibold">{singleUser?.payload?.email}</dd>
+                    </div>
+
+                  </dl>
                 </div>
               </div>
 
-              <Link href="/">
-                <Button className="text-xs mt-4">Go backwards</Button>
-              </Link>
+
             </div>
+
           </div>
         </div>
-      </div>
-    </div>
+      </section>
+
+    </>
+
   );
 };
 
