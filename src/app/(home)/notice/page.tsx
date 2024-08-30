@@ -2,6 +2,7 @@
 import NoticeCard from "@/extraComponents/dashboard/notice/NoticeCard";
 import NoticeCardLoading from "@/extraComponents/loading/NoticeCardLoading";
 import { useFindNoticeQuery } from "@/redux/api/baseApi";
+import isStudent from "@/utils/auth/isStudent";
 import Image from "next/image";
 
 const HomeNotice = () => {
@@ -47,4 +48,4 @@ const HomeNotice = () => {
   );
 };
 
-export default HomeNotice;
+export default isStudent(HomeNotice);

@@ -11,7 +11,7 @@ const BookingsTab = () => {
       <Tabs defaultValue="booking-request" className="w-full">
         <TabsList className="grid w-full grid-cols-2 mx-auto">
           <TabsTrigger value="booking-request">Booking Request</TabsTrigger>
-          <TabsTrigger value="booking-list">Booking List</TabsTrigger>
+          <TabsTrigger value="portal-request">Portal request</TabsTrigger>
         </TabsList>
         <TabsContent value="booking-request">
           <BookingRequest />

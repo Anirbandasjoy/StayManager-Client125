@@ -1,18 +1,35 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useSingleUserQuery } from "@/redux/api/baseApi";
+import {
+  useCreatePortalJoinRequestMutation,
+  useSingleUserQuery,
+} from "@/redux/api/baseApi";
 import Image from "next/image";
 import Link from "next/link";
 import { format, parseISO } from "date-fns";
+import { toast } from "@/components/ui/use-toast";
 
 const PublicProfile = ({ params }: { params: { profileId: string } }) => {
   const { profileId } = params;
   console.log(profileId);
   const { data: singleUser } = useSingleUserQuery({ profileId });
+  const [setPortalRequestData, { isLoading }] =
+    useCreatePortalJoinRequestMutation();
   const formattedBirthdate = singleUser?.payload?.birthdate
     ? format(parseISO(singleUser.payload.birthdate), "PPP")
     : "Empty";
+
+  const handleCreatePortalRequest = async () => {
+    try {
+      await setPortalRequestData().unwrap();
+      toast({
+        title: "Create portal request please wait..",
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="">
       <div className="relative w-full h-[70px]">
@@ -137,9 +154,20 @@ const PublicProfile = ({ params }: { params: { profileId: string } }) => {
                 </div>
               </div>
 
-              <Link href="/">
-                <Button className="text-xs mt-4">Go backwards</Button>
-              </Link>
+              <div className="space-x-4">
+                <Link href="/">
+                  <Button className="text-xs mt-4">Go backwards</Button>
+                </Link>
+
+                {singleUser?.payload?.role === "user" && (
+                  <Button
+                    onClick={handleCreatePortalRequest}
+                    className="text-xs mt-4 bg-red-400 hover:bg-red-500"
+                  >
+                    {isLoading ? "Loading..." : "Join"}
+                  </Button>
+                )}
+              </div>
             </div>
           </div>
         </div>

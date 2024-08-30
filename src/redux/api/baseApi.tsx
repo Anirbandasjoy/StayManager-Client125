@@ -28,6 +28,7 @@ import {
   loginResponse,
   logOutResponse,
   NoticeCommentRequest,
+  portalRequestCreateResponse,
   ProcessRegistrationRequest,
   processRegistrationResponse,
   registrationRequest,
@@ -208,10 +209,10 @@ const stayManagerApi = createApi({
       query: () => "/save/find-notice",
     }),
 
-    // Rooms create Api 
+    // Rooms create Api
     createRooms: builder.mutation<void, roomsData>({
       query: (roomsData) => ({
-        url: '/room/create',
+        url: "/room/create",
         method: "POST",
         body: roomsData,
       }),
@@ -280,6 +281,17 @@ const stayManagerApi = createApi({
     findAllBookingRequest: builder.query<userAllBookingRequestResponse, void>({
       query: () => "/booking/findAll-booking-request",
     }),
+
+    // portal api request
+    createPortalJoinRequest: builder.mutation<
+      portalRequestCreateResponse,
+      void
+    >({
+      query: () => ({
+        url: "/portal/portal-join-request",
+        method: "POST",
+      }),
+    }),
   }),
 });
 
@@ -316,6 +328,7 @@ export const {
   useUpdateUserInformationMutation,
   useUpdateAccountPasswordMutation,
   useCreateRoomsMutation,
+  useCreatePortalJoinRequestMutation,
 } = stayManagerApi;
 
 export default stayManagerApi;

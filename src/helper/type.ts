@@ -437,6 +437,14 @@ export interface bookinCencelRequest {
   roomId: string;
 }
 
+// Portal types
+
+export interface portalRequestCreateResponse {
+  _id: string;
+  user: string;
+  status: string;
+}
+
 // auth types
 
 export interface logOutResponse {
@@ -453,6 +461,6 @@ export type DateTimeFormatOptions = {
 };
 
 export interface roomsData {
-  sitRent: string,
-  roomImage: any,
+  sitRent: string;
+  roomImage: any;
 }
