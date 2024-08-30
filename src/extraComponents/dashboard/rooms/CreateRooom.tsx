@@ -16,13 +16,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { useToast } from "@/components/ui/use-toast";
+
 import { useCreateRoomsMutation, useFindAllRoomsQuery } from "@/redux/api/baseApi";
+import { toast } from "@/components/ui/use-toast";
+import BookingRequestActionModal from "../bookings/BookingRequestActionModal";
+import { User } from "@/helper/type";
+import Link from "next/link";
 
 const CreateRoom = () => {
   const [imageURL, setImageURL] = useState<string>("");
@@ -63,6 +62,9 @@ const CreateRoom = () => {
 
     if (!imageFile) {
       console.log("Insert Image");
+      toast({
+        title: "Insert an Image",
+      });
       setLoading(false)
       return;
     }
@@ -81,16 +83,52 @@ const CreateRoom = () => {
       setImageFile(null);
       setLoading(false);
 
+      toast({
+        title: "New Room Added",
+      });
+
     } catch (error) {
       console.error("Failed to upload image:", error);
+      toast({
+        title: "an Error detected",
+      });
       setLoading(false);
     }
 
   };
 
+  const handleConfrimRequest = () => { }
+  const handleBookingRequestCelcel = () => { }
+
+
+  const TableCellContent = (seat: any) => {
+    const user = seat.seat
+    return (
+      user && Object.keys(user).length > 0 ? (
+        <TableCell>
+          <Link href={`/profile/${user._id}`} className="flex items-center gap-2">
+            <Image
+              src={user.profileImage}
+              alt="ig"
+              width={35}
+              height={35}
+              className="rounded-full cursor-pointer"
+            />
+            <div>
+              <h1 className="text-sm hover:underline cursor-pointer">{user.name}</h1>
+              <p className="text-xs hover:underline cursor-pointer">{user.email}</p>
+            </div>
+          </Link>
+        </TableCell>
+      ) : <TableCell>Empty</TableCell>
+
+    )
+  };
+
+
   return (
-    <div className="border-2 border-blue-400 h-[calc(100vh-120px)] screen mt-2 p-2 overflow-y-scroll">
-      <div>
+    <div className="border-2 border-blue-400 h-[calc(100vh-120px)] screen mt-2 overflow-y-scroll">
+      <div className="sticky top-0 bg-white z-10 p-4">
         <div className="flex justify-between mb-4 lg:mb-0">
           <h1 className="font-semibold mb-1 text-blue-400 text-nowrap ">
             Create New Room
@@ -122,7 +160,10 @@ const CreateRoom = () => {
               <div className="relative w-full h-full">
                 <div
                   className="absolute -top-2 z-30 bg-red-400 p-1 text-white rounded-full -right-2"
-                  onClick={handleDeleteSelectedImage}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDeleteSelectedImage();
+                  }}
                 >
                   <GrClose className="text-xs" />
                 </div>
@@ -147,7 +188,7 @@ const CreateRoom = () => {
         </form>
       </div>
       <div className="mt-4">
-        <Table>
+        <Table className="sticky">
           <TableCaption>List of recent rooms.</TableCaption>
           <TableHeader className="bg-blue-300">
             <TableRow>
@@ -162,59 +203,33 @@ const CreateRoom = () => {
           <TableBody>
             {
               roomsArray?.map((room, index) => (
-                <>
-                  <TableRow key={index}>
-                    <TableCell>
-                      <Image
-                        src={room.roomImage}
-                        alt="image"
-                        width={100}
-                        height={50}
-                        className="rounded-none cursor-pointer"
-                      />
-                    </TableCell>
+                <TableRow key={index}>
+                  <TableCell>
+                    <Image
+                      src={room.roomImage}
+                      alt="image"
+                      width={100}
+                      height={50}
+                      className="rounded-none cursor-pointer"
+                    />
+                  </TableCell>
 
-                    <TableCell>
-                      {room.sitRent}
-                    </TableCell>
+                  <TableCell>
+                    {room.sitRent}
+                  </TableCell>
 
-                    <TableCell>
-                      <div className="flex items-center gap-2">
-                        <Image
-                          src="https://i.ibb.co/vL3p03J/Whats-App-Image-2024-03-15-at-9-20-37-PM-Photoroom.jpg"
-                          alt="image"
-                          width={35}
-                          height={35}
-                          className="rounded-full cursor-pointer"
-                        />
-                        <div>
-                          <h1 className="text-sm hover:underline cursor-pointer">
-                            Anirban das joy
-                          </h1>
-                          <p className="text-xs hover:underline cursor-pointer">
-                            joy600508@gmail.com
-                          </p>
-                        </div>
-                      </div>
-                    </TableCell>
+                  <TableCellContent seat={room.sitOne} />
+                  <TableCellContent seat={room.sitTwo} />
+                  <TableCellContent seat={room.sitthree} />
 
-                    <TableCell>Empty</TableCell>
-                    <TableCell>Empty</TableCell>
-
-                    <TableCell className="text-right cursor-pointer">
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button variant="outline">Action</Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent className="flex flex-col">
-                          <button className="btn m-1">Edit</button>
-                          <button className="btn m-1">Delete</button>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </TableCell>
-                  </TableRow>
-
-                </>
+                  <TableCell className="text-right cursor-pointer">
+                    <BookingRequestActionModal
+                      roomId={"req?._id"}
+                      handleConfrimRequest={handleConfrimRequest}
+                      handleBookingRequestCelcel={handleBookingRequestCelcel}
+                    />
+                  </TableCell>
+                </TableRow>
               ))
             }
 

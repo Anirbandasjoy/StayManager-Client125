@@ -85,7 +85,7 @@ export interface registrationRequest {
   token: string;
 }
 
-interface User {
+export interface User {
   _id: string;
   name: string;
   email: string;
