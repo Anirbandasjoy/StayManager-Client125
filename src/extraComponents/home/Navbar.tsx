@@ -92,13 +92,16 @@ const Navbar = () => {
             }`}
           >
             {user ? (
-              <Link href="/notice">
-                <h1
-                  className={` block mt-4 md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold ${text}`}
-                >
-                  Notice
-                </h1>
-              </Link>
+              user?.payload?.role === "admin" ||
+              (user?.payload?.role === "student" && (
+                <Link href="/notice">
+                  <h1
+                    className={` block mt-4 md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold ${text}`}
+                  >
+                    Notice
+                  </h1>
+                </Link>
+              ))
             ) : (
               <h1 onClick={() => setLoginAlertModal(true)}>
                 <h1
