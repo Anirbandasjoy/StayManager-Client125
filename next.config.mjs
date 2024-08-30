@@ -12,6 +12,8 @@ const nextConfig = {
       "download.logo.wine",
       "lh3.googleusercontent.com",
       "avatars.githubusercontent.com",
+      "avatar.iran.liara.run",
+      "img.freepik.com",
     ],
   },
 };
