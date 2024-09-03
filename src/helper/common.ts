@@ -86,6 +86,50 @@ export const facilities = [
   { name: "Iron", icon: "🧳" },
 ];
 
+export const gallery = [
+  {
+    image:
+      "https://i.ibb.co/cF11Z1k/kipras-streimikis-U2f-PDs0-2i-I-unsplash.jpg",
+    blurDataURL: "data:image/jpeg;base64,/9j/2wBDAAMCAgMCAgMDAwMEAwMEBQgFB...",
+  },
+
+  {
+    image: "https://i.ibb.co/RpkCCDL/zhang-kenny-c-Xz-Br1q6h4o-unsplash.jpg",
+    blurDataURL: "data:image/jpeg;base64,/9j/2wBDAAMCAgMCAgMDAwMEAwMEBQgFB...",
+  },
+  {
+    image:
+      "https://i.ibb.co/gJS6Jds/frames-for-your-heart-Fqqi-Av-Jejto-unsplash.jpg",
+    blurDataURL: "data:image/jpeg;base64,/9j/2wBDAAMCAgMCAgMDAwMEAwMEBQgFB...",
+  },
+  {
+    image: "https://i.ibb.co/H7kYtmJ/hannah-busing-7-pg2hoh-Q-k-unsplash.jpg",
+    blurDataURL: "data:image/jpeg;base64,/9j/2wBDAAMCAgMCAgMDAwMEAwMEBQgFB...",
+  },
+  {
+    image:
+      "https://i.ibb.co/pbvWYJN/bernard-hermant-c4-Ccpa8s-Ml-I-unsplash.jpg",
+    blurDataURL: "data:image/jpeg;base64,/9j/2wBDAAMCAgMCAgMDAwMEAwMEBQgFB...",
+  },
+  {
+    image: "https://i.ibb.co/3WG2ZWw/naomi-hebert-2dc-Yhvb-HV-M-unsplash.jpg",
+    blurDataURL: "data:image/jpeg;base64,/9j/2wBDAAMCAgMCAgMDAwMEAwMEBQgFB...",
+  },
+  {
+    image: "https://i.ibb.co/RpkCCDL/zhang-kenny-c-Xz-Br1q6h4o-unsplash.jpg",
+    blurDataURL: "data:image/jpeg;base64,/9j/2wBDAAMCAgMCAgMDAwMEAwMEBQgFB...",
+  },
+  {
+    image: "https://i.ibb.co/H7kYtmJ/hannah-busing-7-pg2hoh-Q-k-unsplash.jpg",
+    blurDataURL: "data:image/jpeg;base64,/9j/2wBDAAMCAgMCAgMDAwMEAwMEBQgFB...",
+  },
+  {
+    image:
+      "https://i.ibb.co/cF11Z1k/kipras-streimikis-U2f-PDs0-2i-I-unsplash.jpg",
+    blurDataURL: "data:image/jpeg;base64,/9j/2wBDAAMCAgMCAgMDAwMEAwMEBQgFB...",
+  },
+];
+
 // Define a function to format a date string
 export const formatDate = (dateString: string): string => {
   const options: Intl.DateTimeFormatOptions = {

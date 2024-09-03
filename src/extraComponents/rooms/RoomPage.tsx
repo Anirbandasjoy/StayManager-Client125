@@ -37,9 +37,9 @@ const RoomPage = () => {
             className="border border-gray-300 shadow rounded-md p-4"
           >
             <div>
-              <div className="w-full md:h-[14rem] h-[15rem] rounded-sm ">
+              <div className="w-full md:h-[14rem] h-[15rem] rounded-sm overflow-hidden">
                 <Image
-                  className="w-full h-full"
+                  className="w-full h-full hover:scale-125 duration-500 transition transform"
                   src={product?.roomImage}
                   alt="thumbnail"
                   width={500}

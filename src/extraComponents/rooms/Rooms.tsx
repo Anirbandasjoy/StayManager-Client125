@@ -118,9 +118,9 @@ const Rooms = () => {
           return (
             <SwiperSlide key={product?._id} className="rounded-sm">
               <div>
-                <div className="w-full md:h-[16rem] h-[15rem] rounded-sm">
+                <div className="w-full overflow-hidden md:h-[16rem] h-[15rem] rounded-sm">
                   <Image
-                    className="w-full h-full"
+                    className="w-full h-full hover:scale-125 duration-500 transition transform"
                     src={product?.roomImage}
                     alt="thumbnail"
                     width={500}

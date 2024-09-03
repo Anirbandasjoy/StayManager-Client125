@@ -2,10 +2,10 @@ import { facilities } from "@/helper/common";
 
 const Facilities = () => {
   return (
-    <div className="py-12 container">
+    <div className="py-12 px-0 container ">
       <div className="text-center">
-        <h2 className="text-4xl font-bold text-red-400 mb-2">Facilities</h2>
-        <p className="text-gray-600">What we offer for free</p>
+        <h2 className="text-3xl font-bold text-red-400 mb-1">Facilities</h2>
+        <p className="text-gray-600 text-[14px]">What we offer for free</p>
       </div>
       <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8">
         {facilities.map((facility) => (
