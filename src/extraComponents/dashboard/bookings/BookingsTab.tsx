@@ -1,7 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Navbar from "../sidebar/Navbar";
 import BookingRequest from "./BookingRequest";
-import BookingsList from "./BookingsList";
+import PortalRequest from "@/extraComponents/portal/Portal";
 const BookingsTab = () => {
   return (
     <div>
@@ -16,8 +16,8 @@ const BookingsTab = () => {
         <TabsContent value="booking-request">
           <BookingRequest />
         </TabsContent>
-        <TabsContent value="booking-list">
-          <BookingsList />
+        <TabsContent value="portal-request">
+          <PortalRequest />
         </TabsContent>
       </Tabs>
     </div>

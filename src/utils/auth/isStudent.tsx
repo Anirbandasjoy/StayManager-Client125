@@ -1,24 +1,33 @@
 import { useCurrentUserQuery } from "@/redux/api/baseApi";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-const isStudent = (Component: any) => {
-  return function IsStudent(props: any) {
+const isStudentOrAdmin = (Component: React.ComponentType<any>) => {
+  return function IsStudentOrAdmin(props: any) {
     const { data: currentUser, isLoading } = useCurrentUserQuery();
-    const student = currentUser?.payload?.role === "student";
-    const admin = currentUser?.payload?.role === "admin";
+    const router = useRouter();
 
     useEffect(() => {
-      if (!isLoading && (!currentUser || !student || !admin)) {
-        redirect("/");
+      if (!isLoading) {
+        if (
+          !currentUser ||
+          (currentUser.payload.role !== "student" &&
+            currentUser.payload.role !== "admin")
+        ) {
+          redirect("/");
+        }
       }
-    }, [student, currentUser, isLoading, admin]);
+    }, [currentUser, isLoading, router]);
 
     if (isLoading) {
       return <h1>Loading....</h1>;
     }
 
-    if (!currentUser || !student || !admin) {
+    if (
+      !currentUser ||
+      (currentUser.payload.role !== "student" &&
+        currentUser.payload.role !== "admin")
+    ) {
       return null;
     }
 
@@ -26,4 +35,4 @@ const isStudent = (Component: any) => {
   };
 };
 
-export default isStudent;
+export default isStudentOrAdmin;

@@ -64,7 +64,7 @@ const CreateNotice = () => {
         title: "Create a New Comment",
       });
       noticeRefetch();
-      router.push("/dashboard");
+      router.push("/dashboard/notice");
     } catch (error) {
       console.log(error);
       toast({

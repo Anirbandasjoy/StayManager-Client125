@@ -2,12 +2,11 @@
 import axios from "axios";
 
 export const uploadImage = async (image: File) => {
-
   if (!image) {
-    console.log("Image File Not Found"); 
+    console.log("Image File Not Found");
   }
-  
-  const apiKey = "6e1db85f6ab88ea2edc5847ca2be6134"; 
+
+  const apiKey = "6e1db85f6ab88ea2edc5847ca2be6134";
   const formData = new FormData();
   formData.append("image", image);
 
@@ -71,6 +70,20 @@ export const years = [
   { name: 2038, value: 2038 },
   { name: 2039, value: 2039 },
   { name: 2040, value: 2040 },
+];
+export const facilities = [
+  { name: "Tea & Coffee", icon: "☕" },
+  { name: "Hot Showers", icon: "🚿" },
+  { name: "Laundry", icon: "🧺" },
+  { name: "Kitchen", icon: "🍽" },
+  { name: "Air Conditioner", icon: "❄️" },
+  { name: "Lockers", icon: "🔒" },
+  { name: "24/7 Reception", icon: "🔔" },
+  { name: "Free Wi-Fi", icon: "📶" },
+  { name: "TV", icon: "📺" },
+  { name: "City Map", icon: "🗺️" },
+  { name: "Hairdryer", icon: "💇" },
+  { name: "Iron", icon: "🧳" },
 ];
 
 // Define a function to format a date string

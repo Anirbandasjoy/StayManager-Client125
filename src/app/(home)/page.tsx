@@ -1,4 +1,5 @@
 import Banner from "@/extraComponents/home/Banner";
+import Facilities from "@/extraComponents/home/facilities/Facilities";
 import Rooms from "@/extraComponents/rooms/Rooms";
 import React from "react";
 
@@ -11,6 +12,7 @@ const Home = () => {
         subheadingText="Pleas explore my hostel website visite here and my website"
       />
       <Rooms />
+      <Facilities />
     </div>
   );
 };

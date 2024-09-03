@@ -445,6 +445,27 @@ export interface portalRequestCreateResponse {
   status: string;
 }
 
+export interface findAllPortalResponse {
+  success: boolean;
+  statusCode: number;
+  payload: {
+    _id: string;
+    user: User;
+    status: string;
+    createdAt: string;
+  }[];
+}
+
+export interface portalAccepetRespone {
+  success: boolean;
+  statusCode: number;
+  message: string;
+}
+
+export interface portaAccepetRequest {
+   userId : string
+}
+
 // auth types
 
 export interface logOutResponse {

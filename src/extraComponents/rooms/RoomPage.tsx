@@ -109,7 +109,7 @@ const RoomPage = () => {
                   </div>
                   <Link href={`/rooms/${product?._id}`}>
                     <Button
-                      className="text-xs rounded-sm px-3 hover:text-gray-600 text-gray-200 py-1 bg-blue-500 hover:border hover:border-blue-500 space-x-1"
+                      className="text-xs rounded-sm px-3  text-gray-600 py-1 bg-yellow-300 hover:border hover:border-yellow-400 space-x-1"
                       variant="outline"
                     >
                       <BiPurchaseTag />
