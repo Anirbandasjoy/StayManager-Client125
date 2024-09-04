@@ -31,7 +31,7 @@ Stay Manager is a hostel management platform that provides users with essential 
 
 <p align="left">
   <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=react,ts,express,mongodb,tailwindcss,passport" />
+    <img src="https://skillicons.dev/icons?i=next,ts,express,mongodb,tailwindcss" />
   </a>
 </p>
 
