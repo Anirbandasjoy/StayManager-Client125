@@ -4,7 +4,9 @@ import { useEffect, useState } from "react";
 import DropDownMenu from "../share/DropDownMenu";
 import { useCurrentUserQuery } from "@/redux/api/baseApi";
 import LoginAlertModal from "../modal/LoginAlertModal";
+import { usePathname } from "next/navigation";
 const Navbar = () => {
+  const path = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [navBackground, setNavBackground] = useState("bg-[#5eaaf500]");
   const [text, setText] = useState("text-white");
@@ -35,7 +37,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`${navBackground} fixed  w-full p-3  border-b border-gray-300 z-50 transition duration-300`}
+      className={`${navBackground}  fixed  w-full p-3  border-b border-gray-300 z-50 transition duration-300`}
     >
       <div className="container mx-auto flex justify-between items-center">
         <Link href="/">
@@ -84,19 +86,33 @@ const Navbar = () => {
             ></path>
           </svg>
         </button>
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-10">
           <div
-            className={`md:flex md:items-center ${
+            className={`md:flex gap-4 md:items-center ${
               isOpen
                 ? "block absolute bg-blue-400 w-full top-16 left-0 p-4"
                 : "hidden"
             }`}
           >
+            <Link href="/">
+              <h1
+                className={` block  mt-4 md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold ${text} ${
+                  path === "/" ? "show-navbar-route-fix" : "show-navbar-route"
+                }`}
+              >
+                Home
+              </h1>
+            </Link>
+
             {user ? (
               user?.payload?.role !== "user" && (
                 <Link href="/notice">
                   <h1
-                    className={` block mt-4 md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold ${text}`}
+                    className={` block  mt-4 md:inline-block md:mt-0 md:ml-4  cursor-pointer font-bold   ${text} ${
+                      path === "/notice"
+                        ? "show-navbar-route-fix"
+                        : "show-navbar-route"
+                    }`}
                   >
                     Notice
                   </h1>
@@ -105,7 +121,11 @@ const Navbar = () => {
             ) : (
               <h1 onClick={() => setLoginAlertModal(true)}>
                 <h1
-                  className={` block mt-4 md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold ${text}`}
+                  className={` block mt-4 md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold ${text} ${
+                    path === "/notice"
+                      ? "show-navbar-route-fix"
+                      : "show-navbar-route"
+                  }`}
                 >
                   Notice
                 </h1>
@@ -113,21 +133,33 @@ const Navbar = () => {
             )}
             <Link href="/rooms">
               <h1
-                className={` block mt-4 md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold ${text}`}
+                className={` block show-navbar-route mt-4 md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold ${text} ${
+                  path === "/rooms"
+                    ? "show-navbar-route-fix"
+                    : "show-navbar-route"
+                }`}
               >
                 Rooms
               </h1>
             </Link>
             <Link href="/schedule">
               <h1
-                className={` block mt-4 md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold ${text}`}
+                className={` block show-navbar-route mt-4 show-navbar-route md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold ${text} ${
+                  path === "/schedule"
+                    ? "show-navbar-route-fix"
+                    : "show-navbar-route"
+                }`}
               >
                 Schedule
               </h1>
             </Link>
             <Link href="/students">
               <h1
-                className={` block mt-4 md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold ${text}`}
+                className={` block show-navbar-route mt-4 md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold ${text}  ${
+                  path === "/students"
+                    ? "show-navbar-route-fix"
+                    : "show-navbar-route"
+                }`}
               >
                 Students
               </h1>

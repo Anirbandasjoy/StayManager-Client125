@@ -51,8 +51,11 @@ const DropDownMenu = () => {
             </Avatar>
           ) : (
             <Avatar>
-              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-              <AvatarFallback>AN</AvatarFallback>
+              <AvatarImage
+                src="https://cdn-icons-png.flaticon.com/512/3276/3276535.png"
+                alt="AccountIcon"
+              />
+              <AvatarFallback>{user?.payload?.name || "AC"}</AvatarFallback>
             </Avatar>
           )}
         </DropdownMenuTrigger>
