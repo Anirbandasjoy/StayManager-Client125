@@ -37,9 +37,9 @@ const RoomPage = () => {
             className="border border-gray-300 shadow rounded-md p-4"
           >
             <div>
-              <div className="w-full md:h-[14rem] h-[15rem] rounded-sm ">
+              <div className="w-full md:h-[14rem] h-[15rem] rounded-sm overflow-hidden">
                 <Image
-                  className="w-full h-full"
+                  className="w-full h-full hover:scale-125 duration-500 transition transform"
                   src={product?.roomImage}
                   alt="thumbnail"
                   width={500}
@@ -109,7 +109,7 @@ const RoomPage = () => {
                   </div>
                   <Link href={`/rooms/${product?._id}`}>
                     <Button
-                      className="text-xs rounded-sm px-3 hover:text-gray-600 text-gray-200 py-1 bg-blue-500 hover:border hover:border-blue-500 space-x-1"
+                      className="text-xs rounded-sm px-3  text-gray-600 py-1 bg-yellow-300 hover:border hover:border-yellow-400 space-x-1"
                       variant="outline"
                     >
                       <BiPurchaseTag />

@@ -85,7 +85,7 @@ export interface registrationRequest {
   token: string;
 }
 
-interface User {
+export interface User {
   _id: string;
   name: string;
   email: string;
@@ -437,6 +437,35 @@ export interface bookinCencelRequest {
   roomId: string;
 }
 
+// Portal types
+
+export interface portalRequestCreateResponse {
+  _id: string;
+  user: string;
+  status: string;
+}
+
+export interface findAllPortalResponse {
+  success: boolean;
+  statusCode: number;
+  payload: {
+    _id: string;
+    user: User;
+    status: string;
+    createdAt: string;
+  }[];
+}
+
+export interface portalAccepetRespone {
+  success: boolean;
+  statusCode: number;
+  message: string;
+}
+
+export interface portaAccepetRequest {
+   userId : string
+}
+
 // auth types
 
 export interface logOutResponse {
@@ -451,3 +480,8 @@ export type DateTimeFormatOptions = {
   minute?: "numeric" | "2-digit";
   hour12?: boolean;
 };
+
+export interface roomsData {
+  sitRent: string;
+  roomImage: any;
+}

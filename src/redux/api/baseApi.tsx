@@ -17,6 +17,7 @@ import {
   deleteNoticeResponse,
   existBookingRequest,
   existBookingResponse,
+  findAllPortalResponse,
   findAllRoomsResponse,
   findRoomReviewRequest,
   findRoomReviewResponse,
@@ -28,10 +29,14 @@ import {
   loginResponse,
   logOutResponse,
   NoticeCommentRequest,
+  portaAccepetRequest,
+  portalAccepetRespone,
+  portalRequestCreateResponse,
   ProcessRegistrationRequest,
   processRegistrationResponse,
   registrationRequest,
   registrationResponse,
+  roomsData,
   saveNoticeRequest,
   saveNoticeResponse,
   singleUserRequest,
@@ -45,12 +50,13 @@ import {
   userAllBookingRequestResponse,
 } from "@/helper/type";
 
-// const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+// const BaseUrl = "http://localhost:5000/api/v1";
+const BaseUrl = "https://staymanager-server404.vercel.app/api/v1";
 
 const stayManagerApi = createApi({
   reducerPath: "stayManagerApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5000/api/v1",
+    baseUrl: BaseUrl,
     credentials: "include",
   }),
 
@@ -206,6 +212,16 @@ const stayManagerApi = createApi({
     findSaveNotice: builder.query<findSaveNotice, void>({
       query: () => "/save/find-notice",
     }),
+
+    // Rooms create Api
+    createRooms: builder.mutation<void, roomsData>({
+      query: (roomsData) => ({
+        url: "/room/create",
+        method: "POST",
+        body: roomsData,
+      }),
+    }),
+
     findAllRooms: builder.query<findAllRoomsResponse, void>({
       query: () => "/room/find-allRooms",
     }),
@@ -269,6 +285,32 @@ const stayManagerApi = createApi({
     findAllBookingRequest: builder.query<userAllBookingRequestResponse, void>({
       query: () => "/booking/findAll-booking-request",
     }),
+
+    // portal api request
+    createPortalJoinRequest: builder.mutation<
+      portalRequestCreateResponse,
+      void
+    >({
+      query: () => ({
+        url: "/portal/portal-join-request",
+        method: "POST",
+      }),
+    }),
+    findAllPostalRequest: builder.query<findAllPortalResponse, void>({
+      query: () => ({
+        url: "/portal/findAll-portalRequest",
+        method: "GET",
+      }),
+    }),
+    accepetPortalRequest: builder.mutation<
+      portalAccepetRespone,
+      portaAccepetRequest
+    >({
+      query: ({ userId }) => ({
+        url: `/portal/accept-portal-joinRequest/${userId}`,
+        method: "PATCH",
+      }),
+    }),
   }),
 });
 
@@ -304,6 +346,10 @@ export const {
   useCencelBookingRequestMutation,
   useUpdateUserInformationMutation,
   useUpdateAccountPasswordMutation,
+  useCreateRoomsMutation,
+  useCreatePortalJoinRequestMutation,
+  useFindAllPostalRequestQuery,
+  useAccepetPortalRequestMutation,
 } = stayManagerApi;
 
 export default stayManagerApi;

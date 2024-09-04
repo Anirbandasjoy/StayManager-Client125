@@ -1,11 +1,7 @@
 import { MdOutlineDashboardCustomize, MdOutlineBathroom } from "react-icons/md";
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
 import { BiCandles } from "react-icons/bi";
-import {
-  IoLogOutOutline,
-  IoSaveOutline,
-  IoSettingsOutline,
-} from "react-icons/io5";
+import { IoLogOutOutline, IoSettingsOutline } from "react-icons/io5";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,6 +15,7 @@ import {
 import { PiStudentDuotone } from "react-icons/pi";
 import Link from "next/link";
 import Menu from "./Menu";
+import { IoMdPaper } from "react-icons/io";
 
 const Sidebar = () => {
   return (
@@ -37,6 +34,7 @@ const Sidebar = () => {
               path="/dashboard"
               Icon={MdOutlineDashboardCustomize}
             />
+            <Menu menuName="Notice" path="/dashboard/notice" Icon={IoMdPaper} />
 
             <Menu
               menuName="Rooms"
@@ -59,7 +57,6 @@ const Sidebar = () => {
               path="/dashboard/users"
               Icon={AiOutlineUsergroupAdd}
             />
-            <Menu menuName="Save" path="/dashboard/save" Icon={IoSaveOutline} />
           </div>
           <div className="flex flex-col gap-2">
             <Menu
