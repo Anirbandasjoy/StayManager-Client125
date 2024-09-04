@@ -1,3 +1,4 @@
+import Template from "@/app/Template";
 import Banner from "@/extraComponents/home/Banner";
 import RoomDetailsCom from "@/extraComponents/rooms/RoomDetails";
 import { useFindSingleRoomQuery } from "@/redux/api/baseApi";
@@ -7,9 +8,9 @@ const RoomDetails = ({ params }: { params: { roomId: string } }) => {
   const { roomId } = params;
 
   return (
-    <>
+    <Template>
       <RoomDetailsCom roomId={roomId} />
-    </>
+    </Template>
   );
 };
 

@@ -9,6 +9,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { format, parseISO } from "date-fns";
 import { toast } from "@/components/ui/use-toast";
+import Template from "@/app/Template";
 
 const PublicProfile = ({ params }: { params: { profileId: string } }) => {
   const { profileId } = params;
@@ -37,7 +38,7 @@ const PublicProfile = ({ params }: { params: { profileId: string } }) => {
     }
   };
   return (
-    <>
+    <Template>
       <div className="relative w-full h-[70px]">
         <Image
           src={
@@ -175,7 +176,7 @@ const PublicProfile = ({ params }: { params: { profileId: string } }) => {
           </div>
         </div>
       </section>
-    </>
+    </Template>
   );
 };
 
