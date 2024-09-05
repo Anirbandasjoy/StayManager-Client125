@@ -1,15 +1,16 @@
-import Banner from "@/extraComponents/home/Banner";
-import Facilities from "@/extraComponents/home/facilities/Facilities";
-import Gallery from "@/extraComponents/home/gallery/Gallery";
-import HotelAuthor from "@/extraComponents/home/hotelAuthor/HotelAuthor";
-import HotelAuthorSecondPerson from "@/extraComponents/home/hotelAuthor/HotelAuthorSecond";
+import Banner from "@/components/home/Banner";
+import Facilities from "@/components/home/facilities/Facilities";
+import Gallery from "@/components/home/gallery/Gallery";
+import HotelAuthor from "@/components/home/hotelAuthor/HotelAuthor";
+import HotelAuthorSecondPerson from "@/components/home/hotelAuthor/HotelAuthorSecond";
 
-import Rooms from "@/extraComponents/rooms/Rooms";
+import Rooms from "@/components/rooms/Rooms";
 import React from "react";
+import Template from "../Template";
 
 const Home = () => {
   return (
-    <div>
+    <Template>
       <Banner
         imageURL="https://images.unsplash.com/photo-1709805619372-40de3f158e83?q=80&w=1795&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         headingText="Wellcome."
@@ -20,7 +21,7 @@ const Home = () => {
       <Gallery />
       <HotelAuthor />
       <HotelAuthorSecondPerson />
-    </div>
+    </Template>
   );
 };
 

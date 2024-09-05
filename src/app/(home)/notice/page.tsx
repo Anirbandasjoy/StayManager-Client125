@@ -1,6 +1,7 @@
 "use client";
-import NoticeCard from "@/extraComponents/dashboard/notice/NoticeCard";
-import NoticeCardLoading from "@/extraComponents/loading/NoticeCardLoading";
+import Template from "@/app/Template";
+import NoticeCard from "@/components/dashboard/notice/NoticeCard";
+import NoticeCardLoading from "@/components/loading/NoticeCardLoading";
 import { useFindNoticeQuery } from "@/redux/api/baseApi";
 import isStudent from "@/utils/auth/isStudent";
 import Image from "next/image";
@@ -10,7 +11,7 @@ const HomeNotice = () => {
 
   const notice = data?.payload || [];
   return (
-    <div>
+    <Template>
       <div className="w-full">
         <div className="relative w-full h-[70px] ">
           <Image
@@ -44,7 +45,7 @@ const HomeNotice = () => {
           </>
         )}
       </div>
-    </div>
+    </Template>
   );
 };
 

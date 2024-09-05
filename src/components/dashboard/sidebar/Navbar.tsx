@@ -4,7 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { BellRing } from "lucide-react";
 
-import DropDownMenu from "@/extraComponents/share/DropDownMenu";
+import DropDownMenu from "@/components/share/DropDownMenu";
 import Notifications from "../notifications/Notification";
 const Navbar = () => {
   return (

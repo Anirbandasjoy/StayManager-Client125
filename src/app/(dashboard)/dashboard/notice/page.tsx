@@ -1,7 +1,7 @@
 "use client";
-import NoticeCard from "@/extraComponents/dashboard/notice/NoticeCard";
-import Navbar from "@/extraComponents/dashboard/sidebar/Navbar";
-import NoticeCardLoading from "@/extraComponents/loading/NoticeCardLoading";
+import NoticeCard from "@/components/dashboard/notice/NoticeCard";
+import Navbar from "@/components/dashboard/sidebar/Navbar";
+import NoticeCardLoading from "@/components/loading/NoticeCardLoading";
 import { useFindNoticeQuery } from "@/redux/api/baseApi";
 import React from "react";
 

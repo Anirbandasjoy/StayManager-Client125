@@ -1,15 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
-'use client'
+"use client";
 
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/components/ui/table";
 
 import {
   Pagination,
@@ -19,7 +18,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@/components/ui/pagination"
+} from "@/components/ui/pagination";
 
 import {
   DropdownMenu,
@@ -28,25 +27,23 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 
-import Navbar from "@/extraComponents/dashboard/sidebar/Navbar"
-import { useAllUserQuery } from "@/redux/api/baseApi"
-
+import Navbar from "@/components/dashboard/sidebar/Navbar";
+import { useAllUserQuery } from "@/redux/api/baseApi";
 
 const Page = (): JSX.Element => {
-
   const { data, isLoading, isError } = useAllUserQuery();
 
   if (isLoading) {
-    return (
-      <div className="m-20 text-xl font-bold">Loading....</div>
-    );
+    return <div className="m-20 text-xl font-bold">Loading....</div>;
   }
 
   if (isError) {
     return (
-      <div className="mt-20 text-xl font-bold text-red-500">An Error Detected....!!</div>
+      <div className="mt-20 text-xl font-bold text-red-500">
+        An Error Detected....!!
+      </div>
     );
   }
 
@@ -63,35 +60,40 @@ const Page = (): JSX.Element => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {
-            data?.payload.users.map((user, index: number) => (
-              <TableRow key={index} className={`${index % 2 !== 0 ? "bg-blue-50" : ""}`}>
-                <TableCell>
-                  <div className="flex items-center gap-2 p-2">
-                    <img className="h-12 w-12 rounded-full" src={user.profileImage} alt="user profile" />
-                    <ul className="text-start">
-                      <li>{user.name}</li>
-                      <li>{user.email}</li>
-                    </ul>
-                  </div>
-                </TableCell>
-                <TableCell>{user.role}</TableCell>
-                <TableCell>{user.phone}</TableCell>
-                <TableCell>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger>Option</DropdownMenuTrigger>
-                    <DropdownMenuContent>
-                      <DropdownMenuLabel>Users Account</DropdownMenuLabel>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem>See Profile</DropdownMenuItem>
-                      <DropdownMenuItem>Payment History</DropdownMenuItem>
-                      <DropdownMenuItem>Change Role</DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </TableCell>
-              </TableRow>
-            ))
-          }
+          {data?.payload.users.map((user, index: number) => (
+            <TableRow
+              key={index}
+              className={`${index % 2 !== 0 ? "bg-blue-50" : ""}`}
+            >
+              <TableCell>
+                <div className="flex items-center gap-2 p-2">
+                  <img
+                    className="h-12 w-12 rounded-full"
+                    src={user.profileImage}
+                    alt="user profile"
+                  />
+                  <ul className="text-start">
+                    <li>{user.name}</li>
+                    <li>{user.email}</li>
+                  </ul>
+                </div>
+              </TableCell>
+              <TableCell>{user.role}</TableCell>
+              <TableCell>{user.phone}</TableCell>
+              <TableCell>
+                <DropdownMenu>
+                  <DropdownMenuTrigger>Option</DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuLabel>Users Account</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>See Profile</DropdownMenuItem>
+                    <DropdownMenuItem>Payment History</DropdownMenuItem>
+                    <DropdownMenuItem>Change Role</DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </TableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
       <Pagination>
@@ -112,6 +114,6 @@ const Page = (): JSX.Element => {
       </Pagination>
     </>
   );
-}
+};
 
 export default Page;

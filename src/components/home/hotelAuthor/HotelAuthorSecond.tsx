@@ -16,7 +16,7 @@ const HotelAuthorSecondPerson = () => {
             width={320}
             height={320}
             alt="authorImage"
-            className="max-w-full h-auto md:absolute md:bottom-0 md:left-28 z-50"
+            className="max-w-full h-auto md:absolute md:bottom-0 md:left-28 "
           />
         </div>
 

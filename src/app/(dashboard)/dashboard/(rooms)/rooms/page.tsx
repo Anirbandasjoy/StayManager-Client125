@@ -1,5 +1,5 @@
-import CreateRooom from "@/extraComponents/dashboard/rooms/CreateRooom";
-import Navbar from "@/extraComponents/dashboard/sidebar/Navbar";
+import CreateRooom from "@/components/dashboard/rooms/CreateRooom";
+import Navbar from "@/components/dashboard/sidebar/Navbar";
 import React from "react";
 
 const Rooms = () => {
