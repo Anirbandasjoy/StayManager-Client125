@@ -1,10 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { facilities } from "@/helper/common";
-import {
-  containerVariants,
-  itemVariants,
-} from "@/extraComponents/animation/list";
+import { containerVariants, itemVariants } from "@/components/animation/list";
 
 const Facilities = () => {
   return (

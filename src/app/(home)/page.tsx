@@ -1,10 +1,10 @@
-import Banner from "@/extraComponents/home/Banner";
-import Facilities from "@/extraComponents/home/facilities/Facilities";
-import Gallery from "@/extraComponents/home/gallery/Gallery";
-import HotelAuthor from "@/extraComponents/home/hotelAuthor/HotelAuthor";
-import HotelAuthorSecondPerson from "@/extraComponents/home/hotelAuthor/HotelAuthorSecond";
+import Banner from "@/components/home/Banner";
+import Facilities from "@/components/home/facilities/Facilities";
+import Gallery from "@/components/home/gallery/Gallery";
+import HotelAuthor from "@/components/home/hotelAuthor/HotelAuthor";
+import HotelAuthorSecondPerson from "@/components/home/hotelAuthor/HotelAuthorSecond";
 
-import Rooms from "@/extraComponents/rooms/Rooms";
+import Rooms from "@/components/rooms/Rooms";
 import React from "react";
 import Template from "../Template";
 

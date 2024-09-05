@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/components/ui/use-toast";
-import Navbar from "@/extraComponents/dashboard/sidebar/Navbar";
+import Navbar from "@/components/dashboard/sidebar/Navbar";
 import { isImage, uploadImage } from "@/helper/common";
 import {
   useCreateNoticeMutation,

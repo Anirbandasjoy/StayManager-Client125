@@ -4,10 +4,7 @@ import { gallery } from "@/helper/common";
 import Image from "next/image";
 import React, { useState } from "react";
 import ShowRoomImage from "./ShowRoomImage";
-import {
-  containerVariants,
-  itemVariants,
-} from "@/extraComponents/animation/list";
+import { containerVariants, itemVariants } from "@/components/animation/list";
 
 const Gallery = () => {
   const [show, setShow] = useState<boolean>(false);

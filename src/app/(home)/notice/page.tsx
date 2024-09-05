@@ -1,7 +1,7 @@
 "use client";
 import Template from "@/app/Template";
-import NoticeCard from "@/extraComponents/dashboard/notice/NoticeCard";
-import NoticeCardLoading from "@/extraComponents/loading/NoticeCardLoading";
+import NoticeCard from "@/components/dashboard/notice/NoticeCard";
+import NoticeCardLoading from "@/components/loading/NoticeCardLoading";
 import { useFindNoticeQuery } from "@/redux/api/baseApi";
 import isStudent from "@/utils/auth/isStudent";
 import Image from "next/image";

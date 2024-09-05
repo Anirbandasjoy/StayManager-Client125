@@ -1,7 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Navbar from "../sidebar/Navbar";
 import BookingRequest from "./BookingRequest";
-import PortalRequest from "@/extraComponents/portal/Portal";
+import PortalRequest from "@/components/portal/Portal";
 const BookingsTab = () => {
   return (
     <div>

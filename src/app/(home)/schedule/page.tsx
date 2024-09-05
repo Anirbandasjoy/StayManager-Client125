@@ -1,5 +1,5 @@
 import Template from "@/app/Template";
-import BookingsCom from "@/extraComponents/home/bookings/BookingsCom";
+import BookingsCom from "@/components/home/bookings/BookingsCom";
 
 const Bookings = () => {
   return (

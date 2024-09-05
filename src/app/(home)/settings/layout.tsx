@@ -1,4 +1,4 @@
-import SettingsSidebar from "@/extraComponents/home/settings/shared/SettingsSidebar";
+import SettingsSidebar from "@/components/home/settings/shared/SettingsSidebar";
 import Image from "next/image";
 
 export default function DashboardLayout({

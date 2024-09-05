@@ -1,6 +1,6 @@
 import Template from "@/app/Template";
-import Banner from "@/extraComponents/home/Banner";
-import RoomPage from "@/extraComponents/rooms/RoomPage";
+import Banner from "@/components/home/Banner";
+import RoomPage from "@/components/rooms/RoomPage";
 const Rooms = () => {
   return (
     <Template>

@@ -1,4 +1,4 @@
-import BookingsTab from "@/extraComponents/dashboard/bookings/BookingsTab";
+import BookingsTab from "@/components/dashboard/bookings/BookingsTab";
 import React from "react";
 
 const Bookings = () => {

@@ -9,7 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import TimeAgo from "@/extraComponents/dashboard/notice/TimeAgo";
+import TimeAgo from "@/components/dashboard/notice/TimeAgo";
 import { useUserALlBookingRequestQuery } from "@/redux/api/baseApi";
 import Image from "next/image";
 import Link from "next/link";

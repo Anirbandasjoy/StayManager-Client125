@@ -1,4 +1,4 @@
-import ToggleButton from "@/extraComponents/dashboard/settings/ToggleBtn";
+import ToggleButton from "@/components/dashboard/settings/ToggleBtn";
 import React from "react";
 import { BsFillCloudSunFill } from "react-icons/bs";
 import { FaRegEdit } from "react-icons/fa";
@@ -80,13 +80,12 @@ const Settings = () => {
             </h1>
           </div>
           <div className="flex gap-5 items-center">
-          <div className="flex gap-2 items-center cursor-pointer">
-            <GrConfigure className="text-lg text-gray-700" />
-            <h1 className="tracking-wide font-semibold text-[16px] text-gray-700">
-              Tearms and conditions
-
-            </h1>
-          </div>
+            <div className="flex gap-2 items-center cursor-pointer">
+              <GrConfigure className="text-lg text-gray-700" />
+              <h1 className="tracking-wide font-semibold text-[16px] text-gray-700">
+                Tearms and conditions
+              </h1>
+            </div>
           </div>
         </div>
         <div className=" flex flex-col gap-5">

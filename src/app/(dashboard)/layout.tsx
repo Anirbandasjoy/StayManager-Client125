@@ -1,5 +1,5 @@
 "use client";
-import Sidebar from "@/extraComponents/dashboard/sidebar/Sidebar";
+import Sidebar from "@/components/dashboard/sidebar/Sidebar";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useState } from "react";
 import { IoMdClose } from "react-icons/io";
