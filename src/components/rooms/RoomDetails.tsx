@@ -20,9 +20,13 @@ import RoomDetailsLoading from "../loading/RoomDetailsLoading";
 import RequestModal from "./RequestModal";
 import RoomStatus from "./RoomStatus";
 import RequestStatus from "./RequestStatus";
+import Link from "next/link";
+import RequestCencelModal from "./RequestCencelModal";
 
 const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
   const [openRequestModal, setopenRequestModal] = useState<boolean>(false);
+  const [openCencelModal, setopenCencelModal] = useState<boolean>(false);
+
   const [sitNumber, setSitNumber] = useState<number>(0);
   const {
     data: singleRoom,
@@ -65,11 +69,20 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
   };
 
   const handleBookingReqInfo = (st: number) => {
-    setopenRequestModal(true);
-    setSitNumber(st);
+    if (
+      roomBookingExistData?.payload?.status === "pending" &&
+      roomBookingExistData.payload?.sitNumber == st
+    ) {
+      setopenCencelModal(true);
+      setSitNumber(st);
+    } else {
+      setopenRequestModal(true);
+      setSitNumber(st);
+    }
   };
-
   console.log(singleRoom);
+
+  console.log({ roomBookingExistData });
   return (
     <div className="mb-10">
       <Banner
@@ -101,7 +114,10 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
                         className="bg-transparent border-2 border-blue-300 py-3 px-3 text-white rounded-sm flex items-center gap-2 cursor-pointer md:w-48"
                         onClick={() => handleBookingReqInfo(1)}
                       >
-                        <IoPersonAddOutline className="text-xl font-bold text-gray-600" />
+                        <IoPersonAddOutline
+                          onClick={(e) => e.stopPropagation()}
+                          className="text-xl font-bold text-gray-600"
+                        />
                         <RequestStatus
                           roomBookingExistData={roomBookingExistData}
                           sitNumber={1}
@@ -117,11 +133,26 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
                         className="bg-transparent border-2 border-blue-100 py-3 px-3 md:w-48 text-white rounded-sm flex items-center gap-2 cursor-pointer "
                         onClick={() => handleBookingReqInfo(2)}
                       >
-                        <IoPersonAddOutline className="text-xl font-bold text-gray-600" />
-                        <RequestStatus
-                          roomBookingExistData={roomBookingExistData}
-                          sitNumber={2}
+                        <IoPersonAddOutline
+                          onClick={(e) => e.stopPropagation()}
+                          className="text-xl font-bold text-gray-600"
                         />
+                        {singleRoom?.payload?.sitTwo === null ? (
+                          <RequestStatus
+                            roomBookingExistData={roomBookingExistData}
+                            sitNumber={2}
+                          />
+                        ) : (
+                          <Link
+                            href={`/profile/${singleRoom?.payload?.sitTwo?._id}`}
+                            onClick={(e) => e.stopPropagation()}
+                            className="text-gray-500 text-sm hover:underline"
+                          >
+                            {singleRoom?.payload?.sitTwo?.name
+                              ? singleRoom?.payload?.sitTwo?.name
+                              : "Profile"}
+                          </Link>
+                        )}
                       </div>
                     </div>
                     <div className="flex gap-2 ">
@@ -133,11 +164,26 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
                         className="bg-transparent border-2 border-blue-300 py-3 md:w-48 px-3 text-white rounded-sm flex items-center gap-2 cursor-pointer "
                         onClick={() => handleBookingReqInfo(3)}
                       >
-                        <IoPersonAddOutline className="text-xl font-bold text-gray-600" />
-                        <RequestStatus
-                          roomBookingExistData={roomBookingExistData}
-                          sitNumber={3}
+                        <IoPersonAddOutline
+                          onClick={(e) => e.stopPropagation()}
+                          className="text-xl font-bold text-gray-600"
                         />
+                        {singleRoom?.payload?.sitThere === null ? (
+                          <RequestStatus
+                            roomBookingExistData={roomBookingExistData}
+                            sitNumber={3}
+                          />
+                        ) : (
+                          <Link
+                            href={`/profile/${singleRoom?.payload?.sitThere?._id}`}
+                            onClick={(e) => e.stopPropagation()}
+                            className="text-gray-500 text-sm hover:underline"
+                          >
+                            {singleRoom?.payload?.sitThere?.name
+                              ? singleRoom?.payload?.sitThere?.name
+                              : "Profile"}
+                          </Link>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -278,6 +324,14 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
         roomBookingExistRefetch={roomBookingExistRefetch}
         open={openRequestModal}
         setOpen={setopenRequestModal}
+      />
+      <RequestCencelModal
+        sitNumber={sitNumber}
+        roomId={roomId}
+        singRoomRefetch={singRoomRefetch}
+        roomBookingExistRefetch={roomBookingExistRefetch}
+        open={openCencelModal}
+        setOpen={setopenCencelModal}
       />
     </div>
   );

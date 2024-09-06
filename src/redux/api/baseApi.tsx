@@ -50,8 +50,8 @@ import {
   userAllBookingRequestResponse,
 } from "@/helper/type";
 
-// const BaseUrl = "http://localhost:5000/api/v1";
-const BaseUrl = "https://staymanager-server404.vercel.app/api/v1";
+const BaseUrl = "http://localhost:5000/api/v1";
+// const BaseUrl = "https://staymanager-server404.vercel.app/api/v1";
 
 const stayManagerApi = createApi({
   reducerPath: "stayManagerApi",
@@ -256,12 +256,21 @@ const stayManagerApi = createApi({
         body: { sitNumber },
       }),
     }),
+
+    cencelRequest: builder.mutation({
+      query: ({ id, sitNumber }) => ({
+        url: `/booking/cencel-request/${id}`,
+        method: "DELETE",
+        body: { sitNumber },
+      }),
+    }),
     booking: builder.mutation<bookingResponse, bookingRequest>({
       query: ({ id }) => ({
         url: `/booking/booking-room/${id}`,
         method: "PUT",
       }),
     }),
+
     existBookingRequest: builder.query<
       existBookingResponse,
       existBookingRequest
@@ -284,6 +293,10 @@ const stayManagerApi = createApi({
     }),
     findAllBookingRequest: builder.query<userAllBookingRequestResponse, void>({
       query: () => "/booking/findAll-booking-request",
+    }),
+
+    findSingleBooking: builder.query({
+      query: (bookingId) => `/booking/find-single/${bookingId}`,
     }),
 
     // portal api request
@@ -350,6 +363,8 @@ export const {
   useCreatePortalJoinRequestMutation,
   useFindAllPostalRequestQuery,
   useAccepetPortalRequestMutation,
+  useCencelRequestMutation,
+  useFindSingleBookingQuery,
 } = stayManagerApi;
 
 export default stayManagerApi;

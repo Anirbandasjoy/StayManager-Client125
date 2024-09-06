@@ -303,9 +303,9 @@ export interface findAllRoomsResponse {
     _id: string;
     sitRent: number;
     roomImage: string;
-    sitOne: User | string | null;
-    sitTwo: User | string | null;
-    sitthree: User | string | null;
+    sitOne: User;
+    sitTwo: User;
+    sitThere: User;
     createdAt: string;
     updatedAt: string;
   }[];
@@ -329,9 +329,9 @@ export interface findSingleRoomResponse {
     _id: string;
     sitRent: number;
     roomImage: string;
-    sitOne: User | string | null;
-    sitTwo: User | string | null;
-    sitthree: User | string | null;
+    sitOne: User;
+    sitTwo: User;
+    sitThere: User;
     createdAt: string;
     updatedAt: string;
   };
@@ -463,7 +463,7 @@ export interface portalAccepetRespone {
 }
 
 export interface portaAccepetRequest {
-   userId : string
+  userId: string;
 }
 
 // auth types

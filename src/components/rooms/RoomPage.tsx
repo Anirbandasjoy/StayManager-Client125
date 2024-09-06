@@ -91,7 +91,7 @@ const RoomPage = () => {
                       <div className="flex items-center gap-2 cursor-pointer">
                         <IoBedOutline className="text-lg text-green-400" />
                         <h1 className="text-xs font-semibold text-green-400">
-                          {product?.sitthree === null ? "Avilable" : "booked"}
+                          {product?.sitThere === null ? "Avilable" : "booked"}
                         </h1>
                       </div>
                     </TooltipTrigger>
