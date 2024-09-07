@@ -1,5 +1,11 @@
 "use client";
-
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { isImage, uploadImage } from "@/helper/common";
@@ -17,11 +23,19 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import { useCreateRoomsMutation, useFindAllRoomsQuery } from "@/redux/api/baseApi";
+import {
+  useCreateRoomsMutation,
+  useFindAllRoomsQuery,
+} from "@/redux/api/baseApi";
 import { toast } from "@/components/ui/use-toast";
 import BookingRequestActionModal from "../bookings/BookingRequestActionModal";
-import { User } from "@/helper/type";
+
 import Link from "next/link";
+import { FcHighPriority, FcOk } from "react-icons/fc";
+import { BsThreeDots } from "react-icons/bs";
+import { FaRegEdit } from "react-icons/fa";
+import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
+import { RiEditBoxLine } from "react-icons/ri";
 
 const CreateRoom = () => {
   const [imageURL, setImageURL] = useState<string>("");
@@ -30,7 +44,7 @@ const CreateRoom = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const [createRoom, { isSuccess }] = useCreateRoomsMutation()
+  const [createRoom, { isSuccess }] = useCreateRoomsMutation();
 
   const handleSelectNoticeImage = () => {
     fileInputRef.current?.click();
@@ -51,21 +65,20 @@ const CreateRoom = () => {
     setImageFile(null);
   };
 
-  const { data } = useFindAllRoomsQuery()
+  const { data } = useFindAllRoomsQuery();
   console.log(data?.payload);
-  const roomsArray = data?.payload
-
+  const roomsArray = data?.payload;
 
   const handleRoomSave = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true)
+    setLoading(true);
 
     if (!imageFile) {
       console.log("Insert Image");
       toast({
         title: "Insert an Image",
       });
-      setLoading(false)
+      setLoading(false);
       return;
     }
 
@@ -76,55 +89,64 @@ const CreateRoom = () => {
       const data = {
         sitRent: roomRate,
         roomImage: imageUrl,
-      }
-      createRoom({ ...data })
+      };
+      createRoom({ ...data });
       setImageURL("");
-      setRoomRate('');
+      setRoomRate("");
       setImageFile(null);
       setLoading(false);
 
       toast({
         title: "New Room Added",
       });
-
     } catch (error) {
       console.error("Failed to upload image:", error);
       toast({
-        title: "an Error detected",
+        title: "An Error Detected",
       });
       setLoading(false);
     }
-
   };
 
-  const handleConfrimRequest = () => { }
-  const handleBookingRequestCelcel = () => { }
-
+  const handleDeleteSitBookingUser = (roomId: string, sitNumber: number) => {
+    console.log({ roomId, sitNumber });
+  };
 
   const TableCellContent = (seat: any) => {
-    const user = seat.seat
-    return (
-      user && Object.keys(user).length > 0 ? (
-        <TableCell>
-          <Link href={`/profile/${user._id}`} className="flex items-center gap-2">
+    const user = seat?.seat; // Adjusted this line
+    return user && Object.keys(user).length > 0 ? (
+      <TableCell>
+        <Link
+          href={`/profile/${user?._id}`}
+          className="flex items-center gap-2"
+        >
+          {user?.profileImage ? (
             <Image
-              src={user.profileImage}
-              alt="ig"
+              src={user?.profileImage}
+              alt="Profile Image"
               width={35}
               height={35}
               className="rounded-full cursor-pointer"
             />
-            <div>
-              <h1 className="text-sm hover:underline cursor-pointer">{user.name}</h1>
-              <p className="text-xs hover:underline cursor-pointer">{user.email}</p>
+          ) : (
+            <div className="w-[35px] h-[35px] flex justify-center items-center font-medium rounded-full bg-gray-200 text-gray-700 ">
+              {user?.name?.slice(0, 2)}
             </div>
-          </Link>
-        </TableCell>
-      ) : <TableCell>Empty</TableCell>
-
-    )
+          )}
+          <div>
+            <h1 className="text-sm hover:underline cursor-pointer">
+              {user?.name}
+            </h1>
+            <p className="text-xs hover:underline cursor-pointer">
+              {user?.email}
+            </p>
+          </div>
+        </Link>
+      </TableCell>
+    ) : (
+      <TableCell>Empty</TableCell>
+    );
   };
-
 
   return (
     <div className="border-2 border-blue-400 h-[calc(100vh-120px)] screen mt-2 overflow-y-scroll">
@@ -147,9 +169,7 @@ const CreateRoom = () => {
               onChange={(e) => setRoomRate(e.target.value)}
             />
             <Button type="submit" className="w-6/12">
-              {
-                loading ? "Loading ..." : "Save"
-              }
+              {loading ? "Loading ..." : "Save"}
             </Button>
           </div>
           <div
@@ -201,38 +221,64 @@ const CreateRoom = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {
-              roomsArray?.map((room, index) => (
-                <TableRow key={index}>
-                  <TableCell>
+            {roomsArray?.map((room, index) => (
+              <TableRow key={index}>
+                <TableCell>
+                  {room?.roomImage && (
                     <Image
-                      src={room.roomImage}
-                      alt="image"
+                      src={room?.roomImage}
+                      alt="Room Image"
                       width={100}
                       height={50}
                       className="rounded-none cursor-pointer"
                     />
-                  </TableCell>
-
-                  <TableCell>
-                    {room.sitRent}
-                  </TableCell>
-
-                  <TableCellContent seat={room.sitOne} />
-                  <TableCellContent seat={room.sitTwo} />
-                  <TableCellContent seat={room.sitthree} />
-
-                  <TableCell className="text-right cursor-pointer">
-                    <BookingRequestActionModal
-                      roomId={"req?._id"}
-                      handleConfrimRequest={handleConfrimRequest}
-                      handleBookingRequestCelcel={handleBookingRequestCelcel}
-                    />
-                  </TableCell>
-                </TableRow>
-              ))
-            }
-
+                  )}
+                </TableCell>
+                <TableCell>{room?.sitRent}</TableCell>
+                <TableCellContent seat={room?.sitOne} />
+                <TableCellContent seat={room?.sitTwo} />
+                <TableCellContent seat={room?.sitThere} />
+                <TableCell className="text-right cursor-pointer">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger>
+                      <BsThreeDots className="ml-auto text-2xl cursor-pointer text-gray-600" />
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem className="cursor-pointer flex items-center gap-1">
+                        <AiOutlineDelete className="text-xl" />
+                        <h1 className="font-medium">Delete room</h1>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem className="cursor-pointer flex items-center gap-1">
+                        <RiEditBoxLine className="text-xl" />
+                        <h1 className="font-medium">Edit room</h1>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        onClick={() => handleDeleteSitBookingUser(room?._id, 1)}
+                        className="cursor-pointer flex items-center gap-1"
+                      >
+                        <AiOutlineDelete className="text-xl" />
+                        <h1 className="font-medium">Delte sitOne user</h1>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        onClick={() => handleDeleteSitBookingUser(room?._id, 2)}
+                        className="cursor-pointer flex items-center gap-1"
+                      >
+                        <AiOutlineDelete className="text-xl" />
+                        <h1 className="font-medium">Delte sitTwo user</h1>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        onClick={() => handleDeleteSitBookingUser(room?._id, 3)}
+                        className="cursor-pointer flex items-center gap-1"
+                      >
+                        <AiOutlineDelete className="text-xl" />
+                        <h1 className="font-medium">Delte sitThree user</h1>
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </div>
