@@ -36,6 +36,7 @@ import { BsThreeDots } from "react-icons/bs";
 import { FaRegEdit } from "react-icons/fa";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { RiEditBoxLine } from "react-icons/ri";
+import DeleteModal from "@/components/modal/DeleteAlertModal";
 
 const CreateRoom = () => {
   const [imageURL, setImageURL] = useState<string>("");
@@ -43,6 +44,8 @@ const CreateRoom = () => {
   const [roomRate, setRoomRate] = useState<string>("");
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [openDeleteModal, setDeleteModal] = useState<boolean>(false);
+  const [selectedRoomId, setSelectedRoomId] = useState<string | null>(null);
 
   const [createRoom, { isSuccess }] = useCreateRoomsMutation();
 
@@ -148,6 +151,15 @@ const CreateRoom = () => {
     );
   };
 
+  const handleDeleteRoom = async (roomId: string) => {
+    setSelectedRoomId(roomId);
+    setDeleteModal(true);
+  };
+
+  const deleteConfrim = async () => {
+    console.log({ selectedRoomId });
+  };
+
   return (
     <div className="border-2 border-blue-400 h-[calc(100vh-120px)] screen mt-2 overflow-y-scroll">
       <div className="sticky top-0 bg-white z-10 p-4">
@@ -245,7 +257,10 @@ const CreateRoom = () => {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
                       <DropdownMenuSeparator />
-                      <DropdownMenuItem className="cursor-pointer flex items-center gap-1">
+                      <DropdownMenuItem
+                        className="cursor-pointer flex items-center gap-1"
+                        onClick={() => handleDeleteRoom(room?._id)}
+                      >
                         <AiOutlineDelete className="text-xl" />
                         <h1 className="font-medium">Delete room</h1>
                       </DropdownMenuItem>
@@ -281,6 +296,11 @@ const CreateRoom = () => {
             ))}
           </TableBody>
         </Table>
+        <DeleteModal
+          open={openDeleteModal}
+          setOpen={setDeleteModal}
+          onConfrim={deleteConfrim}
+        />
       </div>
     </div>
   );
