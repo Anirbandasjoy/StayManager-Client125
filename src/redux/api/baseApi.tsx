@@ -19,6 +19,7 @@ import {
   existBookingResponse,
   findAllPortalResponse,
   findAllRoomsResponse,
+  findAllUserRequest,
   findRoomReviewRequest,
   findRoomReviewResponse,
   findSaveNotice,
@@ -50,8 +51,8 @@ import {
   userAllBookingRequestResponse,
 } from "@/helper/type";
 
-// const BaseUrl = "http://localhost:5000/api/v1";
-const BaseUrl = "https://staymanager-server404.vercel.app/api/v1";
+const BaseUrl = "http://localhost:5000/api/v1";
+// const BaseUrl = "https://staymanager-server404.vercel.app/api/v1";
 
 const stayManagerApi = createApi({
   reducerPath: "stayManagerApi",
@@ -87,8 +88,9 @@ const stayManagerApi = createApi({
     singleUser: builder.query<singleUserResponse, singleUserRequest>({
       query: ({ profileId }) => `/user/find-single-user/${profileId}`,
     }),
-    allUser: builder.query<allUserResponse, void>({
-      query: () => "/user/find-allUsers",
+    allUser: builder.query<allUserResponse, findAllUserRequest>({
+      query: ({ searchValue, page = 1, limit = 5 }) =>
+        `/user/find-allUsers?search=${searchValue}&page=${page}&limit=${limit}`,
     }),
     processRegister: builder.mutation<
       processRegistrationResponse,

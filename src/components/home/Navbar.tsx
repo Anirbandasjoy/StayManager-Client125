@@ -153,15 +153,15 @@ const Navbar = () => {
                 Schedule
               </h1>
             </Link>
-            <Link href="/students">
+            <Link href="/contact">
               <h1
                 className={` block show-navbar-route mt-4 md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold ${text}  ${
-                  path === "/students"
+                  path === "/contact"
                     ? "show-navbar-route-fix"
                     : "show-navbar-route"
                 }`}
               >
-                Students
+                Contact
               </h1>
             </Link>
           </div>
