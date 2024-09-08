@@ -286,6 +286,7 @@ const Page = (): JSX.Element => {
         open={openUpdaRoleModal}
         setOpen={setUpdateRoleModal}
         userId={updateUserId}
+        alluserRefetch={alluserRefetch}
       />
     </>
   );

@@ -92,16 +92,17 @@ const stayManagerApi = createApi({
       }),
     }),
     updateUserRole: builder.mutation({
-      query: ({ userId }) => ({
+      query: ({ userId, role }) => ({
         url: `/user/update-role/${userId}`,
         method: "PATCH",
+        body: { role },
       }),
     }),
     singleUser: builder.query<singleUserResponse, singleUserRequest>({
       query: ({ profileId }) => `/user/find-single-user/${profileId}`,
     }),
     allUser: builder.query<allUserResponse, findAllUserRequest>({
-      query: ({ searchValue, page = 1, limit = 5 }) =>
+      query: ({ searchValue, page = 1, limit = 6 }) =>
         `/user/find-allUsers?search=${searchValue}&page=${page}&limit=${limit}`,
     }),
     processRegister: builder.mutation<
@@ -380,6 +381,7 @@ export const {
   useCencelRequestMutation,
   useFindSingleBookingQuery,
   useDeleteUserMutation,
+  useUpdateUserRoleMutation,
 } = stayManagerApi;
 
 export default stayManagerApi;

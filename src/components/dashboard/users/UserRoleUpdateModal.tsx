@@ -16,21 +16,30 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useSingleUserQuery } from "@/redux/api/baseApi";
-import { useState } from "react";
+import { toast } from "@/components/ui/use-toast";
+import {
+  useAllUserQuery,
+  useSingleUserQuery,
+  useUpdateUserRoleMutation,
+} from "@/redux/api/baseApi";
+import { useEffect, useState } from "react";
 
 const UserRoleUpdateModal = ({
   open,
   setOpen,
   userId,
+  alluserRefetch,
 }: {
   open: boolean;
   setOpen: (open: boolean) => void;
   userId: string;
+  alluserRefetch: any;
 }) => {
-  const { refetch: singleUserRefetch } = useSingleUserQuery({
+  const { data: singleUser } = useSingleUserQuery({
     profileId: userId,
   });
+
+  const [setRoleUpdate, { isLoading }] = useUpdateUserRoleMutation();
   const [role, setRole] = useState<string>("");
   const handleCloseModal = () => {
     setOpen(false);
@@ -41,8 +50,26 @@ const UserRoleUpdateModal = ({
   };
 
   const updateUserRole = async () => {
-    console.log({ role, userId });
+    try {
+      await setRoleUpdate({ userId, role }).unwrap();
+      alluserRefetch();
+      toast({
+        title: "Role was updated",
+      });
+    } catch (error) {
+      console.log(error);
+      toast({
+        variant: "destructive",
+        title: "Not updated role.",
+        description: "There was a problem with your request.",
+      });
+    }
   };
+  useEffect(() => {
+    if (singleUser?.payload) {
+      setRole(singleUser?.payload?.role);
+    }
+  }, [singleUser?.payload]);
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
@@ -56,7 +83,9 @@ const UserRoleUpdateModal = ({
         <div>
           <Select onValueChange={handleChange}>
             <SelectTrigger className="w-[300px]">
-              <SelectValue placeholder="Select role" />
+              <SelectValue
+                placeholder={singleUser && singleUser?.payload?.role}
+              />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="admin">Admin</SelectItem>
@@ -69,17 +98,11 @@ const UserRoleUpdateModal = ({
           <AlertDialogCancel onClick={handleCloseModal}>
             Cancel
           </AlertDialogCancel>
-          {role ? (
-            <AlertDialogAction className="" onClick={updateUserRole}>
-              <Button>Update</Button>
-            </AlertDialogAction>
-          ) : (
-            <div>
-              <Button disabled className="bg-gray-500">
-                Update
-              </Button>
-            </div>
-          )}
+          <AlertDialogAction className="" onClick={updateUserRole}>
+            <Button className="cursor-pointer">
+              {isLoading ? "Loading..." : "Update"}
+            </Button>
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
