@@ -13,7 +13,6 @@ import {
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
@@ -37,7 +36,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import Navbar from "@/components/dashboard/sidebar/Navbar";
-import { useAllUserQuery } from "@/redux/api/baseApi";
+import { useAllUserQuery, useDeleteUserMutation } from "@/redux/api/baseApi";
 import Link from "next/link";
 import { BsThreeDots } from "react-icons/bs";
 import {
@@ -46,17 +45,32 @@ import {
   MdOutlineNoAccounts,
 } from "react-icons/md";
 import { AiTwotoneDelete } from "react-icons/ai";
+import DeleteModal from "@/components/modal/DeleteAlertModal";
+import { toast } from "@/components/ui/use-toast";
+import UserRoleUpdateModal from "@/components/dashboard/users/UserRoleUpdateModal";
 
 const Page = (): JSX.Element => {
   const [searchValue, setSearchValue] = useState<string>("");
-  const [page, setPage] = useState<number>(1);
-  const limit = 5; // Show 5 users per page
+  const [openRemoveUserModal, setRemoveUserModal] = useState<boolean>(false);
+  const [openUpdaRoleModal, setUpdateRoleModal] = useState<boolean>(false);
+  const [userId, setUserId] = useState<string>("");
+  const [updateUserId, setUpdateUserId] = useState<string>("");
 
-  const { data, isLoading, isError, error } = useAllUserQuery({
+  const [page, setPage] = useState<number>(1);
+  const limit = 6;
+
+  const {
+    data,
+    isLoading,
+    isError,
+    error,
+    refetch: alluserRefetch,
+  } = useAllUserQuery({
     searchValue,
     page,
     limit,
   });
+  const [setRemoveData] = useDeleteUserMutation();
 
   if (isLoading) {
     return <div className="m-20 text-xl font-bold">Loading....</div>;
@@ -85,13 +99,41 @@ const Page = (): JSX.Element => {
 
   const totalPages = data?.payload.pagination.totalPages ?? 1;
 
+  const handleRemoveUser = (userId: string) => {
+    setUserId(userId);
+    setRemoveUserModal(true);
+  };
+
+  const confrimDeleteUser = async () => {
+    try {
+      await setRemoveData({ userId });
+      alluserRefetch();
+      toast({
+        title: "Deleted",
+      });
+    } catch (error) {
+      console.log(error);
+      toast({
+        variant: "destructive",
+        title: "Not Deleted user.",
+        description: "There was a problem with your request.",
+      });
+    }
+  };
+
+  const updateRole = (userId: string) => {
+    setUpdateUserId(userId);
+
+    setUpdateRoleModal(true);
+  };
+
   return (
     <>
       <div className="relative">
         <div>
           <Navbar />
         </div>
-        <div className="sm:absolute my-2 sm:my-0 lg:right-44 2xl:right-52 xl:right-48 md:right-32 top-4">
+        <div className="sm:absolute my-2  relative sm:my-0 lg:right-44 2xl:right-52 xl:right-48 md:right-32 top-4">
           <Select onValueChange={handleChange}>
             <SelectTrigger className="w-[300px]">
               <SelectValue placeholder="Select role" />
@@ -103,6 +145,9 @@ const Page = (): JSX.Element => {
               <SelectItem value="student">Student</SelectItem>
             </SelectContent>
           </Select>
+          <h1 className="text-lg absolute px-4 right-0 bg-red-400 p-[6px] top-0 text-white cursor-pointer">
+            {data?.payload?.users?.length}
+          </h1>
         </div>
       </div>
       <Table className="mt-2">
@@ -164,7 +209,7 @@ const Page = (): JSX.Element => {
               </TableCell>
               <TableCell>{user?.role}</TableCell>
               <TableCell>{user?.phone}</TableCell>
-              <TableCell className=" text-center">
+              <TableCell className="text-center">
                 <DropdownMenu>
                   <DropdownMenuTrigger>
                     <BsThreeDots className="ml-auto  text-2xl cursor-pointer text-gray-600" />
@@ -172,15 +217,23 @@ const Page = (): JSX.Element => {
                   <DropdownMenuContent>
                     <DropdownMenuLabel>Users Account</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem className="cursor-pointer flex items-center gap-1">
-                      <MdOutlineAccountCircle className="text-xl" />
-                      <h1 className="font-medium">See profile</h1>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className="cursor-pointer flex items-center gap-1">
+                    <Link href={`/profile/${user?._id}`}>
+                      <DropdownMenuItem className="cursor-pointer flex items-center gap-1">
+                        <MdOutlineAccountCircle className="text-xl" />
+                        <h1 className="font-medium">See profile</h1>
+                      </DropdownMenuItem>
+                    </Link>
+                    <DropdownMenuItem
+                      onClick={() => updateRole(user?._id)}
+                      className="cursor-pointer flex items-center gap-1"
+                    >
                       <MdOutlineNoAccounts className="text-xl" />
                       <h1 className="font-medium">Change role</h1>
                     </DropdownMenuItem>
-                    <DropdownMenuItem className="cursor-pointer flex items-center gap-1">
+                    <DropdownMenuItem
+                      onClick={() => handleRemoveUser(user?._id)}
+                      className="cursor-pointer flex items-center gap-1"
+                    >
                       <AiTwotoneDelete className="text-xl" />
                       <h1 className="font-medium">Remove user</h1>
                     </DropdownMenuItem>
@@ -191,7 +244,7 @@ const Page = (): JSX.Element => {
           ))}
         </TableBody>
       </Table>
-      <Pagination>
+      <Pagination className="mt-2">
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious
@@ -223,6 +276,17 @@ const Page = (): JSX.Element => {
           </PaginationItem>
         </PaginationContent>
       </Pagination>
+
+      <DeleteModal
+        open={openRemoveUserModal}
+        setOpen={setRemoveUserModal}
+        onConfrim={confrimDeleteUser}
+      />
+      <UserRoleUpdateModal
+        open={openUpdaRoleModal}
+        setOpen={setUpdateRoleModal}
+        userId={updateUserId}
+      />
     </>
   );
 };

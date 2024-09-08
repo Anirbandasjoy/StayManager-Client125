@@ -85,6 +85,18 @@ const stayManagerApi = createApi({
     currentUser: builder.query<curretUserResponse, void>({
       query: () => "/user/current-user",
     }),
+    deleteUser: builder.mutation({
+      query: ({ userId }) => ({
+        url: `/user/delete-user/${userId}`,
+        method: "DELETE",
+      }),
+    }),
+    updateUserRole: builder.mutation({
+      query: ({ userId }) => ({
+        url: `/user/update-role/${userId}`,
+        method: "PATCH",
+      }),
+    }),
     singleUser: builder.query<singleUserResponse, singleUserRequest>({
       query: ({ profileId }) => `/user/find-single-user/${profileId}`,
     }),
@@ -367,6 +379,7 @@ export const {
   useAccepetPortalRequestMutation,
   useCencelRequestMutation,
   useFindSingleBookingQuery,
+  useDeleteUserMutation,
 } = stayManagerApi;
 
 export default stayManagerApi;
