@@ -66,10 +66,12 @@ const DropDownMenu = () => {
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
             {user ? (
-              <DropdownMenuItem className="cursor-pointer">
-                <User className="mr-2 h-4 w-4" />
-                <Link href={`/profile/${user?.payload?._id}`}>Profile</Link>
-              </DropdownMenuItem>
+              <Link href={`/profile/${user?.payload?._id}`}>
+                <DropdownMenuItem className="cursor-pointer">
+                  <User className="mr-2 h-4 w-4" />
+                  <h1>Profile</h1>
+                </DropdownMenuItem>
+              </Link>
             ) : (
               <DropdownMenuItem
                 className="cursor-pointer"
@@ -80,15 +82,19 @@ const DropDownMenu = () => {
               </DropdownMenuItem>
             )}
             {user?.payload?.role === "admin" && (
-              <DropdownMenuItem className="cursor-pointer">
-                <LayoutDashboard className="mr-2 h-4 w-4" />
-                <Link href="/dashboard">Dashboard</Link>
-              </DropdownMenuItem>
+              <Link href="/dashboard">
+                <DropdownMenuItem className="cursor-pointer">
+                  <LayoutDashboard className="mr-2 h-4 w-4" />
+                  <h1>Dashboard</h1>
+                </DropdownMenuItem>
+              </Link>
             )}
-            <DropdownMenuItem className="cursor-pointer">
-              <Settings className="mr-2 h-4 w-4" />
-              <Link href="/settings">Settings</Link>
-            </DropdownMenuItem>
+            <Link href="/settings">
+              <DropdownMenuItem className="cursor-pointer">
+                <Settings className="mr-2 h-4 w-4" />
+                <h1>Settings</h1>
+              </DropdownMenuItem>
+            </Link>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
@@ -106,10 +112,12 @@ const DropDownMenu = () => {
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
-          <DropdownMenuItem className="cursor-pointer">
-            <Github className="mr-2 h-4 w-4" />
-            <span>GitHub</span>
-          </DropdownMenuItem>
+          <Link href="https://github.com/Anirbandasjoy/StayManager-Client125">
+            <DropdownMenuItem className="cursor-pointer">
+              <Github className="mr-2 h-4 w-4" />
+              <span>GitHub</span>
+            </DropdownMenuItem>
+          </Link>
           <DropdownMenuItem className="cursor-pointer">
             <LifeBuoy className="mr-2 h-4 w-4" />
             <span>Support</span>

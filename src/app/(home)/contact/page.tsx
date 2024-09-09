@@ -1,3 +1,4 @@
+import ContactForm from "@/components/home/contact/ContactForm";
 import Image from "next/image";
 import React from "react";
 
@@ -16,6 +17,7 @@ const Contact = () => {
         {/* <div className="w-full h-full  bg-gradient-to-b from-[#5eaaf590] absolute top-0"></div> */}
         <div className="w-full h-full bg-gradient-to-b  from-[#5eaaf5ab] to-[#ffffff] absolute top-0"></div>
       </div>
+      <ContactForm />
     </div>
   );
 };
