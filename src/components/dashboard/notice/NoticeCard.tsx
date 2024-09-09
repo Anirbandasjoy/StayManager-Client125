@@ -3,7 +3,6 @@ import {
   BiComment,
   BiEdit,
   BiLike,
-  BiShare,
   BiSolidComment,
   BiSolidLike,
 } from "react-icons/bi";
@@ -17,7 +16,7 @@ import {
 } from "@/components/ui/dialog";
 
 import Link from "next/link";
-import { BsThreeDots } from "react-icons/bs";
+import { BsBookmarkPlusFill, BsThreeDots } from "react-icons/bs";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -57,7 +56,6 @@ import { toast } from "@/components/ui/use-toast";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import TimeAgo from "./TimeAgo";
 import ImageModal from "./ImageModal";
-import SaveNotice from "./SaveNotice";
 import DeleteNotice from "./DeleteNotice";
 const NoticeCard = ({
   notice,
@@ -234,9 +232,6 @@ const NoticeCard = ({
                 </div>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
-                <DropdownMenuItem>
-                  <SaveNotice noticeId={notice?._id} />
-                </DropdownMenuItem>
                 <>
                   <DropdownMenuItem>
                     <Link
@@ -299,13 +294,16 @@ const NoticeCard = ({
                         <div className="flex flex-col gap-6">
                           {likedArray?.length === 0 ? (
                             <div>
-                              <h1>No Comments in this post</h1>
+                              <h1>No React in this post</h1>
                             </div>
                           ) : (
                             likedArray &&
                             likedArray.map((react: any) => (
                               <div className="flex gap-3" key={react?._id}>
-                                <div className="cursor-pointer relative">
+                                <Link
+                                  href={`/profile/${react?.user?._id}`}
+                                  className="cursor-pointer relative"
+                                >
                                   <Avatar>
                                     {react?.user?.profileImage === null ? (
                                       <AvatarFallback>
@@ -319,11 +317,14 @@ const NoticeCard = ({
                                     )}
                                   </Avatar>
                                   <BiSolidLike className="absolute text-lg bg-slate-300 rounded-full p-[2px] right-[1px] -bottom-[3px] text-blue-500" />
-                                </div>
+                                </Link>
                                 <div>
-                                  <h1 className="text-sm font-semibold hover:underline cursor-pointer">
+                                  <Link
+                                    href={`/profile/${react?.user?._id}`}
+                                    className="text-sm font-semibold hover:underline cursor-pointer"
+                                  >
                                     {react?.user?.name}
-                                  </h1>
+                                  </Link>
                                   <p className="text-xs">
                                     <TimeAgo date={react?.createdAt} />
                                   </p>
@@ -368,7 +369,10 @@ const NoticeCard = ({
                             allComments &&
                             allComments?.map((comment) => (
                               <div className="flex gap-3" key={comment?._id}>
-                                <div className="cursor-pointer relative">
+                                <Link
+                                  href={`/profile/${comment?.user?._id}`}
+                                  className="cursor-pointer relative"
+                                >
                                   <Avatar>
                                     {comment?.user?.profileImage === null ? (
                                       <AvatarFallback>
@@ -382,11 +386,14 @@ const NoticeCard = ({
                                     )}
                                   </Avatar>
                                   <BiSolidComment className="absolute text-lg bg-slate-300 rounded-full p-[2px] right-[1px] -bottom-[3px] text-blue-500" />
-                                </div>
+                                </Link>
                                 <div>
-                                  <h1 className="text-sm font-semibold hover:underline cursor-pointer">
+                                  <Link
+                                    href={`/profile/${comment?.user?._id}`}
+                                    className="text-sm font-semibold hover:underline cursor-pointer"
+                                  >
                                     {comment?.user?.name}
-                                  </h1>
+                                  </Link>
                                   <p className="text-xs">
                                     <TimeAgo date={comment?.createdAt} />
                                   </p>
@@ -402,8 +409,8 @@ const NoticeCard = ({
               </Dialog>
             </div>
             <div className="flex gap-1 items-center cursor-pointer">
-              <BiShare className="text-blue-400" />
-              <p className="text-xs text-gray-600">12</p>
+              <BsBookmarkPlusFill className="text-blue-400" />
+              <p className="text-xs text-gray-600">notice</p>
             </div>
           </div>
         </div>
@@ -621,7 +628,7 @@ const NoticeCard = ({
             </AlertDialog>
           </div>
           <div>
-            <ShareNotice />
+            <ShareNotice noticeId={notice?._id} />
           </div>
         </div>
         <div className="sm:px-4 w-11/12 mx-auto h-[1px] mt-2 bg-gray-200 dark:bg-gray-700"></div>

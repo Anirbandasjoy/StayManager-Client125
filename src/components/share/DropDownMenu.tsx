@@ -25,6 +25,7 @@ import { useCurrentUserQuery } from "@/redux/api/baseApi";
 import { useState } from "react";
 import LogOutModal from "../modal/LogOutModal";
 import LoginAlertModal from "../modal/LoginAlertModal";
+import { LuBookmarkPlus } from "react-icons/lu";
 
 const DropDownMenu = () => {
   // currentUser get hook
@@ -93,6 +94,12 @@ const DropDownMenu = () => {
               <DropdownMenuItem className="cursor-pointer">
                 <Settings className="mr-2 h-4 w-4" />
                 <h1>Settings</h1>
+              </DropdownMenuItem>
+            </Link>
+            <Link href="/save">
+              <DropdownMenuItem className="cursor-pointer">
+                <LuBookmarkPlus className="mr-2 h-4 w-4" />
+                <h1>Save</h1>
               </DropdownMenuItem>
             </Link>
           </DropdownMenuGroup>

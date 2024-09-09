@@ -51,8 +51,8 @@ import {
   userAllBookingRequestResponse,
 } from "@/helper/type";
 
-// const BaseUrl = "http://localhost:5000/api/v1";
-const BaseUrl = "https://staymanager-server404.vercel.app/api/v1";
+const BaseUrl = "http://localhost:5000/api/v1";
+// const BaseUrl = "https://staymanager-server404.vercel.app/api/v1";
 
 const stayManagerApi = createApi({
   reducerPath: "stayManagerApi",
@@ -204,6 +204,13 @@ const stayManagerApi = createApi({
       query: ({ notice }) => ({
         url: `/save/notice/${notice}`,
         method: "POST",
+      }),
+    }),
+
+    deleteSaveNotice: builder.mutation({
+      query: ({ noticeId }) => ({
+        url: `/save/save-delete/${noticeId}`,
+        method: "DELETE",
       }),
     }),
     createNotice: builder.mutation({
@@ -382,6 +389,7 @@ export const {
   useFindSingleBookingQuery,
   useDeleteUserMutation,
   useUpdateUserRoleMutation,
+  useDeleteSaveNoticeMutation,
 } = stayManagerApi;
 
 export default stayManagerApi;

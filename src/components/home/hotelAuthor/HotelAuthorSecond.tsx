@@ -53,14 +53,7 @@ const HotelAuthorSecondPerson = () => {
               >
                 <FaInstagram />
               </a>
-              <a
-                href="https://threads.net"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-600 hover:text-gray-800"
-              >
-                <FaInstagram />
-              </a>
+
               <a
                 href="mailto:joy@example.com"
                 className="text-red-600 hover:text-red-800"
