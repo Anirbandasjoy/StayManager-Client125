@@ -106,10 +106,12 @@ const DropDownMenu = () => {
                 </DropdownMenuItem>
               </Link>
             )}
-            <DropdownMenuItem className="cursor-pointer">
-              <Users className="mr-2 h-4 w-4" />
-              <span>Team</span>
-            </DropdownMenuItem>
+            <Link href="/about">
+              <DropdownMenuItem className="cursor-pointer">
+                <Users className="mr-2 h-4 w-4" />
+                <span>Team</span>
+              </DropdownMenuItem>
+            </Link>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <Link href="https://github.com/Anirbandasjoy/StayManager-Client125">

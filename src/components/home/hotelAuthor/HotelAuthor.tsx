@@ -1,4 +1,5 @@
 import Image from "next/image";
+
 import {
   FaFacebook,
   FaLinkedin,
@@ -16,7 +17,7 @@ const HotelAuthor = () => {
         </p>
       </div>
 
-      <div className="flex flex-col md:flex-row bg-[#fef08ac5] rounded-r-full h-auto md:h-[300px] w-full md:w-9/12  relative p-4 md:p-8">
+      <div className="flex flex-col-reverse rounded-sm  md:flex-row bg-[#fef08ac5] sm:rounded-r-full h-auto md:h-[300px] w-full md:w-9/12  relative p-7 sm:p-4 md:p-8">
         <div className="w-full md:w-6/12 text-gray-600">
           <h1 className="text-2xl font-medium mb-2">Joy Das</h1>
           <p className="mb-2">

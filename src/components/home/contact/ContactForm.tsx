@@ -22,12 +22,12 @@ const ContactForm = () => {
     });
   };
   return (
-    <section className="relative flex items-center justify-center min-h-screen bg-gradient-to-b from-purple-300 to-gray-100">
+    <section className="relative flex  items-center justify-center min-h-screen bg-gradient-to-b from-purple-300 to-gray-100">
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="bg-white rounded-3xl shadow-lg flex w-[900px] max-w-full p-10"
+        className="bg-white rounded-3xl shadow-lg flex flex-col-reverse sm:flex-row gap-8 sm:gap-0 w-[900px] max-w-full p-10"
       >
         {/* Form Section */}
         <div className="flex-1">

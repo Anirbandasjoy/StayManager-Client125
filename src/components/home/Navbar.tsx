@@ -104,6 +104,18 @@ const Navbar = () => {
               </h1>
             </Link>
 
+            <Link href="/about">
+              <h1
+                className={` block  mt-4 md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold ${text} ${
+                  path === "/about"
+                    ? "show-navbar-route-fix"
+                    : "show-navbar-route"
+                }`}
+              >
+                About
+              </h1>
+            </Link>
+
             {user ? (
               user?.payload?.role !== "user" && (
                 <Link href="/notice">
