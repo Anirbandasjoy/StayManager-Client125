@@ -51,8 +51,8 @@ import {
   userAllBookingRequestResponse,
 } from "@/helper/type";
 
-// const BaseUrl = "http://localhost:5000/api/v1";
-const BaseUrl = "https://staymanager-server404.vercel.app/api/v1";
+const BaseUrl = "http://localhost:5000/api/v1";
+// const BaseUrl = "https://staymanager-server404.vercel.app/api/v1";
 
 const stayManagerApi = createApi({
   reducerPath: "stayManagerApi",
@@ -247,6 +247,10 @@ const stayManagerApi = createApi({
     findAllRooms: builder.query<findAllRoomsResponse, void>({
       query: () => "/room/find-allRooms",
     }),
+
+    findTopRatingRoom: builder.query({
+      query: () => "/room/top-rating-room",
+    }),
     findSingleRoom: builder.query<
       findSingleRoomResponse,
       findSingleRoomRequest
@@ -390,6 +394,7 @@ export const {
   useDeleteUserMutation,
   useUpdateUserRoleMutation,
   useDeleteSaveNoticeMutation,
+  useFindTopRatingRoomQuery,
 } = stayManagerApi;
 
 export default stayManagerApi;

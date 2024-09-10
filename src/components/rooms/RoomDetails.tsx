@@ -14,7 +14,6 @@ import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import ReviewLoading from "../loading/ReviewLoading";
 import RoomDetailsLoading from "../loading/RoomDetailsLoading";
 import RequestModal from "./RequestModal";
@@ -42,22 +41,23 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
   const [rating, setRating] = useState<number | null | string>(null);
   const [message, setMessage] = useState<string>("");
   const [hover, setHover] = useState<null | any>(null);
-  const [setReviewData, { isLoading }] = useCreateReviewMutation();
+  const [setReviewData, { isLoading: reviewCreateLoading }] =
+    useCreateReviewMutation();
   const {
     data: roomReviewData,
     refetch: reviewRefetch,
     isLoading: reviewLoading,
   } = useFindRoomReviewQuery({ roomId });
 
-  const handleCreateReview = () => {
+  const handleCreateReview = async () => {
     try {
-      setReviewData({ roomId, message, rating }).unwrap();
+      await setReviewData({ roomId, message, rating }).unwrap();
       toast({
         title: "Create a new Review.",
       });
-      reviewRefetch();
       setMessage("");
       setRating(null);
+      reviewRefetch();
     } catch (error) {
       console.log(error);
       toast({
@@ -293,11 +293,7 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
                 onClick={handleCreateReview}
                 className="bg-blue-600 text-white mt-2 w-[5rem] cursor-pointer hover:bg-blue-500"
               >
-                {isLoading ? (
-                  <AiOutlineLoading3Quarters className="animate-spin" />
-                ) : (
-                  "Submit"
-                )}
+                {reviewCreateLoading ? "Loading..." : "Submit"}
               </Button>
             )}
           </div>
