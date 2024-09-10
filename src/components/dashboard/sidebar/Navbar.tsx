@@ -8,7 +8,7 @@ import DropDownMenu from "@/components/share/DropDownMenu";
 import Notifications from "../notifications/Notification";
 const Navbar = () => {
   return (
-    <div className="py-4 bg-blue-300 rounded-sm dark:bg-gray-800 ">
+    <div className="py-4 bg-blue-300 rounded-sm dark:bg-gray-800">
       <div>
         <nav className="w-full  lg:max-w-4xl mx-auto xl:max-w-6xl 2xl:max-w-7xl px-4 lg:px-0">
           <div className=" flex flex-wrap items-center justify-between mx-auto lg:px-8">

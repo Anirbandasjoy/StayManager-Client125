@@ -104,6 +104,18 @@ const Navbar = () => {
               </h1>
             </Link>
 
+            <Link href="/about">
+              <h1
+                className={` block  mt-4 md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold ${text} ${
+                  path === "/about"
+                    ? "show-navbar-route-fix"
+                    : "show-navbar-route"
+                }`}
+              >
+                About
+              </h1>
+            </Link>
+
             {user ? (
               user?.payload?.role !== "user" && (
                 <Link href="/notice">
@@ -142,26 +154,28 @@ const Navbar = () => {
                 Rooms
               </h1>
             </Link>
-            <Link href="/schedule">
-              <h1
-                className={` block show-navbar-route mt-4 show-navbar-route md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold ${text} ${
-                  path === "/schedule"
-                    ? "show-navbar-route-fix"
-                    : "show-navbar-route"
-                }`}
-              >
-                Schedule
-              </h1>
-            </Link>
-            <Link href="/students">
+            {user?.payload && (
+              <Link href="/schedule">
+                <h1
+                  className={` block show-navbar-route mt-4 show-navbar-route md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold ${text} ${
+                    path === "/schedule"
+                      ? "show-navbar-route-fix"
+                      : "show-navbar-route"
+                  }`}
+                >
+                  Schedule
+                </h1>
+              </Link>
+            )}
+            <Link href="/contact">
               <h1
                 className={` block show-navbar-route mt-4 md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold ${text}  ${
-                  path === "/students"
+                  path === "/contact"
                     ? "show-navbar-route-fix"
                     : "show-navbar-route"
                 }`}
               >
-                Students
+                Contact
               </h1>
             </Link>
           </div>

@@ -8,7 +8,6 @@ import SwiperNavButton from "../home/roooms/SwipperNavButton";
 import Image from "next/image";
 import { IoIosArrowForward } from "react-icons/io";
 import { IoBedOutline } from "react-icons/io5";
-import { GoStarFill } from "react-icons/go";
 import { FaDollarSign } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import { BiPurchaseTag } from "react-icons/bi";
@@ -19,10 +18,15 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import Link from "next/link";
-import { useCurrentUserQuery, useFindAllRoomsQuery } from "@/redux/api/baseApi";
+import {
+  useCurrentUserQuery,
+  useFindAllRoomsQuery,
+  useFindTopRatingRoomQuery,
+} from "@/redux/api/baseApi";
 import RoomCardLoading from "../loading/RoomCardLoading";
 import RoomStausHomePageRoomCard from "./RoomStausHomePageRoomCard";
 import LoginAlertModal from "../modal/LoginAlertModal";
+import AvarageRoomRating from "./AvarageRoomRating";
 
 const Rooms = () => {
   const { data: roomData, isLoading } = useFindAllRoomsQuery();
@@ -31,6 +35,9 @@ const Rooms = () => {
   const [isEnd, setIsEnd] = useState(false);
   const [openLoginAlertModal, setLoginAlertModal] = useState<boolean>(false);
   const { data: user } = useCurrentUserQuery();
+
+  const { data: TopRatingRoom } = useFindTopRatingRoomQuery("");
+  console.log(TopRatingRoom);
 
   const handlePrev = () => {
     SlideRef.current?.swiper.slidePrev();
@@ -114,7 +121,7 @@ const Rooms = () => {
           },
         }}
       >
-        {roomData?.payload?.map((product) => {
+        {TopRatingRoom?.payload?.map((product: any) => {
           return (
             <SwiperSlide key={product?._id} className="rounded-sm">
               <div>
@@ -129,12 +136,7 @@ const Rooms = () => {
                 </div>
               </div>
               <div className="mt-2">
-                <div className="flex items-end gap-1">
-                  <GoStarFill className="text-[24px] text-yellow-400" />
-                  <h1 className="font-semibold clear-start text-[16px] text-gray-600">
-                    4.9
-                  </h1>
-                </div>
+                <AvarageRoomRating roomId={product?._id} />
                 <div className="mt-3 flex justify-between items-center">
                   <TooltipProvider>
                     <Tooltip>

@@ -9,7 +9,7 @@ import {
 const HotelAuthorSecondPerson = () => {
   return (
     <div className="mt-32 container  ">
-      <div className="flex flex-col  md:flex-row ml-auto bg-[#f87171ce] rounded-l-full h-auto md:h-[300px] w-full md:w-9/12  relative p-4 md:p-8">
+      <div className="flex flex-col   md:flex-row ml-auto bg-[#f87171ce] sm:rounded-l-full h-auto md:h-[300px] w-full md:w-9/12  relative sm:p-4 p-7 rounded-sm sm:gap-0 gap-5 md:p-8">
         <div className="w-full md:w-6/12 flex  ">
           <Image
             src="https://i.ibb.co/KyLG8G1/Whats-App-Image-2024-09-04-at-10-30-13-AM-removebg-preview.png"
@@ -53,14 +53,7 @@ const HotelAuthorSecondPerson = () => {
               >
                 <FaInstagram />
               </a>
-              <a
-                href="https://threads.net"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-600 hover:text-gray-800"
-              >
-                <FaInstagram />
-              </a>
+
               <a
                 href="mailto:joy@example.com"
                 className="text-red-600 hover:text-red-800"

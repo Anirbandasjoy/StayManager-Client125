@@ -9,7 +9,7 @@ const RequestStatus = ({
     <h1 className="text-gray-600">
       {roomBookingExistData?.payload?.sitNumber === sitNumber
         ? roomBookingExistData?.payload?.status === "pending"
-          ? "Pending"
+          ? "Cencel"
           : roomBookingExistData?.payload?.status === "cancel"
           ? "Rejected"
           : roomBookingExistData?.payload?.status === "success"

@@ -12,7 +12,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { PiStudentDuotone } from "react-icons/pi";
 import Link from "next/link";
 import Menu from "./Menu";
 import { IoMdPaper } from "react-icons/io";
@@ -45,11 +44,6 @@ const Sidebar = () => {
               menuName="Bookings"
               path="/dashboard/bookings"
               Icon={BiCandles}
-            />
-            <Menu
-              menuName="Students"
-              path="/dashboard/students"
-              Icon={PiStudentDuotone}
             />
 
             <Menu

@@ -9,9 +9,9 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { toast } from "@/components/ui/use-toast";
-import { useCreateBookingRequestMutation } from "@/redux/api/baseApi";
+import { useCencelRequestMutation } from "@/redux/api/baseApi";
 
-const RequestModal = ({
+const RequestCencelModal = ({
   roomId,
   sitNumber,
   singRoomRefetch,
@@ -26,11 +26,13 @@ const RequestModal = ({
   open: boolean;
   setOpen: (open: boolean) => void;
 }) => {
-  const [setData, { data, isLoading }] = useCreateBookingRequestMutation();
+  const [setData, { data, isLoading }] = useCencelRequestMutation();
 
-  const handleCreateBookingRequest = async () => {
+  const handleRequestCencel = async () => {
     try {
+      console.log(sitNumber);
       await setData({ id: roomId, sitNumber }).unwrap();
+
       roomBookingExistRefetch();
       singRoomRefetch();
       toast({
@@ -46,6 +48,8 @@ const RequestModal = ({
       });
     }
   };
+
+  console.log({ bookingdatsdfdsfdsf: data });
 
   const handleClose = () => {
     setOpen(false);
@@ -65,10 +69,10 @@ const RequestModal = ({
           <AlertDialogFooter>
             <AlertDialogCancel onClick={handleClose}>Cancel</AlertDialogCancel>
             <AlertDialogAction
-              onClick={handleCreateBookingRequest}
-              className="bg-blue-500 hover:bg-blue-600"
+              onClick={handleRequestCencel}
+              className="bg-red-400 hover:bg-red-500"
             >
-              {isLoading ? "Loading..." : "Continue"}
+              {isLoading ? "Loading..." : "Confrim"}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
@@ -77,4 +81,4 @@ const RequestModal = ({
   );
 };
 
-export default RequestModal;
+export default RequestCencelModal;
