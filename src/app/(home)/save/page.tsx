@@ -2,6 +2,7 @@
 import NoticeCard from "@/components/dashboard/notice/NoticeCard";
 import NoticeCardLoading from "@/components/loading/NoticeCardLoading";
 import { useFindSaveNoticeQuery } from "@/redux/api/baseApi";
+import isAuth from "@/utils/auth/isAuth.";
 import Image from "next/image";
 import React from "react";
 
@@ -68,4 +69,4 @@ const Save = () => {
   );
 };
 
-export default Save;
+export default isAuth(Save);

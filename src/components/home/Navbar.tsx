@@ -154,17 +154,19 @@ const Navbar = () => {
                 Rooms
               </h1>
             </Link>
-            <Link href="/schedule">
-              <h1
-                className={` block show-navbar-route mt-4 show-navbar-route md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold ${text} ${
-                  path === "/schedule"
-                    ? "show-navbar-route-fix"
-                    : "show-navbar-route"
-                }`}
-              >
-                Schedule
-              </h1>
-            </Link>
+            {user?.payload && (
+              <Link href="/schedule">
+                <h1
+                  className={` block show-navbar-route mt-4 show-navbar-route md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold ${text} ${
+                    path === "/schedule"
+                      ? "show-navbar-route-fix"
+                      : "show-navbar-route"
+                  }`}
+                >
+                  Schedule
+                </h1>
+              </Link>
+            )}
             <Link href="/contact">
               <h1
                 className={` block show-navbar-route mt-4 md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold ${text}  ${

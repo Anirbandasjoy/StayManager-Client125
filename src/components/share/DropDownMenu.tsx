@@ -96,12 +96,14 @@ const DropDownMenu = () => {
                 <h1>Settings</h1>
               </DropdownMenuItem>
             </Link>
-            <Link href="/save">
-              <DropdownMenuItem className="cursor-pointer">
-                <LuBookmarkPlus className="mr-2 h-4 w-4" />
-                <h1>Save</h1>
-              </DropdownMenuItem>
-            </Link>
+            {user?.payload && (
+              <Link href="/save">
+                <DropdownMenuItem className="cursor-pointer">
+                  <LuBookmarkPlus className="mr-2 h-4 w-4" />
+                  <h1>Save</h1>
+                </DropdownMenuItem>
+              </Link>
+            )}
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
@@ -113,12 +115,6 @@ const DropDownMenu = () => {
                 </DropdownMenuItem>
               </Link>
             )}
-            <Link href="/about">
-              <DropdownMenuItem className="cursor-pointer">
-                <Users className="mr-2 h-4 w-4" />
-                <span>Team</span>
-              </DropdownMenuItem>
-            </Link>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <Link href="https://github.com/Anirbandasjoy/StayManager-Client125">
