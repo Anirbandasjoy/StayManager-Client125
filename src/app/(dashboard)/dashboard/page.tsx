@@ -1,3 +1,4 @@
+import RoomChart from "@/components/dashboard/dashboard/RoomChar";
 import Navbar from "@/components/dashboard/sidebar/Navbar";
 import React from "react";
 
@@ -5,7 +6,7 @@ const DashboardHome = () => {
   return (
     <div>
       <Navbar />
-      hello i am dashboard
+      <RoomChart />
     </div>
   );
 };
