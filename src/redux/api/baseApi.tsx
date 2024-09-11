@@ -51,8 +51,8 @@ import {
   userAllBookingRequestResponse,
 } from "@/helper/type";
 
-// const BaseUrl = "http://localhost:5000/api/v1";
-const BaseUrl = "https://staymanager-server404.vercel.app/api/v1";
+const BaseUrl = "http://localhost:5000/api/v1";
+// const BaseUrl = "https://staymanager-server404.vercel.app/api/v1";
 
 const stayManagerApi = createApi({
   reducerPath: "stayManagerApi",
@@ -265,6 +265,12 @@ const stayManagerApi = createApi({
         body: { message, rating },
       }),
     }),
+    deleteReview: builder.mutation({
+      query: ({ reviewId }) => ({
+        url: `/review/delete-review/${reviewId}`,
+        method: "DELETE",
+      }),
+    }),
     findRoomReview: builder.query<
       findRoomReviewResponse,
       findRoomReviewRequest
@@ -395,6 +401,7 @@ export const {
   useUpdateUserRoleMutation,
   useDeleteSaveNoticeMutation,
   useFindTopRatingRoomQuery,
+  useDeleteReviewMutation,
 } = stayManagerApi;
 
 export default stayManagerApi;

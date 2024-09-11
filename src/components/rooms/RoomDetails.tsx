@@ -188,6 +188,13 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
                     </div>
                   </div>
                 </div>
+                <div>
+                  <h1 className="text-gray-600 font-medium">
+                    <strong>Note : </strong> You can book a seat of the room
+                    with a user account. If you want you can book another room
+                    seat.
+                  </h1>
+                </div>
                 <div className="flex flex-wrap gap-3 mt-2">
                   <div className="h-24 cursor-pointer w-36 border-2 border-blue-200 flex justify-center items-center">
                     <div>
@@ -240,6 +247,7 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
                 alt="image"
                 width={650}
                 height={500}
+                className="rounded-sm"
               />
             </div>
           </div>
@@ -307,7 +315,9 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
           ) : (
             <>
               {roomReviewData?.payload?.map((review: any) => {
-                return <Review review={review} key={review?._id} />;
+                return (
+                  <Review roomId={roomId} review={review} key={review?._id} />
+                );
               })}
             </>
           )}
