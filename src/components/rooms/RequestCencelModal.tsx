@@ -9,7 +9,10 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { toast } from "@/components/ui/use-toast";
-import { useCencelRequestMutation } from "@/redux/api/baseApi";
+import {
+  useCencelRequestMutation,
+  useFindAllBookingRequestQuery,
+} from "@/redux/api/baseApi";
 
 const RequestCencelModal = ({
   roomId,
@@ -27,14 +30,15 @@ const RequestCencelModal = ({
   setOpen: (open: boolean) => void;
 }) => {
   const [setData, { data, isLoading }] = useCencelRequestMutation();
+  const { refetch: bookingRefetch } = useFindAllBookingRequestQuery();
 
   const handleRequestCencel = async () => {
     try {
       console.log(sitNumber);
       await setData({ id: roomId, sitNumber }).unwrap();
-
       roomBookingExistRefetch();
       singRoomRefetch();
+      bookingRefetch();
       toast({
         title: "Request sent successfully.",
       });

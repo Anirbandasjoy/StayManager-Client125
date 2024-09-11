@@ -1,4 +1,3 @@
-"use client";
 import {
   Table,
   TableBody,
@@ -17,10 +16,11 @@ import Link from "next/link";
 const BookingsCom = () => {
   const { data: roomBookingAllRequest } = useUserALlBookingRequestQuery();
   console.log(roomBookingAllRequest);
+
   return (
     <div>
-      <div className="w-full ">
-        <div className="relative w-full h-[70px] ">
+      <div className="w-full">
+        <div className="relative w-full h-[70px]">
           <Image
             src={
               "https://images.unsplash.com/photo-1709805619372-40de3f158e83?q=80&w=1795&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -29,8 +29,7 @@ const BookingsCom = () => {
             className="object-cover"
             alt={"banner"}
           />
-          {/* <div className="w-full h-full  bg-gradient-to-b from-[#5eaaf590] absolute top-0"></div> */}
-          <div className="w-full h-full bg-gradient-to-b  from-[#5eaaf5ab] to-[#ffffff] absolute top-0"></div>
+          <div className="w-full h-full bg-gradient-to-b from-[#5eaaf5ab] to-[#ffffff] absolute top-0"></div>
         </div>
       </div>
       <div className="container min-h-screen">
@@ -38,24 +37,26 @@ const BookingsCom = () => {
           My Schedule
         </h1>
 
-        <div>
-          <Table>
-            <TableCaption>A list of your recent Schedule.</TableCaption>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-[100px]">Sit no</TableHead>
-                <TableHead className="w-[300px]">Status</TableHead>
-                <TableHead className="w-[300px] ">User</TableHead>
-                <TableHead className="w-[300px]">Date</TableHead>
-                <TableHead className="w-[300px]">Rent</TableHead>
-                <TableHead className="text-right">Room</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {roomBookingAllRequest?.payload?.map((req) => {
-                return (
+        {roomBookingAllRequest?.payload?.length === 0 ? (
+          <p className="text-center text-gray-600 mt-4">No bookings found.</p>
+        ) : (
+          <div>
+            <Table>
+              <TableCaption>A list of your recent Schedule.</TableCaption>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="w-[100px]">Sit no</TableHead>
+                  <TableHead className="w-[300px]">Status</TableHead>
+                  <TableHead className="w-[300px] ">User</TableHead>
+                  <TableHead className="w-[300px]">Date</TableHead>
+                  <TableHead className="w-[300px]">Rent</TableHead>
+                  <TableHead className="text-right">Room</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {roomBookingAllRequest?.payload?.map((req) => (
                   <TableRow key={req._id}>
-                    <TableCell className="font-medium ">
+                    <TableCell className="font-medium">
                       0{req?.sitNumber}
                     </TableCell>
                     <TableCell>{req?.status}</TableCell>
@@ -85,7 +86,7 @@ const BookingsCom = () => {
                       <TimeAgo date={req?.user?.createdAt} />
                     </TableCell>
                     <TableCell>{req?.room?.sitRent} BDT</TableCell>
-                    <TableCell className="text-right ">
+                    <TableCell className="text-right">
                       <Link href={`/rooms/${req?.room?._id}`}>
                         <Image
                           src={req?.room?.roomImage}
@@ -97,11 +98,11 @@ const BookingsCom = () => {
                       </Link>
                     </TableCell>
                   </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-        </div>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        )}
       </div>
     </div>
   );
