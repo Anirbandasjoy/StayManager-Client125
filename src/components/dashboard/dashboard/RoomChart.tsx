@@ -1,7 +1,7 @@
 import React from "react";
 
 const RoomChart = () => {
-  return <div>hello i am dashboard</div>;
+  return <div>RoomChart</div>;
 };
 
 export default RoomChart;

@@ -1,9 +1,9 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   useCreatePortalJoinRequestMutation,
-  useSingleUserQuery,
+  useCurrentUserQuery,
+  useUserALlBookingRequestQuery,
 } from "@/redux/api/baseApi";
 import Image from "next/image";
 import Link from "next/link";
@@ -14,12 +14,13 @@ import Template from "@/app/Template";
 const PublicProfile = ({ params }: { params: { profileId: string } }) => {
   const { profileId } = params;
   console.log(profileId);
-  const { data: singleUser } = useSingleUserQuery({ profileId });
+  const { data: singleUser } = useCurrentUserQuery();
   const [setPortalRequestData, { isLoading }] =
     useCreatePortalJoinRequestMutation();
   const formattedBirthdate = singleUser?.payload?.birthdate
     ? format(parseISO(singleUser.payload.birthdate), "PPP")
     : "Empty";
+  const { data: bookingData } = useUserALlBookingRequestQuery();
 
   const handleCreatePortalRequest = async () => {
     try {
@@ -37,6 +38,7 @@ const PublicProfile = ({ params }: { params: { profileId: string } }) => {
       console.log(error);
     }
   };
+  console.log({ bookingData });
   return (
     <Template>
       <div className="relative w-full h-[70px]">
@@ -164,12 +166,22 @@ const PublicProfile = ({ params }: { params: { profileId: string } }) => {
                 </Link>
 
                 {singleUser?.payload?.role === "user" && (
-                  <Button
-                    onClick={handleCreatePortalRequest}
-                    className="text-xs mt-4 bg-red-400 hover:bg-red-500"
-                  >
-                    {isLoading ? "Loading..." : "Join"}
-                  </Button>
+                  <>
+                    {bookingData?.payload?.some(
+                      (booking) =>
+                        booking?.user?._id === singleUser?.payload?._id &&
+                        booking?.status === "success"
+                    ) ? (
+                      <Button
+                        onClick={handleCreatePortalRequest}
+                        className="text-xs mt-4 bg-red-400 hover:bg-red-500"
+                      >
+                        {isLoading ? "Loading..." : "Join request"}
+                      </Button>
+                    ) : (
+                      ""
+                    )}
+                  </>
                 )}
               </div>
             </div>
