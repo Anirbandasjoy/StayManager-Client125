@@ -331,6 +331,12 @@ const stayManagerApi = createApi({
       query: (bookingId) => `/booking/find-single/${bookingId}`,
     }),
 
+    // teamMember api
+
+    findTeamMember: builder.query({
+      query: () => "/team/findAll-teamMembers",
+    }),
+
     // portal api request
     createPortalJoinRequest: builder.mutation<
       portalRequestCreateResponse,
@@ -402,6 +408,7 @@ export const {
   useDeleteSaveNoticeMutation,
   useFindTopRatingRoomQuery,
   useDeleteReviewMutation,
+  useFindTeamMemberQuery,
 } = stayManagerApi;
 
 export default stayManagerApi;
