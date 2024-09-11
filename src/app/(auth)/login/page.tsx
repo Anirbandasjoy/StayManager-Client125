@@ -2,6 +2,13 @@
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import {
+  AlertDialog,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import {
   Card,
   CardContent,
   CardDescription,
@@ -16,6 +23,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { FaGithub, FaGoogle } from "react-icons/fa";
 import { handleGithubLogin, handleGoogleLogin } from "@/helper/auth";
+import { MdShowChart } from "react-icons/md";
 
 interface IFormInputs {
   email: string;
@@ -150,6 +158,40 @@ const Login = () => {
             <Button type="submit" className="w-full mt-6">
               {isLoading ? "Loading..." : "Login"}
             </Button>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <div className="py-2 mt-2 h-10 px-3 w-full rounded-md bg-transparent border-2 text-gray-600  flex items-center justify-center gap-1 cursor-pointer">
+                  <MdShowChart className="text-xl" />
+                  <span className="font-bold sm:text-sm text-xs text-nowrap">
+                    Show Creadential
+                  </span>
+                </div>
+              </AlertDialogTrigger>
+              <AlertDialogContent className="bg-gray-200">
+                <h1 className="text-center font-medium text-xl text-gray-600">
+                  Creadential
+                </h1>
+                <div className="space-y-4">
+                  <div className="flex flex-col gap-1">
+                    <label className="text-sm" htmlFor="email">
+                      Admin Email
+                    </label>
+                    <Input value="admin@gmail.com" />
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <label className="text-sm" htmlFor="password">
+                      Admin password
+                    </label>
+                    <Input value="12345A@" />
+                  </div>
+                </div>
+                <AlertDialogFooter>
+                  <AlertDialogCancel className="bg-gray-700 text-white hover:bg-gray-800 hover:text-white">
+                    Close
+                  </AlertDialogCancel>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </form>
           <CardDescription className="mt-4 text-center">
             Not Create Account? please{" "}
