@@ -14,6 +14,7 @@ import { FaDollarSign } from "react-icons/fa";
 import { GoStarFill } from "react-icons/go";
 import { IoBedOutline } from "react-icons/io5";
 import RoomCardLoading from "../loading/RoomCardLoading";
+import AvarageRoomRating from "./AvarageRoomRating";
 
 const RoomPage = () => {
   const { data: roomData, isLoading } = useFindAllRoomsQuery();
@@ -48,12 +49,7 @@ const RoomPage = () => {
               </div>
             </div>
             <div className="mt-2">
-              <div className="flex items-end gap-1">
-                <GoStarFill className="text-[24px] text-yellow-400" />
-                <h1 className="font-semibold clear-start text-[16px] text-gray-600">
-                  4.9
-                </h1>
-              </div>
+              <AvarageRoomRating roomId={product?._id} />
               <div className="mt-3 flex justify-between items-center">
                 <TooltipProvider>
                   <Tooltip>

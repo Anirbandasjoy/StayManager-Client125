@@ -6,6 +6,8 @@ Stay Manager is a hostel management platform that provides users with essential 
 
 ![Staymanager Demo](./src/statics/images/stay.png)
 
+![Staymanager Demo](./src/statics/images/notice.png)
+
 #### Visit the live site: [Staymanager](https://staymanager404.vercel.app)
 
 ### Key Features
