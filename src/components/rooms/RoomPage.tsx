@@ -6,18 +6,21 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useFindAllRoomsQuery } from "@/redux/api/baseApi";
+import { useCurrentUserQuery, useFindAllRoomsQuery } from "@/redux/api/baseApi";
 import Image from "next/image";
 import Link from "next/link";
 import { BiPurchaseTag } from "react-icons/bi";
 import { FaDollarSign } from "react-icons/fa";
-import { GoStarFill } from "react-icons/go";
 import { IoBedOutline } from "react-icons/io5";
 import RoomCardLoading from "../loading/RoomCardLoading";
 import AvarageRoomRating from "./AvarageRoomRating";
+import LoginAlertModal from "../modal/LoginAlertModal";
+import { useState } from "react";
 
 const RoomPage = () => {
   const { data: roomData, isLoading } = useFindAllRoomsQuery();
+  const [openLoginAlertModal, setLoginAlertModal] = useState<boolean>(false);
+  const { data: user } = useCurrentUserQuery();
   if (isLoading) {
     return (
       <div className="mb-20 container mx-auto">
@@ -103,18 +106,34 @@ const RoomPage = () => {
                     <FaDollarSign />
                     {product?.sitRent} <span>BDT</span>
                   </div>
-                  <Link href={`/rooms/${product?._id}`}>
-                    <Button
-                      className="text-xs rounded-sm px-3  text-gray-600 py-1 bg-yellow-300 hover:border hover:border-yellow-400 space-x-1"
-                      variant="outline"
-                    >
-                      <BiPurchaseTag />
-                      <span>Explore</span>
-                    </Button>
-                  </Link>
+                  {user ? (
+                    <Link href={`/rooms/${product?._id}`}>
+                      <Button
+                        className="text-xs rounded-sm px-3  text-gray-600 py-1 bg-yellow-300 hover:border hover:border-yellow-400 space-x-1"
+                        variant="outline"
+                      >
+                        <BiPurchaseTag />
+                        <span>Explore</span>
+                      </Button>
+                    </Link>
+                  ) : (
+                    <div onClick={() => setLoginAlertModal(true)}>
+                      <Button
+                        className="text-xs rounded-sm px-3  text-gray-600 py-1 bg-yellow-300 hover:border hover:border-yellow-400 space-x-1"
+                        variant="outline"
+                      >
+                        <BiPurchaseTag />
+                        <span>Explore</span>
+                      </Button>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
+            <LoginAlertModal
+              open={openLoginAlertModal}
+              setOpen={setLoginAlertModal}
+            />
           </div>
         );
       })}
