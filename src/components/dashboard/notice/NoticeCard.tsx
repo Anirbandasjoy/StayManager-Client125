@@ -550,7 +550,7 @@ const NoticeCard = ({
                   <div className="sm:text-[16px]  w-full  flex flex-col sm:flex-row gap-2 sm:gap-0 items-center mt-4 text-[13px] dark:text-gray-300 text-gray-500">
                     <div className="flex-1">
                       <h1 className="w-full whitespace-nowrap">
-                        All Comments 10
+                        All Comments {allComments?.length}
                       </h1>
                     </div>
                     <div className="w-full sm:w-10/12 h-[2px] ml-2 dark:h-[1px] dark:bg-gray-700 bg-gray-300"></div>
@@ -561,7 +561,7 @@ const NoticeCard = ({
                       {allComments &&
                         allComments?.map((comment) => (
                           <div className="flex gap-3" key={comment?._id}>
-                            <div>
+                            <Link href={`/profile/${comment?.user?._id}`}>
                               {comment?.user?.profileImage === null ? (
                                 <Avatar>
                                   <AvatarFallback>
@@ -576,11 +576,14 @@ const NoticeCard = ({
                                   />
                                 </Avatar>
                               )}
-                            </div>
+                            </Link>
                             <div>
-                              <h1 className="text-sm font-semibold">
+                              <Link
+                                href={`/profile/${comment?.user?._id}`}
+                                className="text-sm font-semibold hover:underline"
+                              >
                                 {comment?.user?.name}
-                              </h1>
+                              </Link>
                               <p className="text-xs">
                                 <TimeAgo date={comment?.createdAt} />
                               </p>

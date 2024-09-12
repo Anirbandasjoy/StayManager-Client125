@@ -273,21 +273,21 @@ const CreateRoom = () => {
                         className="cursor-pointer flex items-center gap-1"
                       >
                         <AiOutlineDelete className="text-xl" />
-                        <h1 className="font-medium">Delte sitOne user</h1>
+                        <h1 className="font-medium">Delte seatOne user</h1>
                       </DropdownMenuItem>
                       <DropdownMenuItem
                         onClick={() => handleDeleteSitBookingUser(room?._id, 2)}
                         className="cursor-pointer flex items-center gap-1"
                       >
                         <AiOutlineDelete className="text-xl" />
-                        <h1 className="font-medium">Delte sitTwo user</h1>
+                        <h1 className="font-medium">Delte seatTwo user</h1>
                       </DropdownMenuItem>
                       <DropdownMenuItem
                         onClick={() => handleDeleteSitBookingUser(room?._id, 3)}
                         className="cursor-pointer flex items-center gap-1"
                       >
                         <AiOutlineDelete className="text-xl" />
-                        <h1 className="font-medium">Delte sitThree user</h1>
+                        <h1 className="font-medium">Delte seatThree user</h1>
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
