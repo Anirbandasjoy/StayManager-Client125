@@ -21,14 +21,14 @@ export default function DashboardLayout({
           <div className="w-full h-full bg-gradient-to-b from-[#5eaaf5ab] to-[#ffffff] absolute top-0"></div>
         </div>
       </div>
-      <div className="container mx-auto px-4 md:px-8 py-4 border-2 border-gray-100 shadow-sm rounded-md">
+      <div className="container mx-auto px-4 md:px-8 py-4 border-2 border-gray-100 dark:border-gray-700 shadow-sm rounded-md">
         <div>
           <h1 className="text-xl md:text-2xl font-bold mb-2">Settings</h1>
           <div className="space-y-3 md:space-y-5 mb-8">
-            <p className="text-gray-500">
+            <p className="text-gray-500 dark:text-gray-300">
               Manage your account settings and set e-mail preferences.
             </p>
-            <div className="bg-gray-200 w-full h-[2px]"></div>
+            <div className="bg-gray-200 dark:bg-gray-700 w-full h-[2px]"></div>
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-2 w-full container ">

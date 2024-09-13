@@ -8,6 +8,8 @@ import {
   bookingResponse,
   CommentCreateResponse,
   CommentRequest,
+  createAppearaceRequest,
+  createAppearanceResponse,
   createBookingRequest,
   createBookingRequestResponse,
   createReviewRequest,
@@ -20,6 +22,7 @@ import {
   findAllPortalResponse,
   findAllRoomsResponse,
   findAllUserRequest,
+  findAppearanceResponse,
   findRoomReviewRequest,
   findRoomReviewResponse,
   findSaveNotice,
@@ -362,6 +365,21 @@ const stayManagerApi = createApi({
         method: "PATCH",
       }),
     }),
+    // appearace api
+
+    createAppearance: builder.mutation<
+      createAppearanceResponse,
+      createAppearaceRequest
+    >({
+      query: ({ font, language, theme }) => ({
+        url: "/appearance/create",
+        method: "POST",
+        body: { font, language, theme },
+      }),
+    }),
+    findAppearance: builder.query<findAppearanceResponse, void>({
+      query: () => "/appearance/find",
+    }),
   }),
 });
 
@@ -409,6 +427,8 @@ export const {
   useFindTopRatingRoomQuery,
   useDeleteReviewMutation,
   useFindTeamMemberQuery,
+  useCreateAppearanceMutation,
+  useFindAppearanceQuery,
 } = stayManagerApi;
 
 export default stayManagerApi;

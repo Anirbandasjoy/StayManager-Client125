@@ -12,13 +12,13 @@ const HotelAuthor = () => {
     <div className="mt-52 container ">
       <div className="mb-5">
         <h2 className="text-3xl font-bold text-red-400 mb-1">Hostel Author</h2>
-        <p className="text-gray-600 text-[14px]">
+        <p className="text-gray-600 text-[14px] dark:text-gray-400">
           Direct contact with the hostel author
         </p>
       </div>
 
-      <div className="flex flex-col-reverse rounded-sm  md:flex-row bg-[#fef08ac5] sm:rounded-r-full h-auto md:h-[300px] w-full md:w-9/12  relative p-7 sm:p-4 md:p-8">
-        <div className="w-full md:w-6/12 text-gray-600">
+      <div className="flex flex-col-reverse rounded-sm  md:flex-row dark:bg-zinc-950 dark:text-white dark:border dark:border-gray-700 bg-[#fef08ac5] sm:rounded-r-full h-auto md:h-[300px] w-full md:w-9/12  relative p-7 sm:p-4 md:p-8">
+        <div className="w-full md:w-6/12 text-gray-600 dark:text-gray-400">
           <h1 className="text-2xl font-medium mb-2">Joy Das</h1>
           <p className="mb-2">
             Address: 123 Hostel St, Moulvibazar, Bangladesh

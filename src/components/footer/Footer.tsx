@@ -8,7 +8,7 @@ import {
 const Footer = () => {
   return (
     <div className="mt-20">
-      <footer className="bg-gray-50 py-8">
+      <footer className="bg-gray-50 dark:bg-zinc-950 dark:border-t dark:border-gray-700 dark:text-white py-8">
         <div className="container mx-auto flex flex-wrap justify-between items-center">
           {/* Logo and Text */}
           <div className="flex items-center space-x-3">
@@ -16,21 +16,23 @@ const Footer = () => {
               <span className="text-white text-2xl font-bold">H</span>
             </div>
             <div>
-              <h3 className="text-2xl font-semibold text-gray-700">
+              <h3 className="text-2xl font-semibold dark:text-gray-200 text-gray-700">
                 CollegeHostel
               </h3>
-              <p className="text-gray-500">HOSTEL</p>
+              <p className="text-gray-500 dark:text-gray-400">HOSTEL</p>
             </div>
           </div>
 
           {/* Copyright Text */}
-          <p className="text-gray-500">
+          <p className="text-gray-500 dark:text-gray-400">
             Staymanager © 2024 All Rights Reserved
           </p>
 
           {/* Social Icons */}
           <div className="flex items-center space-x-4">
-            <span className="text-gray-700 font-semibold">FOLLOW US</span>
+            <span className="text-gray-700 font-semibold dark:text-gray-400">
+              FOLLOW US
+            </span>
             <div className="flex space-x-2">
               <a
                 href="#"

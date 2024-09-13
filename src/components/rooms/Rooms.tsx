@@ -82,7 +82,7 @@ const Rooms = () => {
         <div className="flex items-center gap-2 cursor-pointer hover:underline">
           <Link
             href="/rooms"
-            className="text-xl md:text-[20px] font-[500] text-gray-600"
+            className="text-xl md:text-[20px] dark:text-gray-300 font-[500] text-gray-600"
           >
             View All
           </Link>

@@ -115,15 +115,15 @@ const Settings = () => {
   };
 
   return (
-    <div className="col-span-12 md:col-span-9 bg-white sm:p-0 p-4 md:px-8  w-full">
+    <div className="col-span-12 md:col-span-9  sm:p-0 p-4 md:px-8  w-full">
       <h2 className="text-lg md:text-xl font-semibold mb-1">Profile</h2>
-      <p className="text-gray-500 mb-6 text-[15px]">
+      <p className="text-gray-500 mb-6 text-[15px] dark:text-gray-400">
         This is how others will see you on the site.
       </p>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block text-sm font-medium text-gray-700 dark:text-white">
             Name
           </label>
           <Controller
@@ -150,7 +150,7 @@ const Settings = () => {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block text-sm font-medium text-gray-700 dark:text-white">
             Email
           </label>
           <Input
@@ -161,7 +161,7 @@ const Settings = () => {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block text-sm font-medium text-gray-700 dark:text-white">
             Phone
           </label>
           <Controller
@@ -193,7 +193,7 @@ const Settings = () => {
         </div>
 
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block text-sm font-medium text-gray-700 dark:text-white">
             Address
           </label>
           <Controller
@@ -218,7 +218,7 @@ const Settings = () => {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block text-sm font-medium text-gray-700 dark:text-white">
             Department
           </label>
           <Controller
@@ -243,7 +243,7 @@ const Settings = () => {
           />
         </div>
         <div className="space-y-2 mb-4">
-          <Label htmlFor="dob" className="text-sm font-medium">
+          <Label htmlFor="dob" className="text-sm font-medium dark:text-white">
             Date of birth
           </Label>
           <div>
@@ -270,12 +270,12 @@ const Settings = () => {
               </PopoverContent>
             </Popover>
           </div>
-          <p className="text-gray-500 text-xs">
+          <p className="text-gray-500 text-xs dark:text-gray-400">
             Your date of birth is used to calculate your age.
           </p>
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block text-sm font-medium text-gray-700 dark:text-white">
             Role
           </label>
           <Input
@@ -286,11 +286,11 @@ const Settings = () => {
           />
         </div>
         <div className="mb-6">
-          <label className="block text-sm mb-1 font-medium text-gray-700">
+          <label className="block text-sm mb-1 font-medium text-gray-700 dark:text-white">
             Profile picture
           </label>
           <div
-            className=" w-[170px] sm:w-[170px] bg-gray-100 border-2  rounded-md h-[107px] cursor-pointer border-gray-300 flex justify-center items-center"
+            className=" w-[170px] sm:w-[170px] bg-gray-100 dark:bg-zinc-950 dark:border-gray-700 border-2  rounded-md h-[107px] cursor-pointer border-gray-300 flex justify-center items-center"
             onClick={handleSelectNoticeImage}
           >
             {imageURL ? (
@@ -319,7 +319,9 @@ const Settings = () => {
                   <div className="text-sm font-semibold text-gray-500">
                     Upload photo
                   </div>
-                  <p className="text-xs text-gray-500">SVG, PNG or JPG </p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    SVG, PNG or JPG{" "}
+                  </p>
                 </div>
               </div>
             )}
@@ -333,7 +335,7 @@ const Settings = () => {
           />
         </div>
         <Button
-          className=" mt-4 text-xs px-6"
+          className=" mt-4 text-xs px-6 dark:bg-zinc-950 dark:border dark:border-gray-700 dark:text-white"
           type="submit"
           disabled={isLoading}
         >
