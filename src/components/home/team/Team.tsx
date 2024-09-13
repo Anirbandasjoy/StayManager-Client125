@@ -12,7 +12,9 @@ const Team = () => {
   return (
     <div className="container">
       <div className="">
-        <h2 className="text-3xl font-bold text-red-400 mb-1">Our team</h2>
+        <h2 className="text-3xl font-bold text-red-400 mb-1 dark:text-gray-100">
+          Our team
+        </h2>
         <p className="text-gray-600 text-[14px] dark:text-gray-400">
           See our full team member
         </p>

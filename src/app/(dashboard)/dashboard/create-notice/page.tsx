@@ -90,7 +90,7 @@ const CreateNotice = () => {
           />
         </div>
         <div
-          className=" w-[170px] sm:w-[230px] bg-gray-100 border-2  rounded-md h-[107px] cursor-pointer border-gray-300 flex justify-center items-center"
+          className=" w-[170px] sm:w-[230px] bg-gray-100 dark:bg-zinc-950 dark:border-gray-700 border-2  rounded-md h-[107px] cursor-pointer border-gray-300 flex justify-center items-center"
           onClick={handleSelectNoticeImage}
         >
           {imageURL ? (
@@ -128,7 +128,12 @@ const CreateNotice = () => {
           Discard
         </Button>
         {noticetext && !loading ? (
-          <Button onClick={handleCreateNotice}>Save Post</Button>
+          <Button
+            onClick={handleCreateNotice}
+            className="dark:bg-zinc-950 dark:border dark:border-gray-700 dark:text-white"
+          >
+            Save Post
+          </Button>
         ) : (
           <Button className="cursor-not-allowed bg-gray-500 hover:bg-gray-400">
             {loading ? (

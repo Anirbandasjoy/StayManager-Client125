@@ -151,18 +151,18 @@ const Page = (): JSX.Element => {
         </div>
       </div>
       <Table className="mt-2">
-        <TableHeader className="text-xl font-bold bg-blue-200 rounded-lg text-gray-700 my-4">
+        <TableHeader className="text-xl font-bold dark:bg-zinc-950 dark:border dark:border-gray-700 dark:text-gray-300  bg-blue-200 rounded-lg text-gray-700 my-4">
           <TableRow>
-            <TableHead className="text-lg w-[180px] font-medium text-gray-600">
+            <TableHead className="text-lg w-[180px] font-medium text-gray-600 dark:text-white">
               User
             </TableHead>
-            <TableHead className="text-lg font-medium text-gray-600">
+            <TableHead className="text-lg font-medium text-gray-600 dark:text-white">
               Role
             </TableHead>
-            <TableHead className="text-lg font-medium text-gray-600">
+            <TableHead className="text-lg font-medium text-gray-600 dark:text-white">
               Mobail no
             </TableHead>
-            <TableHead className="text-lg text-center font-medium text-gray-600">
+            <TableHead className="text-lg text-center font-medium text-gray-600 dark:text-white">
               Action
             </TableHead>
           </TableRow>
@@ -171,7 +171,9 @@ const Page = (): JSX.Element => {
           {data?.payload.users.map((user, index: number) => (
             <TableRow
               key={index}
-              className={`${index % 2 !== 0 ? "bg-blue-50" : ""}`}
+              className={`${
+                index % 2 !== 0 ? "bg-blue-50 dark:bg-zinc-950" : ""
+              }`}
             >
               <TableCell className="w-[300px]">
                 <div className="flex items-center gap-2 ">

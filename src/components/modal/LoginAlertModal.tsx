@@ -24,7 +24,7 @@ const LoginAlertModal = ({
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogContent>
         <AlertDialogHeader className="mx-auto">
-          <AlertDialogTitle className="text-gray-600">
+          <AlertDialogTitle className="text-gray-600 dark:text-gray-200">
             Please make sure you logged In?
           </AlertDialogTitle>
         </AlertDialogHeader>
@@ -32,7 +32,7 @@ const LoginAlertModal = ({
           <AlertDialogCancel onClick={handleCloseModal}>
             Cancel
           </AlertDialogCancel>
-          <AlertDialogAction className="bg-red-400 hover:bg-red-500">
+          <AlertDialogAction className="bg-red-400 hover:bg-red-500 dark:bg-zinc-950 dark:border dark:border-gray-700 dark:text-white">
             <Link href="/login">Login</Link>
           </AlertDialogAction>
         </AlertDialogFooter>

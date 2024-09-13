@@ -53,7 +53,7 @@ const RoomChart = () => {
 
   return (
     <div className="mt-4 h-[calc(100vh-110px)] overflow-auto">
-      <h1 className="text-xl font-medium text-gray-600 mb-3">
+      <h1 className="text-xl font-medium text-gray-600 dark:text-gray-200 mb-3">
         Rooms - Statistics
       </h1>
       <div className="flex items-center flex-col lg:gap-0 gap-6 lg:flex-row">

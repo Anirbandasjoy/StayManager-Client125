@@ -11,7 +11,9 @@ const HotelAuthor = () => {
   return (
     <div className="mt-52 container ">
       <div className="mb-5">
-        <h2 className="text-3xl font-bold text-red-400 mb-1">Hostel Author</h2>
+        <h2 className="text-3xl font-bold text-red-400 dark:text-gray-100 mb-1">
+          Hostel Author
+        </h2>
         <p className="text-gray-600 text-[14px] dark:text-gray-400">
           Direct contact with the hostel author
         </p>

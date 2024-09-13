@@ -27,14 +27,14 @@ const Credentials = () => {
       <AlertDialog>
         <AlertDialogTrigger asChild>
           <div className="py-2 mt-2 h-10 px-3 w-full rounded-md bg-transparent border-2 text-gray-600  flex items-center justify-center gap-1 cursor-pointer">
-            <MdShowChart className="text-xl" />
-            <span className="font-bold sm:text-sm text-xs text-nowrap">
+            <MdShowChart className="text-xl dark:text-gray-200" />
+            <span className="font-bold sm:text-sm text-xs dark:text-gray-200 text-nowrap">
               Show Credentials
             </span>
           </div>
         </AlertDialogTrigger>
-        <AlertDialogContent className="bg-gray-200">
-          <h1 className="text-center font-medium text-xl text-gray-600">
+        <AlertDialogContent className="bg-gray-200 dark:bg-zinc-950 dark:border dark:border-gray-700 dark:text-gray-200">
+          <h1 className="text-center font-medium text-xl dark:text-white text-gray-600">
             Credentials
           </h1>
           <div className="space-y-4">

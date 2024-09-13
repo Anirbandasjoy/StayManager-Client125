@@ -6,7 +6,7 @@ const RequestStatus = ({
   sitNumber: number;
 }) => {
   return (
-    <h1 className="text-gray-600">
+    <h1 className="text-gray-600 dark:text-gray-400">
       {roomBookingExistData?.payload?.sitNumber === sitNumber
         ? roomBookingExistData?.payload?.status === "pending"
           ? "Cencel"

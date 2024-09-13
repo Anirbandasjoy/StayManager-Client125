@@ -3,7 +3,7 @@
 const NoticeCardLoading = () => {
   return (
     <div className="lg:max-w-4xl mx-auto w-full border-b border-gray-100 ">
-      <div className="bg-white   p-4">
+      <div className="bg-white dark:bg-gray-900  p-4">
         <div className="animate-pulse">
           {/* Top Section */}
           <div className="flex items-center space-x-4">

@@ -181,7 +181,7 @@ const NoticeCard = ({
   return (
     <div className="">
       <div></div>
-      <div className="bg-white lg:max-w-4xl mx-auto rounded-md pb-4 dark:border dark:border-gray-700 dark:bg-gray-800">
+      <div className="bg-white lg:max-w-4xl mx-auto rounded-md pb-4  dark:bg-gray-900">
         <div className="p-4 space-y-3">
           <div className="flex justify-between">
             <Link
@@ -274,7 +274,7 @@ const NoticeCard = ({
                 {/*_________ Liked Length Here ____________ */}
 
                 <DialogTrigger>
-                  <p className="text-xs text-gray-600">
+                  <p className="text-xs text-gray-600 dark:text-gray-400">
                     {likedArray?.length}
                     <span className="cursor-pointer hover:underline ml-[2px]">
                       others
@@ -343,7 +343,7 @@ const NoticeCard = ({
               <BiComment className="text-blue-400" />
               <Dialog>
                 <DialogTrigger>
-                  <p className="text-xs text-gray-600">
+                  <p className="text-xs text-gray-600 dark:text-gray-400">
                     {allComments?.length}
                     <span className="cursor-pointer hover:underline ml-[2px]">
                       others
@@ -410,7 +410,7 @@ const NoticeCard = ({
             </div>
             <div className="flex gap-1 items-center cursor-pointer">
               <BsBookmarkPlusFill className="text-blue-400" />
-              <p className="text-xs text-gray-600">notice</p>
+              <p className="text-xs text-gray-600 dark:text-gray-400">notice</p>
             </div>
           </div>
         </div>

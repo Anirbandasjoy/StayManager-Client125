@@ -14,19 +14,21 @@ import { toast } from "@/components/ui/use-toast";
 
 const Appearance = () => {
   // Initialize state with default values
-  const [theme, setTheme] = useState<string>(
-    localStorage.getItem("theme") || "light"
-  );
-  const [font, setFont] = useState<string>(
-    localStorage.getItem("font") || "poppins"
-  );
-  const [language, setLanguage] = useState<string>(
-    localStorage.getItem("language") || "english"
-  );
+  const [theme, setTheme] = useState<string>("light");
+  const [font, setFont] = useState<string>("poppins");
+  const [language, setLanguage] = useState<string>("english");
 
-  // Load preferences from localStorage on mount
+  // Load preferences from localStorage on mount (only on the client side)
   useEffect(() => {
-    applyPreferences(theme, font);
+    const storedTheme = localStorage.getItem("theme") || "light";
+    const storedFont = localStorage.getItem("font") || "poppins";
+    const storedLanguage = localStorage.getItem("language") || "english";
+
+    setTheme(storedTheme);
+    setFont(storedFont);
+    setLanguage(storedLanguage);
+
+    applyPreferences(storedTheme, storedFont);
   }, []);
 
   // Save to localStorage and apply preferences

@@ -23,7 +23,9 @@ const Gallery = () => {
     >
       <ShowRoomImage show={show} setShow={setShow} image={selectedImage} />
       <div className="mb-3">
-        <h2 className="text-3xl font-bold text-red-400 mb-1">Gallery</h2>
+        <h2 className="text-3xl font-bold text-red-400 mb-1 dark:text-gray-100">
+          Gallery
+        </h2>
         <p className="text-gray-600 text-[14px] dark:text-gray-400">
           See our all rooms
         </p>

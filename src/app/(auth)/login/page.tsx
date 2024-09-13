@@ -156,7 +156,10 @@ const Login = () => {
                 />
               </div>
             </div>
-            <Button type="submit" className="w-full mt-6">
+            <Button
+              type="submit"
+              className="w-full mt-6 dark:bg-gray-800 dark:text-gray-200"
+            >
               {isLoading ? "Loading..." : "Login"}
             </Button>
             <Credentials />

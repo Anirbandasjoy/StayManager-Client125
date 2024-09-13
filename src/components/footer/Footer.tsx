@@ -36,25 +36,25 @@ const Footer = () => {
             <div className="flex space-x-2">
               <a
                 href="#"
-                className="w-10 h-10 bg-yellow-300 text-gray-700 hover:bg-gray-600 hover:text-white flex items-center justify-center rounded-full"
+                className="w-10 h-10 bg-yellow-300 dark:bg-gray-800 dark:text-white text-gray-700 hover:bg-gray-600 hover:text-white flex items-center justify-center rounded-full"
               >
                 <FaTwitter className="" />
               </a>
               <a
                 href="#"
-                className="w-10 h-10 bg-yellow-300 text-gray-700 hover:text-white hover:bg-gray-600  flex items-center justify-center rounded-full"
+                className="w-10 h-10 bg-yellow-300 dark:bg-gray-800 dark:text-white text-gray-700 hover:text-white hover:bg-gray-600  flex items-center justify-center rounded-full"
               >
                 <FaFacebookF className="" />
               </a>
               <a
                 href="#"
-                className="w-10 h-10 bg-yellow-300 text-gray-700 hover:text-white hover:bg-gray-600  flex items-center justify-center rounded-full"
+                className="w-10 h-10 bg-yellow-300 dark:bg-gray-800 dark:text-white text-gray-700 hover:text-white hover:bg-gray-600  flex items-center justify-center rounded-full"
               >
                 <FaInstagram className="" />
               </a>
               <a
                 href="#"
-                className="w-10 h-10 bg-yellow-300 text-gray-700 hover:text-white hover:bg-gray-600  flex items-center justify-center rounded-full"
+                className="w-10 h-10 bg-yellow-300 dark:bg-gray-800 dark:text-white text-gray-700 hover:text-white hover:bg-gray-600  flex items-center justify-center rounded-full"
               >
                 <FaDribbble className="" />
               </a>

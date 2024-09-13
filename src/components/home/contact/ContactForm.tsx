@@ -22,17 +22,17 @@ const ContactForm = () => {
     });
   };
   return (
-    <section className="relative flex  items-center justify-center min-h-screen bg-gradient-to-b from-purple-300 to-gray-100">
+    <section className="relative flex  items-center justify-center min-h-screen bg-gradient-to-b from-purple-300 to-gray-100 dark:to-[#111827]">
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="bg-white rounded-3xl shadow-lg flex flex-col-reverse sm:flex-row gap-8 sm:gap-0 w-[900px] max-w-full p-10"
+        className="bg-white dark:bg-zinc-950 rounded-3xl shadow-lg flex flex-col-reverse sm:flex-row gap-8 sm:gap-0 w-[900px] max-w-full p-10"
       >
         {/* Form Section */}
         <div className="flex-1">
           <h2 className="text-3xl font-bold text-purple-700 mb-4">Lets talk</h2>
-          <p className="text-gray-500 mb-8">
+          <p className="text-gray-500 mb-8 dark:text-gray-400">
             If you would like to connect with our team, please fill out this
             form and we will try to connect with you as soon as possible.
           </p>
@@ -44,7 +44,7 @@ const ContactForm = () => {
                 type="text"
                 placeholder="Your Name"
                 {...register("name", { required: "Name is required" })}
-                className="w-full px-4 py-2 rounded-md bg-gray-100 border border-gray-300 focus:border-purple-500 focus:ring focus:ring-purple-300 outline-none"
+                className="w-full px-4 py-2 rounded-md bg-gray-100 dark:bg-zinc-950 border border-gray-300 focus:border-purple-500 focus:ring focus:ring-purple-300 outline-none"
               />
               {errors.name?.message &&
                 typeof errors.name.message === "string" && (
@@ -64,7 +64,7 @@ const ContactForm = () => {
                     message: "Invalid email address",
                   },
                 })}
-                className="w-full px-4 py-2 rounded-md bg-gray-100 border border-gray-300 focus:border-purple-500 focus:ring focus:ring-purple-300 outline-none"
+                className="w-full px-4 py-2 rounded-md dark:bg-zinc-950 bg-gray-100 border border-gray-300 focus:border-purple-500 focus:ring focus:ring-purple-300 outline-none"
               />
               {errors.email?.message &&
                 typeof errors.email.message === "string" && (
@@ -78,7 +78,7 @@ const ContactForm = () => {
                 placeholder="Your Message"
                 rows={4}
                 {...register("message", { required: "Message is required" })}
-                className="w-full px-4 py-2 rounded-md bg-gray-100 border border-gray-300 focus:border-purple-500 focus:ring focus:ring-purple-300 outline-none"
+                className="w-full px-4 py-2 rounded-md dark:bg-zinc-950 bg-gray-100 border border-gray-300 focus:border-purple-500 focus:ring focus:ring-purple-300 outline-none"
               ></textarea>
               {errors.message?.message &&
                 typeof errors.message.message === "string" && (
@@ -115,7 +115,7 @@ const ContactForm = () => {
               />
             </motion.div>
 
-            <div className="text-sm">
+            <div className="text-sm dark:text-gray-400">
               <p>36 Sukrabad Dhaka</p>
               <p>+880 1772 838734</p>
               <p>staymanager@gmail.com</p>

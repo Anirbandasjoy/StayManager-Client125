@@ -99,16 +99,18 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
               <div className="flex flex-col justify-between  md:h-[433px]">
                 <div>
                   <div className="flex  gap-2 items-center">
-                    <h1 className="text-xl text-nowrap">
+                    <h1 className="text-xl text-nowrap dark:text-gray-200">
                       See details in this room{" "}
                     </h1>
                     <div className="w-full h-[2px] bg-gray-300"></div>
                   </div>
                   <div className="mt-2 space-y-2">
                     <div className="flex gap-2 ">
-                      <div className="flex-1 bg-blue-200 py-3 px-3 text-white rounded-sm flex items-center gap-2 cursor-pointer ">
+                      <div className="flex-1 bg-blue-200 dark:bg-zinc-950 border dark:border-gray-700  py-3 px-3 text-white rounded-sm flex items-center gap-2 cursor-pointer ">
                         <IoBedOutline className="text-xl font-bold text-gray-600" />
-                        <h1 className="text-gray-600">Sit number one</h1>
+                        <h1 className="text-gray-600 dark:text-gray-400">
+                          Seat number one
+                        </h1>
                       </div>
                       <div
                         className="bg-transparent border-2 border-blue-300 py-3 px-3 text-white rounded-sm flex items-center gap-2 cursor-pointer md:w-48"
@@ -125,9 +127,11 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
                       </div>
                     </div>
                     <div className="flex gap-2 ">
-                      <div className="flex-1 bg-blue-200 py-3 px-3 text-white rounded-sm flex items-center gap-2 cursor-pointer ">
+                      <div className="flex-1 bg-blue-200 dark:bg-zinc-950 border dark:border-gray-700 py-3 px-3 text-white rounded-sm flex items-center gap-2 cursor-pointer ">
                         <IoBedOutline className="text-xl font-bold text-gray-600" />
-                        <h1 className="text-gray-600">Sit number two</h1>
+                        <h1 className="text-gray-600 dark:text-gray-400">
+                          Seat number two
+                        </h1>
                       </div>
                       <div
                         className="bg-transparent border-2 border-blue-100 py-3 px-3 md:w-48 text-white rounded-sm flex items-center gap-2 cursor-pointer "
@@ -156,9 +160,11 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
                       </div>
                     </div>
                     <div className="flex gap-2 ">
-                      <div className="flex-1 bg-blue-200 py-3 px-3 text-white rounded-sm flex items-center gap-2 cursor-pointer ">
+                      <div className="flex-1 bg-blue-200 py-3 dark:bg-zinc-950 border dark:border-gray-700 px-3 text-white rounded-sm flex items-center gap-2 cursor-pointer ">
                         <IoBedOutline className="text-xl font-bold text-gray-600" />
-                        <h1 className="text-gray-600">Sit number three</h1>
+                        <h1 className="text-gray-600 dark:text-gray-400">
+                          Seat number three
+                        </h1>
                       </div>
                       <div
                         className="bg-transparent border-2 border-blue-300 py-3 md:w-48 px-3 text-white rounded-sm flex items-center gap-2 cursor-pointer "
@@ -189,7 +195,7 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
                   </div>
                 </div>
                 <div>
-                  <h1 className="text-gray-600 font-medium">
+                  <h1 className="text-gray-600 font-medium dark:text-gray-400">
                     <strong>Note : </strong> You can book a seat of the room
                     with a user account. If you want you can book another room
                     seat.
@@ -198,8 +204,8 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
                 <div className="flex flex-wrap gap-3 mt-2">
                   <div className="h-24 cursor-pointer w-36 border-2 border-blue-200 flex justify-center items-center">
                     <div>
-                      <h2 className="text-[16px] mb-1 text-center text-gray-600">
-                        Sit One
+                      <h2 className="text-[16px] mb-1 text-center text-gray-600 dark:text-gray-400">
+                        Seat One
                       </h2>
                       <div className="flex items-center gap-2 cursor-pointer">
                         <IoBedOutline className="text-lg text-blue-600" />
@@ -212,8 +218,8 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
                   </div>
                   <div className="h-24 cursor-pointer w-36 border-2 border-red-200 flex justify-center items-center">
                     <div>
-                      <h2 className="text-[16px] mb-1 text-center text-gray-600">
-                        Sit Two
+                      <h2 className="text-[16px] mb-1 text-center text-gray-600 dark:text-gray-400">
+                        Seat Two
                       </h2>
                       <div className="flex items-center gap-2 cursor-pointer">
                         <IoBedOutline className="text-lg text-red-400" />
@@ -226,8 +232,8 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
                   </div>
                   <div className="h-24 cursor-pointer w-36 border-2 border-green-200 flex justify-center items-center">
                     <div>
-                      <h2 className="text-[16px] mb-1 text-center text-gray-600">
-                        Sit Three
+                      <h2 className="text-[16px] mb-1 text-center text-gray-600 dark:text-gray-400">
+                        Seat Three
                       </h2>
                       <div className="flex items-center gap-2 cursor-pointer">
                         <IoBedOutline className="text-lg text-green-400" />
@@ -293,13 +299,13 @@ const RoomDetailsCom = ({ roomId }: { roomId: string }) => {
               onChange={(e: any) => setMessage(e.target.value)}
             />
             {message === "" || rating === null ? (
-              <Button className="bg-blue-400 text-white w-[5rem] mt-2 cursor-pointer hover:bg-blue-400">
+              <Button className="bg-blue-400 dark:bg-zinc-950 dark:text-white dark:border dark:border-gray-700 text-white w-[5rem] mt-2 cursor-pointer hover:bg-blue-400">
                 Submit
               </Button>
             ) : (
               <Button
                 onClick={handleCreateReview}
-                className="bg-blue-600 text-white mt-2 w-[5rem] cursor-pointer hover:bg-blue-500"
+                className="bg-blue-600 dark:bg-zinc-950 dark:text-white dark:border dark:border-gray-700 text-white mt-2 w-[5rem] cursor-pointer hover:bg-blue-500"
               >
                 {reviewCreateLoading ? "Loading..." : "Submit"}
               </Button>

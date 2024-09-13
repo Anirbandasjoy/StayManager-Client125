@@ -16,8 +16,8 @@ const Menu: FC<MenuProps> = ({ menuName, path, Icon }) => {
     <Link
       className={`flex items-center gap-3 py-2 pl-3 cursor-pointer ${
         isActive
-          ? "bg-gray-300 dark:bg-gray-400"
-          : "bg-gray-200  hover:bg-gray-300 "
+          ? "bg-gray-300 dark:bg-gray-950"
+          : "bg-gray-200 dark:bg-gray-900  hover:bg-gray-300 dark:hover:bg-gray-950 "
       }`}
       href={path}
     >

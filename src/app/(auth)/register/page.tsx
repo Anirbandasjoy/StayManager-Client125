@@ -69,8 +69,8 @@ const Register = () => {
   };
 
   return (
-    <div className="flex h-screen w-full justify-center items-center bg-gray-100">
-      <Card className="w-[600px] shadow-md p-3 bg-white">
+    <div className="flex h-screen w-full justify-center items-center bg-gray-100 dark:bg-zinc-950">
+      <Card className="w-[600px] shadow-md p-3 bg-white dark:bg-zinc-950">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl font-semibold">
             Create Your Account
@@ -252,7 +252,10 @@ const Register = () => {
                 </div>
               </div>
             </div>
-            <Button type="submit" className="w-full mt-6">
+            <Button
+              type="submit"
+              className="w-full mt-6 dark:bg-gray-800 dark:text-gray-200"
+            >
               {isLoading ? "Loading..." : "Create Account"}
             </Button>
           </form>
