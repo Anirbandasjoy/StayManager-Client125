@@ -181,7 +181,7 @@ const NoticeCard = ({
   return (
     <div className="">
       <div></div>
-      <div className="bg-white lg:max-w-4xl mx-auto rounded-md pb-4 dark:border dark:border-gray-700 dark:bg-gray-800">
+      <div className="bg-white lg:max-w-4xl mx-auto rounded-md pb-4  dark:bg-gray-900">
         <div className="p-4 space-y-3">
           <div className="flex justify-between">
             <Link
@@ -274,7 +274,7 @@ const NoticeCard = ({
                 {/*_________ Liked Length Here ____________ */}
 
                 <DialogTrigger>
-                  <p className="text-xs text-gray-600">
+                  <p className="text-xs text-gray-600 dark:text-gray-400">
                     {likedArray?.length}
                     <span className="cursor-pointer hover:underline ml-[2px]">
                       others
@@ -343,7 +343,7 @@ const NoticeCard = ({
               <BiComment className="text-blue-400" />
               <Dialog>
                 <DialogTrigger>
-                  <p className="text-xs text-gray-600">
+                  <p className="text-xs text-gray-600 dark:text-gray-400">
                     {allComments?.length}
                     <span className="cursor-pointer hover:underline ml-[2px]">
                       others
@@ -410,7 +410,7 @@ const NoticeCard = ({
             </div>
             <div className="flex gap-1 items-center cursor-pointer">
               <BsBookmarkPlusFill className="text-blue-400" />
-              <p className="text-xs text-gray-600">notice</p>
+              <p className="text-xs text-gray-600 dark:text-gray-400">notice</p>
             </div>
           </div>
         </div>
@@ -550,7 +550,7 @@ const NoticeCard = ({
                   <div className="sm:text-[16px]  w-full  flex flex-col sm:flex-row gap-2 sm:gap-0 items-center mt-4 text-[13px] dark:text-gray-300 text-gray-500">
                     <div className="flex-1">
                       <h1 className="w-full whitespace-nowrap">
-                        All Comments 10
+                        All Comments {allComments?.length}
                       </h1>
                     </div>
                     <div className="w-full sm:w-10/12 h-[2px] ml-2 dark:h-[1px] dark:bg-gray-700 bg-gray-300"></div>
@@ -561,7 +561,7 @@ const NoticeCard = ({
                       {allComments &&
                         allComments?.map((comment) => (
                           <div className="flex gap-3" key={comment?._id}>
-                            <div>
+                            <Link href={`/profile/${comment?.user?._id}`}>
                               {comment?.user?.profileImage === null ? (
                                 <Avatar>
                                   <AvatarFallback>
@@ -576,11 +576,14 @@ const NoticeCard = ({
                                   />
                                 </Avatar>
                               )}
-                            </div>
+                            </Link>
                             <div>
-                              <h1 className="text-sm font-semibold">
+                              <Link
+                                href={`/profile/${comment?.user?._id}`}
+                                className="text-sm font-semibold hover:underline"
+                              >
                                 {comment?.user?.name}
-                              </h1>
+                              </Link>
                               <p className="text-xs">
                                 <TimeAgo date={comment?.createdAt} />
                               </p>

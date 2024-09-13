@@ -19,9 +19,9 @@ const SwiperNavButton: React.FC<SwiperNavButtonProps> = ({
         <div
           className={`${
             isPrevDisabled
-              ? "text-gray-300 cursor-not-allowed bg-gray-100"
-              : "hover:bg-gray-400 bg-gray-300 text-gray-500 cursor-pointer"
-          } sm:w-9 sm:h-9 w-7 h-7 flex justify-center items-center rounded-xs border-gray-400 duration-200 font-bold`}
+              ? "text-gray-300 cursor-not-allowed bg-gray-100 dark:bg-zinc-700 d"
+              : "hover:bg-gray-400 bg-gray-300 text-gray-500 cursor-pointer dark:bg-zinc-950 dark:border dark:border-gray-700"
+          } sm:w-9 sm:h-9 w-7 h-7 flex justify-center items-center rounded-xs border-gray-400 duration-200 font-bold `}
           onClick={!isPrevDisabled ? onPrev : undefined}
         >
           <IoIosArrowDropleft className="text-xl sm:text-2xl" />
@@ -30,8 +30,8 @@ const SwiperNavButton: React.FC<SwiperNavButtonProps> = ({
         <div
           className={`${
             isNextDisabled
-              ? "text-gray-300 cursor-not-allowed bg-gray-100"
-              : "hover:bg-gray-400 bg-gray-300 text-gray-500 cursor-pointer"
+              ? "text-gray-300 cursor-not-allowed bg-gray-100 dark:bg-zinc-700 "
+              : "hover:bg-gray-400 bg-gray-300 text-gray-500 cursor-pointer dark:bg-zinc-950 dark:border dark:border-gray-700"
           } sm:w-9 sm:h-9 w-7 h-7 flex justify-center items-center rounded-xs border-gray-400 duration-200 font-bold`}
           onClick={!isNextDisabled ? onNext : undefined}
         >

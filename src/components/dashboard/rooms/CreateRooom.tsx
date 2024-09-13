@@ -161,8 +161,8 @@ const CreateRoom = () => {
   };
 
   return (
-    <div className="border-2 border-blue-400 h-[calc(100vh-120px)] screen mt-2 overflow-y-scroll">
-      <div className="sticky top-0 bg-white z-10 p-4">
+    <div className="border-2 border-blue-400 dark:border-gray-700 h-[calc(100vh-120px)] screen mt-2 overflow-y-scroll">
+      <div className="sticky top-0 bg-white dark:bg-zinc-950 z-10 p-4">
         <div className="flex justify-between mb-4 lg:mb-0">
           <h1 className="font-semibold mb-1 text-blue-400 text-nowrap ">
             Create New Room
@@ -180,12 +180,15 @@ const CreateRoom = () => {
               value={roomRate}
               onChange={(e) => setRoomRate(e.target.value)}
             />
-            <Button type="submit" className="w-6/12">
+            <Button
+              type="submit"
+              className="w-6/12 dark:bg-gray-800 dark:text-white"
+            >
               {loading ? "Loading ..." : "Save"}
             </Button>
           </div>
           <div
-            className="bg-gray-100 w-7/12 sm:w-2/12 border-2 rounded-md h-[107px] cursor-pointer border-gray-300 flex justify-center items-center"
+            className="bg-gray-100 dark:bg-gray-800 dark:text-white dark:border-gray-700 w-7/12 sm:w-2/12 border-2 rounded-md h-[107px] cursor-pointer border-gray-300 flex justify-center items-center"
             onClick={handleSelectNoticeImage}
           >
             {imageURL ? (
@@ -222,7 +225,7 @@ const CreateRoom = () => {
       <div className="mt-4">
         <Table className="sticky">
           <TableCaption>List of recent rooms.</TableCaption>
-          <TableHeader className="bg-blue-300">
+          <TableHeader className="bg-blue-300 dark:bg-zinc-950 dark:text-white">
             <TableRow>
               <TableHead>Picture</TableHead>
               <TableHead>Sit rent</TableHead>
@@ -273,21 +276,21 @@ const CreateRoom = () => {
                         className="cursor-pointer flex items-center gap-1"
                       >
                         <AiOutlineDelete className="text-xl" />
-                        <h1 className="font-medium">Delte sitOne user</h1>
+                        <h1 className="font-medium">Delte seatOne user</h1>
                       </DropdownMenuItem>
                       <DropdownMenuItem
                         onClick={() => handleDeleteSitBookingUser(room?._id, 2)}
                         className="cursor-pointer flex items-center gap-1"
                       >
                         <AiOutlineDelete className="text-xl" />
-                        <h1 className="font-medium">Delte sitTwo user</h1>
+                        <h1 className="font-medium">Delte seatTwo user</h1>
                       </DropdownMenuItem>
                       <DropdownMenuItem
                         onClick={() => handleDeleteSitBookingUser(room?._id, 3)}
                         className="cursor-pointer flex items-center gap-1"
                       >
                         <AiOutlineDelete className="text-xl" />
-                        <h1 className="font-medium">Delte sitThree user</h1>
+                        <h1 className="font-medium">Delte seatThree user</h1>
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>

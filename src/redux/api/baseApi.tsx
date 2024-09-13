@@ -8,6 +8,8 @@ import {
   bookingResponse,
   CommentCreateResponse,
   CommentRequest,
+  createAppearaceRequest,
+  createAppearanceResponse,
   createBookingRequest,
   createBookingRequestResponse,
   createReviewRequest,
@@ -20,6 +22,7 @@ import {
   findAllPortalResponse,
   findAllRoomsResponse,
   findAllUserRequest,
+  findAppearanceResponse,
   findRoomReviewRequest,
   findRoomReviewResponse,
   findSaveNotice,
@@ -265,6 +268,12 @@ const stayManagerApi = createApi({
         body: { message, rating },
       }),
     }),
+    deleteReview: builder.mutation({
+      query: ({ reviewId }) => ({
+        url: `/review/delete-review/${reviewId}`,
+        method: "DELETE",
+      }),
+    }),
     findRoomReview: builder.query<
       findRoomReviewResponse,
       findRoomReviewRequest
@@ -325,6 +334,12 @@ const stayManagerApi = createApi({
       query: (bookingId) => `/booking/find-single/${bookingId}`,
     }),
 
+    // teamMember api
+
+    findTeamMember: builder.query({
+      query: () => "/team/findAll-teamMembers",
+    }),
+
     // portal api request
     createPortalJoinRequest: builder.mutation<
       portalRequestCreateResponse,
@@ -349,6 +364,21 @@ const stayManagerApi = createApi({
         url: `/portal/accept-portal-joinRequest/${userId}`,
         method: "PATCH",
       }),
+    }),
+    // appearace api
+
+    createAppearance: builder.mutation<
+      createAppearanceResponse,
+      createAppearaceRequest
+    >({
+      query: ({ font, language, theme }) => ({
+        url: "/appearance/create",
+        method: "POST",
+        body: { font, language, theme },
+      }),
+    }),
+    findAppearance: builder.query<findAppearanceResponse, void>({
+      query: () => "/appearance/find",
     }),
   }),
 });
@@ -395,6 +425,10 @@ export const {
   useUpdateUserRoleMutation,
   useDeleteSaveNoticeMutation,
   useFindTopRatingRoomQuery,
+  useDeleteReviewMutation,
+  useFindTeamMemberQuery,
+  useCreateAppearanceMutation,
+  useFindAppearanceQuery,
 } = stayManagerApi;
 
 export default stayManagerApi;

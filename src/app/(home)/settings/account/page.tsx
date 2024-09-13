@@ -66,9 +66,9 @@ const Account = () => {
   };
 
   return (
-    <div className="col-span-12 md:col-span-9 bg-white sm:p-0 p-4 md:px-8  w-full">
+    <div className="col-span-12 md:col-span-9  sm:p-0 p-4 md:px-8  w-full">
       <h2 className="text-lg md:text-xl font-semibold mb-1">Account</h2>
-      <p className="text-gray-500 mb-6 text-[15px]">
+      <p className="text-gray-500 dark:text-gray-400 mb-6 text-[15px]">
         Update your account settings. Set your preferred language and timezone.
       </p>
 
@@ -86,7 +86,7 @@ const Account = () => {
               value={loginUser?.payload?.name}
             />
 
-            <p className="text-gray-500 text-xs">
+            <p className="text-gray-500 text-xs dark:text-gray-400">
               This is the name that will be displayed on your profile and in
               emails.
             </p>
@@ -160,19 +160,22 @@ const Account = () => {
             {loginUser?.payload?.googleId || loginUser?.payload?.githubId ? (
               <Button
                 type="button"
-                className="mt-6 text-xs cursor-not-allowed w-full md:w-auto"
+                className="mt-6 text-xs dark:bg-zinc-950 dark:text-white dark:border dark:border-gray-700 cursor-not-allowed w-full md:w-auto"
               >
                 {isLoading ? "Loading..." : "Update account"}
               </Button>
             ) : (
-              <Button type="submit" className="mt-6 text-xs w-full md:w-auto">
+              <Button
+                type="submit"
+                className="mt-6 text-xs w-full md:w-auto dark:bg-zinc-950 dark:text-white dark:border dark:border-gray-700"
+              >
                 {isLoading ? "Loading..." : "Update account"}
               </Button>
             )}
 
             <Button
               type="button"
-              className="mt-6 w-full text-xs bg-red-500 hover:bg-red-400 md:w-auto"
+              className="mt-6 w-full text-xs dark:text-white bg-red-500 hover:bg-red-400 md:w-auto"
             >
               Delete account
             </Button>

@@ -9,6 +9,7 @@ const Navbar = () => {
   const path = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [navBackground, setNavBackground] = useState("bg-[#5eaaf500]");
+
   const [text, setText] = useState("text-white");
   const { data: user } = useCurrentUserQuery();
   const [openLoginAlertModal, setLoginAlertModal] = useState<boolean>(false);
@@ -21,10 +22,10 @@ const Navbar = () => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
       if (scrollPosition > 50) {
-        setNavBackground("bg-white");
-        setText("text-gray-500");
+        setNavBackground("bg-white dark:bg-[#111827]");
+        setText("text-gray-500 dark:text-white");
       } else {
-        setNavBackground("bg-[#5eaaf500]");
+        setNavBackground("bg-[#5eaaf500] ");
         setText("text-white");
       }
     };
@@ -37,7 +38,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`${navBackground}  fixed  w-full p-3  border-b border-gray-300 z-50 transition duration-300`}
+      className={`${navBackground}  fixed  w-full p-3 dark:text-white border-b border-gray-300 dark:border-gray-700 z-50 transition duration-300`}
     >
       <div className="container mx-auto flex justify-between items-center">
         <Link href="/">
@@ -60,7 +61,7 @@ const Navbar = () => {
                 ></path>
               </svg>
             </div>
-            <h1 className={`text-xl ${text} font-semibold`}>
+            <h1 className={`text-xl ${text} font-semibold dark:text-gray-300`}>
               Stay-
               <span className="text-yellow-300 font-bold text-[28px]">M</span>
               anger
@@ -96,7 +97,7 @@ const Navbar = () => {
           >
             <Link href="/">
               <h1
-                className={` block  mt-4 md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold ${text} ${
+                className={` block  mt-4 md:inline-block dark:text-gray-300 md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold ${text} ${
                   path === "/" ? "show-navbar-route-fix" : "show-navbar-route"
                 }`}
               >
@@ -106,7 +107,7 @@ const Navbar = () => {
 
             <Link href="/about">
               <h1
-                className={` block  mt-4 md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold ${text} ${
+                className={` block dark:text-gray-300  mt-4 md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold ${text} ${
                   path === "/about"
                     ? "show-navbar-route-fix"
                     : "show-navbar-route"
@@ -120,7 +121,7 @@ const Navbar = () => {
               user?.payload?.role !== "user" && (
                 <Link href="/notice">
                   <h1
-                    className={` block  mt-4 md:inline-block md:mt-0 md:ml-4  cursor-pointer font-bold   ${text} ${
+                    className={` block  mt-4 dark:text-gray-300 md:inline-block md:mt-0 md:ml-4  cursor-pointer font-bold   ${text} ${
                       path === "/notice"
                         ? "show-navbar-route-fix"
                         : "show-navbar-route"
@@ -133,7 +134,7 @@ const Navbar = () => {
             ) : (
               <h1 onClick={() => setLoginAlertModal(true)}>
                 <h1
-                  className={` block mt-4 md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold ${text} ${
+                  className={` block mt-4 dark:text-gray-300 md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold ${text} ${
                     path === "/notice"
                       ? "show-navbar-route-fix"
                       : "show-navbar-route"
@@ -145,7 +146,7 @@ const Navbar = () => {
             )}
             <Link href="/rooms">
               <h1
-                className={` block show-navbar-route mt-4 md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold ${text} ${
+                className={` block dark:text-gray-300 show-navbar-route mt-4 md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold ${text} ${
                   path === "/rooms"
                     ? "show-navbar-route-fix"
                     : "show-navbar-route"
@@ -157,7 +158,7 @@ const Navbar = () => {
             {user?.payload && (
               <Link href="/schedule">
                 <h1
-                  className={` block show-navbar-route mt-4 show-navbar-route md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold ${text} ${
+                  className={` block dark:text-gray-300 show-navbar-route mt-4 show-navbar-route md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold ${text} ${
                     path === "/schedule"
                       ? "show-navbar-route-fix"
                       : "show-navbar-route"
@@ -169,7 +170,7 @@ const Navbar = () => {
             )}
             <Link href="/contact">
               <h1
-                className={` block show-navbar-route mt-4 md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold ${text}  ${
+                className={` block dark:text-gray-300 show-navbar-route mt-4 md:inline-block md:mt-0 md:ml-4  transition duration-300 cursor-pointer font-bold ${text}  ${
                   path === "/contact"
                     ? "show-navbar-route-fix"
                     : "show-navbar-route"

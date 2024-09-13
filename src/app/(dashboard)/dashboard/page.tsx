@@ -1,4 +1,4 @@
-import RoomChart from "@/components/dashboard/dashboard/RoomChar";
+import RoomChart from "@/components/dashboard/dashboard/RoomChart";
 import Navbar from "@/components/dashboard/sidebar/Navbar";
 import React from "react";
 

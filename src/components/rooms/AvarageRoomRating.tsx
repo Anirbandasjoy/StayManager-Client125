@@ -21,7 +21,7 @@ const AvarageRoomRating = ({ roomId }: { roomId: string }) => {
   return (
     <div className="flex items-end gap-1">
       <GoStarFill className="text-[24px] text-yellow-400" />
-      <h1 className="font-semibold text-[16px] text-gray-600">
+      <h1 className="font-semibold text-[16px] text-gray-600 dark:text-gray-400">
         {reviewLoading ? "Loading..." : averageRating}
       </h1>
     </div>

@@ -21,7 +21,7 @@ const Sidebar = () => {
     <div className="z-50">
       <div className="border-gray-300  z-50 bg-gray-200 dark:bg-gray-900  border-r dark:border-gray-700 ">
         <Link href="/">
-          <h1 className="text-lg font-sans font-bold text-center bg-blue-300 dark:text-gray-600 py-2 text-gray-500">
+          <h1 className="text-lg font-sans font-bold text-center dark:bg-zinc-950 dark:border-b dark:border-gray-700 dark:text-gray-400 bg-blue-300  py-2 text-gray-500">
             Stay Manager
           </h1>
         </Link>

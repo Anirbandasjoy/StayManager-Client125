@@ -479,6 +479,30 @@ export interface logOutResponse {
   message: string;
 }
 
+// appearance types
+
+export interface createAppearaceRequest {
+  font: string;
+  language: string;
+  theme: string;
+}
+
+export interface createAppearanceResponse {
+  statusCode: number;
+  message: string;
+}
+
+export interface findAppearanceResponse {
+  statusCode: number;
+  message: string;
+  payload: {
+    font: string;
+    language: string;
+    theme: string;
+    user: string;
+  };
+}
+
 export type DateTimeFormatOptions = {
   month?: "long" | "numeric" | "2-digit" | "short" | "narrow";
   day?: "numeric" | "2-digit";

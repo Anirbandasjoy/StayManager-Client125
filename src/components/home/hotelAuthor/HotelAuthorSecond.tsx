@@ -9,7 +9,7 @@ import {
 const HotelAuthorSecondPerson = () => {
   return (
     <div className="mt-32 container  ">
-      <div className="flex flex-col   md:flex-row ml-auto bg-[#f87171ce] sm:rounded-l-full h-auto md:h-[300px] w-full md:w-9/12  relative sm:p-4 p-7 rounded-sm sm:gap-0 gap-5 md:p-8">
+      <div className="flex flex-col dark:bg-zinc-950 dark:text-white dark:border dark:border-gray-700  md:flex-row ml-auto bg-[#f87171ce] sm:rounded-l-full h-auto md:h-[300px] w-full md:w-9/12  relative sm:p-4 p-7 rounded-sm sm:gap-0 gap-5 md:p-8">
         <div className="w-full md:w-6/12 flex  ">
           <Image
             src="https://i.ibb.co/KyLG8G1/Whats-App-Image-2024-09-04-at-10-30-13-AM-removebg-preview.png"
@@ -20,9 +20,9 @@ const HotelAuthorSecondPerson = () => {
           />
         </div>
 
-        <div className="w-full md:w-6/12 text-gray-600 text-right ">
+        <div className="w-full md:w-6/12 text-gray-600 dark:text-gray-400 text-right ">
           <h1 className="text-2xl font-medium mb-2">Sakib Talukdar</h1>
-          <p className="mb-2">
+          <p className="mb-2 ">
             Address: 123 Hostel St, Moulvibazar, Bangladesh
           </p>
           <p className="mb-2">Phone: +880 1772 838734</p>
