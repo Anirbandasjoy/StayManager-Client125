@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import {
   useCreatePortalJoinRequestMutation,
   useCurrentUserQuery,
+  useSingleUserQuery,
   useUserALlBookingRequestQuery,
 } from "@/redux/api/baseApi";
 import Image from "next/image";
@@ -14,8 +15,7 @@ import NavbarWrapper from "@/components/home/NavbarWrapper";
 
 const PublicProfile = ({ params }: { params: { profileId: string } }) => {
   const { profileId } = params;
-  console.log(profileId);
-  const { data: singleUser } = useCurrentUserQuery();
+  const { data: singleUser } = useSingleUserQuery({ profileId });
   const [setPortalRequestData, { isLoading }] =
     useCreatePortalJoinRequestMutation();
   const formattedBirthdate = singleUser?.payload?.birthdate
