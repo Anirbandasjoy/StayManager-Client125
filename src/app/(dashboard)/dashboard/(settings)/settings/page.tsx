@@ -1,5 +1,6 @@
+'use client'
 import ToggleButton from "@/components/dashboard/settings/ToggleBtn";
-import React from "react";
+import React, { useState } from "react";
 import { BsFillCloudSunFill } from "react-icons/bs";
 import { FaRegEdit } from "react-icons/fa";
 import { LiaLanguageSolid } from "react-icons/lia";
@@ -13,7 +14,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { MdOutlineLock, MdOutlinePayment } from "react-icons/md";
+import { TermsAndConditions } from "./TermsAndConditions";
 const Settings = () => {
+
+  const [openTerms, setOpenTerms] = useState(false)
+
   return (
     <div>
       <h1 className="text-xl font-bold tracking-wide mb-14">Settings</h1>
@@ -82,9 +87,15 @@ const Settings = () => {
           <div className="flex gap-5 items-center">
             <div className="flex gap-2 items-center cursor-pointer">
               <GrConfigure className="text-lg text-gray-700" />
-              <h1 className="tracking-wide font-semibold text-[16px] text-gray-700">
+              <button onClick={() => setOpenTerms(true)} className="tracking-wide font-semibold text-[16px] text-gray-700 ">
                 Tearms and conditions
-              </h1>
+              </button>
+
+              <dialog open={openTerms} className="border border-black w-[70%] p-8" >
+                <TermsAndConditions />
+                <button className="tracking-wide font-semibold text-[16px] text-gray-700 float-right mt-8" onClick={() => setOpenTerms(false)}>Close</button>
+              </dialog>
+
             </div>
           </div>
         </div>
