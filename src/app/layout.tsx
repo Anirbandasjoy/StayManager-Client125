@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 import ReduxWrapper from "@/redux/ReduxWrapper";
+import { ThemeProvider } from "@/context/theme.context";
 
 export const metadata: Metadata = {
   title: "Stay Manager",
@@ -16,11 +17,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="dark:bg-gray-900 bg-white duration-700">
-        <ReduxWrapper>
-          <main>{children}</main>
-        </ReduxWrapper>
-        <Toaster />
+      <body className="dark:bg-gray-900 bg-white">
+        <ThemeProvider>
+          <ReduxWrapper>
+            <main>{children}</main>
+          </ReduxWrapper>
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );

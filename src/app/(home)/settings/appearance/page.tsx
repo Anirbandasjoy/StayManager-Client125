@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
@@ -11,49 +10,35 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from "@/components/ui/use-toast";
+import { useTheme } from "@/context/theme.context";
 
 const Appearance = () => {
-  // Initialize state with default values
-  const [theme, setTheme] = useState<string>("light");
-  const [font, setFont] = useState<string>("poppins");
+  const { theme, setTheme, font, setFont } = useTheme();
   const [language, setLanguage] = useState<string>("english");
+  const [selectedTheme, setSelectedTheme] = useState<string>(theme);
 
-  // Load preferences from localStorage on mount (only on the client side)
   useEffect(() => {
-    const storedTheme = localStorage.getItem("theme") || "light";
-    const storedFont = localStorage.getItem("font") || "poppins";
     const storedLanguage = localStorage.getItem("language") || "english";
-
-    setTheme(storedTheme);
-    setFont(storedFont);
     setLanguage(storedLanguage);
-
-    applyPreferences(storedTheme, storedFont);
   }, []);
 
-  // Save to localStorage and apply preferences
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    localStorage.setItem("theme", theme);
-    localStorage.setItem("font", font);
     localStorage.setItem("language", language);
-
-    applyPreferences(theme, font);
+    localStorage.setItem("theme", selectedTheme);
+    setTheme(selectedTheme);
+    applyPreferences();
     toast({
       title: "Updated appearance.",
     });
   };
 
-  const applyPreferences = (theme: string, font: string) => {
-    const html = document.documentElement;
+  const applyPreferences = () => {
     document.body.style.fontFamily = font;
-    html.classList.remove("light", "dark");
-    html.classList.add(theme);
   };
 
   return (
-    <div className="col-span-12 md:col-span-9  sm:p-0 p-4 md:px-8  w-full">
+    <div className="col-span-12 md:col-span-9 sm:p-0 p-4 md:px-8 w-full">
       <h2 className="text-lg md:text-xl font-semibold mb-1">Appearance</h2>
       <p className="text-gray-500 mb-6 text-[15px]">
         Customize the appearance of the app. Automatically switch between day
@@ -117,9 +102,9 @@ const Appearance = () => {
             </p>
             <div className="flex space-x-4">
               <div
-                onClick={() => setTheme("light")}
+                onClick={() => setSelectedTheme("light")}
                 className={`cursor-pointer p-4 border rounded-lg flex flex-col items-center justify-center ${
-                  theme === "light"
+                  selectedTheme === "light"
                     ? "border-black dark:border-gray-400"
                     : "border-gray-300 dark:border-gray-700"
                 }`}
@@ -135,9 +120,9 @@ const Appearance = () => {
               </div>
 
               <div
-                onClick={() => setTheme("dark")}
+                onClick={() => setSelectedTheme("dark")}
                 className={`cursor-pointer p-4 border rounded-lg flex flex-col items-center justify-center ${
-                  theme === "dark"
+                  selectedTheme === "dark"
                     ? "border-black dark:border-gray-400"
                     : "border-gray-300 dark:border-gray-700"
                 }`}
@@ -157,7 +142,7 @@ const Appearance = () => {
           {/* Update Preferences Button */}
           <Button
             type="submit"
-            className="mt-6 w-full dark:bg-zinc-950 dark:text-white dark:border-gray-700 border  md:w-auto"
+            className="mt-6 w-full dark:bg-zinc-950 dark:text-white dark:border-gray-700 border md:w-auto"
           >
             Update preferences
           </Button>
