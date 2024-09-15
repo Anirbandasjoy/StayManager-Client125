@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import {
   useCreatePortalJoinRequestMutation,
   useCurrentUserQuery,
+  useSingleUserQuery,
   useUserALlBookingRequestQuery,
 } from "@/redux/api/baseApi";
 import Image from "next/image";
@@ -10,11 +11,11 @@ import Link from "next/link";
 import { format, parseISO } from "date-fns";
 import { toast } from "@/components/ui/use-toast";
 import Template from "@/app/Template";
+import NavbarWrapper from "@/components/home/NavbarWrapper";
 
 const PublicProfile = ({ params }: { params: { profileId: string } }) => {
   const { profileId } = params;
-  console.log(profileId);
-  const { data: singleUser } = useCurrentUserQuery();
+  const { data: singleUser } = useSingleUserQuery({ profileId });
   const [setPortalRequestData, { isLoading }] =
     useCreatePortalJoinRequestMutation();
   const formattedBirthdate = singleUser?.payload?.birthdate
@@ -41,17 +42,7 @@ const PublicProfile = ({ params }: { params: { profileId: string } }) => {
   console.log({ bookingData });
   return (
     <Template>
-      <div className="relative w-full h-[70px]">
-        <Image
-          src={
-            "https://images.unsplash.com/photo-1709805619372-40de3f158e83?q=80&w=1795&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          }
-          layout="fill"
-          className="object-cover"
-          alt={"banner"}
-        />
-        <div className="w-full h-full bg-gradient-to-b from-[#5eaaf5ab] to-[#ffffff] absolute top-0"></div>
-      </div>
+      <NavbarWrapper />
       <section className="w-full overflow-hidden ">
         <div className="flex flex-col">
           {/* <!-- Cover Image --> */}
@@ -86,7 +77,7 @@ const PublicProfile = ({ params }: { params: { profileId: string } }) => {
             />
 
             {/* <!-- FullName --> */}
-            <div className="w-full text-center md:text-left my-4 xs:pl-4 text-gray-800 md:ms-6 lg:text-4xl text-3xl  xs:text-xl font-serif">
+            <div className="w-full text-center md:text-left my-4 xs:pl-4 text-gray-800 md:ms-6 lg:text-4xl text-3xl  xs:text-xl font-serif dark:text-gray-100">
               {singleUser?.payload?.name}
             </div>
           </div>
@@ -98,33 +89,35 @@ const PublicProfile = ({ params }: { params: { profileId: string } }) => {
                 <div className="w-full">
                   <dl className="text-gray-900 divide-y divide-gray-200">
                     <div className="flex flex-col pb-3">
-                      <dt className="mb-1 text-gray-500 md:text-lg">
+                      <dt className="mb-1 text-gray-500 md:text-lg dark:text-gray-100">
                         First Name
                       </dt>
-                      <dd className="text-lg font-semibold">
+                      <dd className="text-lg font-semibold dark:text-gray-400">
                         {singleUser?.payload?.name}
                       </dd>
                     </div>
                     <div className="flex flex-col py-3">
-                      <dt className="mb-1 text-gray-500 md:text-lg">Role</dt>
-                      <dd className="text-lg font-semibold">
+                      <dt className="mb-1 text-gray-500 dark:text-gray-100 md:text-lg">
+                        Role
+                      </dt>
+                      <dd className="text-lg font-semibold dark:text-gray-400">
                         {singleUser?.payload?.role}
                       </dd>
                     </div>
                     <div className="flex flex-col py-3">
-                      <dt className="mb-1 text-gray-500 md:text-lg">
+                      <dt className="mb-1 text-gray-500 dark:text-gray-100 md:text-lg">
                         Date Of Birth
                       </dt>
-                      <dd className="text-lg font-semibold">
+                      <dd className="text-lg font-semibold dark:text-gray-400">
                         {" "}
                         {formattedBirthdate}{" "}
                       </dd>
                     </div>
                     <div className="flex flex-col py-3">
-                      <dt className="mb-1 text-gray-500 md:text-lg">
+                      <dt className="mb-1 dark:text-gray-100 text-gray-500 md:text-lg">
                         Department
                       </dt>
-                      <dd className="text-lg font-semibold mb-4">
+                      <dd className="text-lg dark:text-gray-400 font-semibold mb-4">
                         {singleUser?.payload?.department}
                       </dd>
                       <hr className="md:hidden" />
@@ -134,25 +127,27 @@ const PublicProfile = ({ params }: { params: { profileId: string } }) => {
                 <div className="w-full">
                   <dl className="text-gray-900 divide-y divide-gray-200">
                     <div className="flex flex-col pb-3">
-                      <dt className="mb-1 text-gray-500 md:text-lg">
+                      <dt className="mb-1 dark:text-gray-100 text-gray-500 md:text-lg">
                         Location
                       </dt>
-                      <dd className="text-lg font-semibold">
+                      <dd className="text-lg dark:text-gray-400 font-semibold">
                         {singleUser?.payload?.address}
                       </dd>
                     </div>
 
                     <div className="flex flex-col pt-3">
-                      <dt className="mb-1 text-gray-500 md:text-lg">
+                      <dt className="mb-1 dark:text-gray-100 text-gray-500 md:text-lg">
                         Phone Number
                       </dt>
-                      <dd className="text-lg font-semibold mb-3">
+                      <dd className="text-lg dark:text-gray-400 font-semibold mb-3">
                         {singleUser?.payload?.phone}
                       </dd>
                     </div>
                     <div className="flex flex-col pt-3">
-                      <dt className="mb-1 text-gray-500 md:text-lg">Email</dt>
-                      <dd className="text-lg font-semibold">
+                      <dt className="mb-1 text-gray-500 md:text-lg dark:text-gray-100">
+                        Email
+                      </dt>
+                      <dd className="text-lg font-semibold dark:text-gray-400">
                         {singleUser?.payload?.email}
                       </dd>
                     </div>

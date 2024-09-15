@@ -72,7 +72,7 @@ const Team = () => {
         {selectedId && (
           <motion.div
             layoutId={selectedId}
-            className="fixed inset-0 mx-auto p-2 my-auto w-96 h-44 shadow-xl bg-white rounded-lg flex justify-center items-center"
+            className="fixed inset-0 mx-auto p-2 my-auto w-96 h-44 shadow-xl dark:bg-zinc-950 dark:border dark:border-gray-700 dark:text-gray-200 bg-white rounded-lg flex justify-center items-center"
             onClick={() => setSelectedId(null)}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
