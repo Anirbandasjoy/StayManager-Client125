@@ -2,6 +2,13 @@
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import {
+  AlertDialog,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import {
   Card,
   CardContent,
   CardDescription,
@@ -16,6 +23,8 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { FaGithub, FaGoogle } from "react-icons/fa";
 import { handleGithubLogin, handleGoogleLogin } from "@/helper/auth";
+import { MdShowChart } from "react-icons/md";
+import Credentials from "@/components/creadential/Creadential";
 
 interface IFormInputs {
   email: string;
@@ -147,9 +156,13 @@ const Login = () => {
                 />
               </div>
             </div>
-            <Button type="submit" className="w-full mt-6">
+            <Button
+              type="submit"
+              className="w-full mt-6 dark:bg-gray-800 dark:text-gray-200"
+            >
               {isLoading ? "Loading..." : "Login"}
             </Button>
+            <Credentials />
           </form>
           <CardDescription className="mt-4 text-center">
             Not Create Account? please{" "}

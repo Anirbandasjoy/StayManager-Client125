@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/components/ui/use-toast";
-import Navbar from "@/extraComponents/dashboard/sidebar/Navbar";
+import Navbar from "@/components/dashboard/sidebar/Navbar";
 import { isImage, uploadImage } from "@/helper/common";
 import {
   useFindNoticeQuery,
@@ -112,7 +112,7 @@ const EditNoticeCom = ({ params }: { params: { noticeId: string } }) => {
           />
         </div>
         <div
-          className="w-[170px] sm:w-[230px] bg-gray-100 border-2 rounded-md h-[107px] cursor-pointer border-gray-300 flex justify-center items-center"
+          className="w-[170px] sm:w-[230px] bg-gray-100 dark:bg-zinc-950 dark:border-gray-700 border-2 rounded-md h-[107px] cursor-pointer border-gray-300 flex justify-center items-center"
           onClick={handleSelectNoticeImage}
         >
           {imageURL ? (
@@ -146,9 +146,14 @@ const EditNoticeCom = ({ params }: { params: { noticeId: string } }) => {
           Discard
         </Button>
         {noticetext && !loading ? (
-          <Button onClick={handleCreateNotice}>Save Edit</Button>
+          <Button
+            className="dark:bg-zinc-950 dark:border dark:border-gray-700 dark:text-white"
+            onClick={handleCreateNotice}
+          >
+            Save Edit
+          </Button>
         ) : (
-          <Button className="cursor-not-allowed bg-gray-500 hover:bg-gray-400">
+          <Button className="cursor-not-allowed  bg-gray-500 hover:bg-gray-400">
             {loading ? <ThreeDot color="#32cd32" size="small" /> : "Save Edit"}
           </Button>
         )}

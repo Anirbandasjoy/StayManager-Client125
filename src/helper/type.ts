@@ -234,7 +234,7 @@ export interface NoticeCommentRequest {
 }
 interface Pagination {
   totalUsers: number;
-  totalPage: number;
+  totalPages: number;
   currentPage: number;
   pageSize: number;
 }
@@ -246,6 +246,12 @@ export interface allUserResponse {
     users: User[];
     pagination: Pagination;
   };
+}
+
+export interface findAllUserRequest {
+  searchValue: string;
+  page: number;
+  limit: number;
 }
 
 export interface allNoticeResponse {
@@ -303,9 +309,9 @@ export interface findAllRoomsResponse {
     _id: string;
     sitRent: number;
     roomImage: string;
-    sitOne: User | string | null;
-    sitTwo: User | string | null;
-    sitthree: User | string | null;
+    sitOne: User;
+    sitTwo: User;
+    sitThere: User;
     createdAt: string;
     updatedAt: string;
   }[];
@@ -329,9 +335,9 @@ export interface findSingleRoomResponse {
     _id: string;
     sitRent: number;
     roomImage: string;
-    sitOne: User | string | null;
-    sitTwo: User | string | null;
-    sitthree: User | string | null;
+    sitOne: User;
+    sitTwo: User;
+    sitThere: User;
     createdAt: string;
     updatedAt: string;
   };
@@ -445,11 +451,56 @@ export interface portalRequestCreateResponse {
   status: string;
 }
 
+export interface findAllPortalResponse {
+  success: boolean;
+  statusCode: number;
+  payload: {
+    _id: string;
+    user: User;
+    status: string;
+    createdAt: string;
+  }[];
+}
+
+export interface portalAccepetRespone {
+  success: boolean;
+  statusCode: number;
+  message: string;
+}
+
+export interface portaAccepetRequest {
+  userId: string;
+}
+
 // auth types
 
 export interface logOutResponse {
   success: boolean;
   message: string;
+}
+
+// appearance types
+
+export interface createAppearaceRequest {
+  font: string;
+  language: string;
+  theme: string;
+}
+
+export interface createAppearanceResponse {
+  statusCode: number;
+  message: string;
+}
+
+export interface findAppearanceResponse {
+  statusCode: number;
+  message: string;
+  payload: {
+    font: string;
+    language: string;
+    theme: string;
+    user: string;
+  };
 }
 
 export type DateTimeFormatOptions = {

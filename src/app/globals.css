@@ -6,6 +6,54 @@
   width: 0;
 }
 
+.show-navbar-route {
+  position: relative;
+}
+.show-navbar-route-fix {
+  position: relative;
+}
+
+.show-navbar-route::before {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 4px;
+  background-color: #fde047;
+  transition: width 0.3s ease;
+  border-radius: 0.6rem;
+}
+
+.show-navbar-route:hover {
+  color: #f4de6c;
+}
+.show-navbar-route-fix {
+  color: #f4de6c;
+}
+
+.show-navbar-route:hover::before {
+  width: 5rem;
+}
+
+.show-navbar-route-fix::before {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 4px;
+  background-color: #fde047;
+  transition: width 0.3s ease;
+  border-radius: 0.6rem;
+}
+
+.show-navbar-route-fix::before {
+  width: 5rem;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

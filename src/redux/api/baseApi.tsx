@@ -8,6 +8,8 @@ import {
   bookingResponse,
   CommentCreateResponse,
   CommentRequest,
+  createAppearaceRequest,
+  createAppearanceResponse,
   createBookingRequest,
   createBookingRequestResponse,
   createReviewRequest,
@@ -17,7 +19,10 @@ import {
   deleteNoticeResponse,
   existBookingRequest,
   existBookingResponse,
+  findAllPortalResponse,
   findAllRoomsResponse,
+  findAllUserRequest,
+  findAppearanceResponse,
   findRoomReviewRequest,
   findRoomReviewResponse,
   findSaveNotice,
@@ -28,6 +33,8 @@ import {
   loginResponse,
   logOutResponse,
   NoticeCommentRequest,
+  portaAccepetRequest,
+  portalAccepetRespone,
   portalRequestCreateResponse,
   ProcessRegistrationRequest,
   processRegistrationResponse,
@@ -47,12 +54,13 @@ import {
   userAllBookingRequestResponse,
 } from "@/helper/type";
 
-// const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+// const BaseUrl = "http://localhost:5000/api/v1";
+const BaseUrl = "https://staymanager-server404.vercel.app/api/v1";
 
 const stayManagerApi = createApi({
   reducerPath: "stayManagerApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5000/api/v1",
+    baseUrl: BaseUrl,
     credentials: "include",
   }),
 
@@ -80,11 +88,25 @@ const stayManagerApi = createApi({
     currentUser: builder.query<curretUserResponse, void>({
       query: () => "/user/current-user",
     }),
+    deleteUser: builder.mutation({
+      query: ({ userId }) => ({
+        url: `/user/delete-user/${userId}`,
+        method: "DELETE",
+      }),
+    }),
+    updateUserRole: builder.mutation({
+      query: ({ userId, role }) => ({
+        url: `/user/update-role/${userId}`,
+        method: "PATCH",
+        body: { role },
+      }),
+    }),
     singleUser: builder.query<singleUserResponse, singleUserRequest>({
       query: ({ profileId }) => `/user/find-single-user/${profileId}`,
     }),
-    allUser: builder.query<allUserResponse, void>({
-      query: () => "/user/find-allUsers",
+    allUser: builder.query<allUserResponse, findAllUserRequest>({
+      query: ({ searchValue, page = 1, limit = 6 }) =>
+        `/user/find-allUsers?search=${searchValue}&page=${page}&limit=${limit}`,
     }),
     processRegister: builder.mutation<
       processRegistrationResponse,
@@ -187,6 +209,13 @@ const stayManagerApi = createApi({
         method: "POST",
       }),
     }),
+
+    deleteSaveNotice: builder.mutation({
+      query: ({ noticeId }) => ({
+        url: `/save/save-delete/${noticeId}`,
+        method: "DELETE",
+      }),
+    }),
     createNotice: builder.mutation({
       query: ({ caption, noticeImage }) => ({
         url: "/notice/create",
@@ -221,6 +250,10 @@ const stayManagerApi = createApi({
     findAllRooms: builder.query<findAllRoomsResponse, void>({
       query: () => "/room/find-allRooms",
     }),
+
+    findTopRatingRoom: builder.query({
+      query: () => "/room/top-rating-room",
+    }),
     findSingleRoom: builder.query<
       findSingleRoomResponse,
       findSingleRoomRequest
@@ -233,6 +266,12 @@ const stayManagerApi = createApi({
         url: `/review/create/${roomId}`,
         method: "POST",
         body: { message, rating },
+      }),
+    }),
+    deleteReview: builder.mutation({
+      query: ({ reviewId }) => ({
+        url: `/review/delete-review/${reviewId}`,
+        method: "DELETE",
       }),
     }),
     findRoomReview: builder.query<
@@ -252,12 +291,21 @@ const stayManagerApi = createApi({
         body: { sitNumber },
       }),
     }),
+
+    cencelRequest: builder.mutation({
+      query: ({ id, sitNumber }) => ({
+        url: `/booking/cencel-request/${id}`,
+        method: "DELETE",
+        body: { sitNumber },
+      }),
+    }),
     booking: builder.mutation<bookingResponse, bookingRequest>({
       query: ({ id }) => ({
         url: `/booking/booking-room/${id}`,
         method: "PUT",
       }),
     }),
+
     existBookingRequest: builder.query<
       existBookingResponse,
       existBookingRequest
@@ -282,6 +330,16 @@ const stayManagerApi = createApi({
       query: () => "/booking/findAll-booking-request",
     }),
 
+    findSingleBooking: builder.query({
+      query: (bookingId) => `/booking/find-single/${bookingId}`,
+    }),
+
+    // teamMember api
+
+    findTeamMember: builder.query({
+      query: () => "/team/findAll-teamMembers",
+    }),
+
     // portal api request
     createPortalJoinRequest: builder.mutation<
       portalRequestCreateResponse,
@@ -291,6 +349,36 @@ const stayManagerApi = createApi({
         url: "/portal/portal-join-request",
         method: "POST",
       }),
+    }),
+    findAllPostalRequest: builder.query<findAllPortalResponse, void>({
+      query: () => ({
+        url: "/portal/findAll-portalRequest",
+        method: "GET",
+      }),
+    }),
+    accepetPortalRequest: builder.mutation<
+      portalAccepetRespone,
+      portaAccepetRequest
+    >({
+      query: ({ userId }) => ({
+        url: `/portal/accept-portal-joinRequest/${userId}`,
+        method: "PATCH",
+      }),
+    }),
+    // appearace api
+
+    createAppearance: builder.mutation<
+      createAppearanceResponse,
+      createAppearaceRequest
+    >({
+      query: ({ font, language, theme }) => ({
+        url: "/appearance/create",
+        method: "POST",
+        body: { font, language, theme },
+      }),
+    }),
+    findAppearance: builder.query<findAppearanceResponse, void>({
+      query: () => "/appearance/find",
     }),
   }),
 });
@@ -329,6 +417,18 @@ export const {
   useUpdateAccountPasswordMutation,
   useCreateRoomsMutation,
   useCreatePortalJoinRequestMutation,
+  useFindAllPostalRequestQuery,
+  useAccepetPortalRequestMutation,
+  useCencelRequestMutation,
+  useFindSingleBookingQuery,
+  useDeleteUserMutation,
+  useUpdateUserRoleMutation,
+  useDeleteSaveNoticeMutation,
+  useFindTopRatingRoomQuery,
+  useDeleteReviewMutation,
+  useFindTeamMemberQuery,
+  useCreateAppearanceMutation,
+  useFindAppearanceQuery,
 } = stayManagerApi;
 
 export default stayManagerApi;

@@ -1,6 +1,12 @@
-import Banner from "@/extraComponents/home/Banner";
-import Rooms from "@/extraComponents/rooms/Rooms";
+import Banner from "@/components/home/Banner";
+import Facilities from "@/components/home/facilities/Facilities";
+import Gallery from "@/components/home/gallery/Gallery";
+import HotelAuthor from "@/components/home/hotelAuthor/HotelAuthor";
+import HotelAuthorSecondPerson from "@/components/home/hotelAuthor/HotelAuthorSecond";
+
+import Rooms from "@/components/rooms/Rooms";
 import React from "react";
+import Team from "@/components/home/team/Team";
 
 const Home = () => {
   return (
@@ -11,6 +17,13 @@ const Home = () => {
         subheadingText="Pleas explore my hostel website visite here and my website"
       />
       <Rooms />
+      <Facilities />
+      <Gallery />
+      <div className="my-20">
+        <Team />
+      </div>
+      <HotelAuthor />
+      <HotelAuthorSecondPerson />
     </div>
   );
 };

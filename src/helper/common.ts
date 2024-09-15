@@ -2,12 +2,11 @@
 import axios from "axios";
 
 export const uploadImage = async (image: File) => {
-
   if (!image) {
-    console.log("Image File Not Found"); 
+    console.log("Image File Not Found");
   }
-  
-  const apiKey = "6e1db85f6ab88ea2edc5847ca2be6134"; 
+
+  const apiKey = "6e1db85f6ab88ea2edc5847ca2be6134";
   const formData = new FormData();
   formData.append("image", image);
 
@@ -71,6 +70,64 @@ export const years = [
   { name: 2038, value: 2038 },
   { name: 2039, value: 2039 },
   { name: 2040, value: 2040 },
+];
+export const facilities = [
+  { name: "Tea & Coffee", icon: "☕" },
+  { name: "Hot Showers", icon: "🚿" },
+  { name: "Laundry", icon: "🧺" },
+  { name: "Kitchen", icon: "🍽" },
+  { name: "Air Conditioner", icon: "❄️" },
+  { name: "Lockers", icon: "🔒" },
+  { name: "24/7 Reception", icon: "🔔" },
+  { name: "Free Wi-Fi", icon: "📶" },
+  { name: "TV", icon: "📺" },
+  { name: "City Map", icon: "🗺️" },
+  { name: "Hairdryer", icon: "💇" },
+  { name: "Iron", icon: "🧳" },
+];
+
+export const gallery = [
+  {
+    image:
+      "https://i.ibb.co/cF11Z1k/kipras-streimikis-U2f-PDs0-2i-I-unsplash.jpg",
+    blurDataURL: "data:image/jpeg;base64,/9j/2wBDAAMCAgMCAgMDAwMEAwMEBQgFB...",
+  },
+
+  {
+    image: "https://i.ibb.co/RpkCCDL/zhang-kenny-c-Xz-Br1q6h4o-unsplash.jpg",
+    blurDataURL: "data:image/jpeg;base64,/9j/2wBDAAMCAgMCAgMDAwMEAwMEBQgFB...",
+  },
+  {
+    image:
+      "https://i.ibb.co/gJS6Jds/frames-for-your-heart-Fqqi-Av-Jejto-unsplash.jpg",
+    blurDataURL: "data:image/jpeg;base64,/9j/2wBDAAMCAgMCAgMDAwMEAwMEBQgFB...",
+  },
+  {
+    image: "https://i.ibb.co/H7kYtmJ/hannah-busing-7-pg2hoh-Q-k-unsplash.jpg",
+    blurDataURL: "data:image/jpeg;base64,/9j/2wBDAAMCAgMCAgMDAwMEAwMEBQgFB...",
+  },
+  {
+    image:
+      "https://i.ibb.co/pbvWYJN/bernard-hermant-c4-Ccpa8s-Ml-I-unsplash.jpg",
+    blurDataURL: "data:image/jpeg;base64,/9j/2wBDAAMCAgMCAgMDAwMEAwMEBQgFB...",
+  },
+  {
+    image: "https://i.ibb.co/3WG2ZWw/naomi-hebert-2dc-Yhvb-HV-M-unsplash.jpg",
+    blurDataURL: "data:image/jpeg;base64,/9j/2wBDAAMCAgMCAgMDAwMEAwMEBQgFB...",
+  },
+  {
+    image: "https://i.ibb.co/RpkCCDL/zhang-kenny-c-Xz-Br1q6h4o-unsplash.jpg",
+    blurDataURL: "data:image/jpeg;base64,/9j/2wBDAAMCAgMCAgMDAwMEAwMEBQgFB...",
+  },
+  {
+    image: "https://i.ibb.co/H7kYtmJ/hannah-busing-7-pg2hoh-Q-k-unsplash.jpg",
+    blurDataURL: "data:image/jpeg;base64,/9j/2wBDAAMCAgMCAgMDAwMEAwMEBQgFB...",
+  },
+  {
+    image:
+      "https://i.ibb.co/cF11Z1k/kipras-streimikis-U2f-PDs0-2i-I-unsplash.jpg",
+    blurDataURL: "data:image/jpeg;base64,/9j/2wBDAAMCAgMCAgMDAwMEAwMEBQgFB...",
+  },
 ];
 
 // Define a function to format a date string

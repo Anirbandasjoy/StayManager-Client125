@@ -1,5 +1,6 @@
-import Footer from "@/extraComponents/footer/Footer";
-import Navbar from "@/extraComponents/home/Navbar";
+import Footer from "@/components/footer/Footer";
+import Navbar from "@/components/home/Navbar";
+
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {

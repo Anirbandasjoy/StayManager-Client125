@@ -9,7 +9,6 @@ const Page = (): JSX.Element => {
   const router = useRouter();
   const params = useParams();
   const { token } = params as { token: string };
-
   const [error, setError] = useState<boolean>(false);
   const [setUserRegistration, { data, isLoading }] =
     useUserRegistrationMutation();
