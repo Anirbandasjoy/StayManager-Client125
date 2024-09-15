@@ -3,6 +3,7 @@ const nextConfig = {
   images: {
     domains: [
       "i.ibb.co",
+      "i.ibb.co.com",
       "www.shareicon.net",
       "plus.unsplash.com",
       "images.unsplash.com",
