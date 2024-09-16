@@ -33,6 +33,7 @@ const LogOutModal = ({
         title: "Logout Successfully.",
       });
       router.push("/login");
+      localStorage.removeItem("location");
     } catch (error) {
       console.error("Logout failed: ", error);
       toast({

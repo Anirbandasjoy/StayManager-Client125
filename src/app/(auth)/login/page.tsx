@@ -19,7 +19,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/components/ui/use-toast";
 import { useCurrentUserQuery, useLoginMutation } from "@/redux/api/baseApi";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import Link from "next/link";
 import { FaGithub, FaGoogle } from "react-icons/fa";
 import { handleGithubLogin, handleGoogleLogin } from "@/helper/auth";
@@ -35,6 +35,7 @@ const Login = () => {
   const router = useRouter();
   const [setLogin, { data, isLoading }] = useLoginMutation();
   const { refetch: currentUserRefetch } = useCurrentUserQuery();
+  const path = localStorage.getItem("location");
   const {
     control,
     handleSubmit,
@@ -47,7 +48,7 @@ const Login = () => {
       toast({
         title: "Login Successfully.",
       });
-      router.push("/");
+      router.push(path || "/");
     } catch (error) {
       console.error("Failed to login:", error);
       toast({

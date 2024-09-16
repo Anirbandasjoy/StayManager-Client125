@@ -1,17 +1,20 @@
 import { useEffect } from "react";
-import { redirect } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 import { useCurrentUserQuery } from "@/redux/api/baseApi";
 
 const isAuth = (Component: any) => {
   return function IsAuth(props: any) {
     const { data: currentUser, isLoading } = useCurrentUserQuery();
     const auth = currentUser?.success;
+    const path = usePathname();
+    console.log({ path });
 
     useEffect(() => {
+      localStorage.setItem("location", path);
       if (!isLoading && !auth) {
-        redirect("/");
+        redirect("/login");
       }
-    }, [auth, isLoading]);
+    }, [auth, isLoading, path]);
 
     if (isLoading) {
       return <h1>Loading....</h1>;
