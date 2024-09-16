@@ -1,3 +1,4 @@
+import UiLoading from "@/components/loading/UiLoading";
 import { useCurrentUserQuery } from "@/redux/api/baseApi";
 import { redirect } from "next/navigation";
 import { useEffect } from "react";
@@ -14,7 +15,7 @@ const isAdmin = (Component: any) => {
     }, [admin, currentUser, isLoading]);
 
     if (isLoading) {
-      return <h1>Loading....</h1>;
+      return <UiLoading />;
     }
 
     if (!currentUser || !admin) {

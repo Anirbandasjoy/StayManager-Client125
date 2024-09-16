@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { redirect, usePathname } from "next/navigation";
 import { useCurrentUserQuery } from "@/redux/api/baseApi";
+import UiLoading from "@/components/loading/UiLoading";
 
 const isAuth = (Component: any) => {
   return function IsAuth(props: any) {
@@ -17,7 +18,7 @@ const isAuth = (Component: any) => {
     }, [auth, isLoading, path]);
 
     if (isLoading) {
-      return <h1>Loading....</h1>;
+      return <UiLoading />;
     }
 
     if (!auth) {

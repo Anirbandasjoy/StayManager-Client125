@@ -1,3 +1,4 @@
+import UiLoading from "@/components/loading/UiLoading";
 import { useCurrentUserQuery } from "@/redux/api/baseApi";
 import { redirect, useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -20,7 +21,7 @@ const isStudentOrAdmin = (Component: React.ComponentType<any>) => {
     }, [currentUser, isLoading, router]);
 
     if (isLoading) {
-      return <h1>Loading....</h1>;
+      return <UiLoading />;
     }
 
     if (
