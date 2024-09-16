@@ -1,12 +1,11 @@
+"use client";
 import NavbarWrapper from "@/components/home/NavbarWrapper";
 import SettingsSidebar from "@/components/home/settings/shared/SettingsSidebar";
-import Image from "next/image";
+import isAuth from "@/utils/auth/isAuth.";
 
-export default function DashboardLayout({
+const SettingsLayout = ({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) => {
   return (
     <div>
       <NavbarWrapper />
@@ -20,11 +19,13 @@ export default function DashboardLayout({
             <div className="bg-gray-200 dark:bg-gray-700 w-full h-[2px]"></div>
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-2 w-full container ">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-2 w-full container">
           <SettingsSidebar />
           {children}
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default isAuth(SettingsLayout);
