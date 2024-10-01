@@ -4,6 +4,7 @@ import { redirect, useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 const isStudentOrAdmin = (Component: React.ComponentType<any>) => {
+  // return function
   return function IsStudentOrAdmin(props: any) {
     const { data: currentUser, isLoading } = useCurrentUserQuery();
     const router = useRouter();
