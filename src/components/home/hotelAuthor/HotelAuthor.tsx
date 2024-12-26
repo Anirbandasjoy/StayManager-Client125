@@ -1,5 +1,5 @@
 import Image from "next/image";
-
+import myImage from "../../../statics/images/joy.png";
 import {
   FaFacebook,
   FaLinkedin,
@@ -63,11 +63,11 @@ const HotelAuthor = () => {
         </div>
         <div className="w-full md:w-6/12 flex justify-center md:justify-end">
           <Image
-            src="https://i.ibb.co/rcrzL7P/Whats-App-Image-2024-09-02-at-7-01-29-PM-removebg-preview-1.png"
-            width={177}
-            height={177}
+            src={myImage}
+            width={500}
+            height={500}
             alt="authorImage"
-            className="max-w-full h-auto md:absolute md:bottom-0 md:right-28 "
+            className="max-w-full h-auto md:absolute md:bottom-0 md:right-10 "
           />
         </div>
       </div>
