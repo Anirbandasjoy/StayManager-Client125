@@ -1,13 +1,7 @@
 "use client";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-import {
-  AlertDialog,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogFooter,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+
 import {
   Card,
   CardContent,
@@ -19,12 +13,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/components/ui/use-toast";
 import { useCurrentUserQuery, useLoginMutation } from "@/redux/api/baseApi";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { FaGithub, FaGoogle } from "react-icons/fa";
 import { handleGithubLogin, handleGoogleLogin } from "@/helper/auth";
-import { MdShowChart } from "react-icons/md";
+
 import Credentials from "@/components/creadential/Creadential";
+import { useEffect, useState } from "react";
 
 interface IFormInputs {
   email: string;
@@ -33,9 +28,13 @@ interface IFormInputs {
 
 const Login = () => {
   const router = useRouter();
+  const [path, setPath] = useState<string | null>(null);
   const [setLogin, { data, isLoading }] = useLoginMutation();
   const { refetch: currentUserRefetch } = useCurrentUserQuery();
-  const path = localStorage.getItem("location");
+  useEffect(() => {
+    const storedPath = localStorage.getItem("location");
+    setPath(storedPath);
+  }, []);
   const {
     control,
     handleSubmit,

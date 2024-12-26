@@ -10,7 +10,7 @@ const Navbar = () => {
   return (
     <div className="py-3 bg-blue-300 rounded-sm dark:bg-gray-800">
       <div>
-        <nav className="w-full  lg:max-w-4xl mx-auto xl:max-w-6xl 2xl:max-w-7xl px-4 lg:px-0">
+        <nav className="w-full lg:max-w-4xl mx-auto xl:max-w-6xl 2xl:max-w-7xl px-4 lg:px-0">
           <div className=" flex flex-wrap items-center justify-between mx-auto lg:px-8">
             <h1 className="font-sans text-xl font-bold">Stay Manager</h1>
             <div className="flex md:order-2 space-x-2 md:space-x-0 rtl:space-x-reverse">
